@@ -18,4 +18,10 @@ export default async function handler(req, res) {
   await sgMail.send(msg);
   console.log("email sent");
   res.status(200).json({ success: true });
+  if (error) {
+    console.log(error);
+    } else {
+    res.send(`<script>alert("Email Sent Successfully.")</script>`);
+    console.log("email sent: " + info);
+}
 }
