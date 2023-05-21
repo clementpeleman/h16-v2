@@ -21,7 +21,7 @@ function ProjectSingle(props) {
 					<div className="flex items-center mr-10">
 						<FiClock className="text-xl text-ternary-dark dark:text-ternary-light" />
 						<span className="font-general-regular ml-2 leading-none text-primary-dark dark:text-primary-light">
-							{props.project.attributes.publishedAt}
+							{props.project.attributes.publishedAt.substring(0,4)}
 						</span>
 					</div>
 					<div className="flex items-center">
@@ -58,7 +58,7 @@ function ProjectSingle(props) {
 			</div>
 
 			{/* Info */}
-			<div className="block sm:flex gap-0 sm:gap-10 mt-14">
+			<div className="block sm:flex gap-0 sm:gap-10 mt-2 sm:mt-14">
 				<div className="w-full sm:w-1/3 text-left">
 					{/* Single project client details */}
 					<div className="mb-7">

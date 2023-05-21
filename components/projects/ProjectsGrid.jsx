@@ -14,10 +14,10 @@ function ProjectsGrid({projects}) {
 	});
 
 	return (
-		<section className="py-5 sm:py-10 mt-15 sm:mt-20">
-			<div className="text-left">
-				<p className="font-general-medium text-3xl sm:text-4xl -mb-5 text-black dark:text-ternary-light">
-					Onze Recente Realisaties
+		<section className="py-5 mx-3 sm:py-10 mt-20 sm:mt-20">
+			<div className="max-w-[70%] text-left">
+				<p className=" font-general-medium text-2xl sm:text-4xl -mb-5 text-black dark:text-ternary-light">
+					Onze recentste realisaties
 				</p>
 			</div>
 
@@ -38,7 +38,8 @@ function ProjectsGrid({projects}) {
 					className=" 
                         text-right
                         justify-between
-                        pb-10
+						pb-5
+                        md:pb-10
                         gap-3
 						md:underline underline-offset-4 decoration-1
 						hover:decoration-accent
@@ -52,7 +53,8 @@ function ProjectsGrid({projects}) {
                         dark:text-ternary-light
                         text-md
                         sm:text-lg
-                        mb-3
+                        sm:mb-3
+						mb-0
 						hover:text-primary
 						cursor-pointer
                         "
