@@ -79,7 +79,7 @@ function HireMeModal({ onClose, onRequest }) {
 				return;
 				}
 				setButtonValid(true)
-				setButtonText("Succes");
+				setButtonText("Verzonden");
 			}
 		};
 	return (

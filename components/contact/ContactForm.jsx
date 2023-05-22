@@ -70,7 +70,7 @@ function ContactForm() {
 			return;
 		  }
 		  setButtonValid(true)
-		  setButtonText("Succes");
+		  setButtonText("Verzonden");
 		}
 	  };
 
