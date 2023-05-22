@@ -37,13 +37,14 @@ export default async (req, res) => {
         from: FROM_EMAIL,
         subject: subject,
         html: `<p><strong>Naam: </strong>${name}</p>
-        //     <p><strong>Email: </strong>${email}</p>   
-        //     <p><strong>Onderwerp: </strong>${subject}</p>    
-        //     <p>${message}</p>`,
+             <p><strong>Email: </strong>${email}</p>   
+             <p><strong>Onderwerp: </strong>${subject}</p>    
+             <p>${message}</p>`,
     };
     try {
         await sgMail.send(msg);
         res.status(200).send('Email sent successfully');
+        res.send(`<script>alert("Email Sent Successfully.")</script>`);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error sending email');
