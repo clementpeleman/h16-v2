@@ -24,7 +24,7 @@ const ProjectSingle = (props) => {
 				<div className="  cursor-pointer mb-10 sm:mb-0 dark:bg-ternary-dark">
 					<div>
 						<Image
-							src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + `${props.attributes.thumbnail.data.attributes.url}`}
+							src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + `${props.attributes.Thumbnail.data.attributes.url}`}
 							className=" border-none"
 							alt="Single Project"
 							layout="responsive"
