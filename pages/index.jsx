@@ -8,7 +8,7 @@ import { fetcher } from '../lib/api';
 export default function Home({projecten}) {
 	return (
 		<div className="container mx-auto">
-			<PagesMetaHead title="Home" />
+			<PagesMetaHead title="H16 Vastgoedontwikkeling" />
 
 			<AppBanner />
 
