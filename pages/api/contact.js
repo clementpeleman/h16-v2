@@ -4,7 +4,7 @@ const { NEXT_PUBLIC_SG_API_KEY, NEXT_PUBLIC_FROM_EMAIL, NEXT_PUBLIC_TO_EMAIL } =
 sgMail.setApiKey(NEXT_PUBLIC_SG_API_KEY);
 console.log(process.env.NEXT_PUBLIC_SG_API_KEY)
 
-export default async function handler(req, res) {
+export async function handler(req, res) {
   const { name, email, subject, message } = req.body;
   const msg = {
     to: NEXT_PUBLIC_TO_EMAIL, // Change to your recipient
