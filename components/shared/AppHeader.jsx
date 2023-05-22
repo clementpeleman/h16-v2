@@ -57,6 +57,7 @@ function AppHeader() {
 									alt="Dark Logo"
 									width={150}
 									height={130}
+									priority
 								/>
 							) : (
 								<Image

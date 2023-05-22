@@ -31,20 +31,20 @@ function AppBanner() {
 					animate={{ opacity: 1 }}
 					transition={{
 						ease: 'easeInOut',
-						duration: 0.9,
-						delay: 0.2,
+						duration: 0.7,
+						delay: 0.3,
 					}}
 					className="md:font-general-regular ml-3 w-5/6 sm:w-full mt-8 md:-mt-5 lg:-mt-26 xl:-mt-32 text-3xl md:text-4xl lg:text-5xl xl:text-7xl text-left sm:text-left leading-normal text-gray-800 dark:text-gray-200"
 				>
 					Wij geven een nieuwe invulling aan <span className=' text-black font-balerno underline underline-offset-4 decoration-1 hover:text-accent cursor-pointer'>huizen</span> en <span className='text-black font-balerno underline underline-offset-4 decoration-1 sm: hover:text-accent cursor-pointer'>gronden</span>
 				</motion.p>
 				<motion.div
-					initial={{ opacity: 0 }}
+					initial={{ opacity: 0.3 }}
 					animate={{ opacity: 1 }}
 					transition={{
 						ease: 'easeInOut',
 						duration: 0.9,
-						delay: 0.3,
+						delay: 0.1,
 					}}
 					className="flex justify-center sm:block"
 				>
@@ -62,9 +62,9 @@ function AppBanner() {
 				</motion.div>
 			</div>
 			<motion.div
-				initial={{ opacity: 0, y: -180 }}
+				initial={{ opacity: 0, y: -130 }}
 				animate={{ opacity: 1, y: 0 }}
-				transition={{ ease: 'easeInOut', duration: 0.6, delay: 0.1 }}
+				transition={{ ease: 'easeInOut', duration: 0.9, delay: 0.1 }}
 				className="w-full md:w-3/5 text-right float-right mt-2 "
 			>
 				<img
