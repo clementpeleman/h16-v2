@@ -9,20 +9,69 @@ function ContactForm() {
 		subject: "",
 		message: "",
 	  });
+	  
 	  const { name, email, subject, message } = values;
+
+	  const [errors, setErrors] = useState({});
+
+	  const [buttonText, setButtonText] = useState("Verzenden");
+
+	  const [buttonValid, setButtonValid] = useState(false);
+
+	  const handleValidation = () => {
+		let tempErrors = {};
+		let isValid = true;
+	
+		if (name.length <= 0) {
+		  tempErrors["name"] = true;
+		  isValid = false;
+		}
+		if (email.length <= 0) {
+		  tempErrors["email"] = true;
+		  isValid = false;
+		}
+		if (subject.length <= 0) {
+		  tempErrors["subject"] = true;
+		  isValid = false;
+		}
+		if (message.length <= 0) {
+		  tempErrors["message"] = true;
+		  isValid = false;
+		}
+	
+		setErrors({ ...tempErrors });
+		console.log("errors", errors);
+		return isValid;
+	  };
 	
 	  const handleChange = (e) =>
 		setValues({ ...values, [e.target.name]: e.target.value });
-	
+
 	  const handleSubmit = async (e) => {
 		e.preventDefault();
-		await fetch("/api/contact", {
-		  method: "POST",
-		  headers: {
-			"Content-Type": "application/json",
-		  },
-		  body: JSON.stringify(values),
-		});
+	
+		let isValidForm = handleValidation();
+	
+		if (isValidForm) {
+		  setButtonText("Versturen...");
+		  const res = await fetch("/api/contact", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			  },
+			body: JSON.stringify(values),			
+		  });
+	
+		  const { error } = await res.json();
+		  if (error) {
+			console.log(error);
+			setButtonValid(true);
+			setButtonText("Error");
+			return;
+		  }
+		  setButtonValid(true)
+		  setButtonText("Succes");
+		}
 	  };
 
 	return (
@@ -150,9 +199,10 @@ function ContactForm() {
 					<div className="mt-6">
 						<span className="font-general-medium  px-7 py-4 text-white text-center font-medium tracking-wider bg-primary hover:bg-indigo-600 focus:ring-1 focus:ring-indigo-900 rounded-lg mt-6 duration-500">
 							<Button
-								title="Send Message"
+								title={buttonText}
 								type="submit"
-								aria-label="Send Message"
+								isDisabled={buttonValid}
+								aria-label={buttonText}
 							/>
 						</span>
 					</div>

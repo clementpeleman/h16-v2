@@ -19,21 +19,69 @@ function HireMeModal({ onClose, onRequest }) {
 		subject: "",
 		message: "",
 	  });
-	  const { name, email, subject, message } = values;
-	
-	const handleChange = (e) =>
-			setValues({ ...values, [e.target.name]: e.target.value });
+	const { name, email, subject, message } = values;
+
+	const [errors, setErrors] = useState({});
+
+	const [buttonText, setButtonText] = useState("Verzenden");
+
+	const [buttonValid, setButtonValid] = useState(false);
+
+	const handleValidation = () => {
+		let tempErrors = {};
+		let isValid = true;
+
+		if (name.length <= 0) {
+			tempErrors["name"] = true;
+			isValid = false;
+		}
+		if (email.length <= 0) {
+			tempErrors["email"] = true;
+			isValid = false;
+		}
+		if (subject.length <= 0) {
+			tempErrors["subject"] = true;
+			isValid = false;
+		}
+		if (message.length <= 0) {
+			tempErrors["message"] = true;
+			isValid = false;
+		}
+
+		setErrors({ ...tempErrors });
+		console.log("errors", errors);
+		return isValid;
+		};
 		
-	const handleSubmit = async (e) => {
-	e.preventDefault();
-	await fetch("https://h16-v2.vercel.app/api/contact", {
-		method: "POST",
-		headers: {
-		"Content-Type": "application/json",
-		},
-		body: JSON.stringify(values),
-	});
-	};
+		const handleChange = (e) =>
+				setValues({ ...values, [e.target.name]: e.target.value });
+			
+		const handleSubmit = async (e) => {
+			e.preventDefault();
+		
+			let isValidForm = handleValidation();
+		
+			if (isValidForm) {
+				setButtonText("Versturen...");
+				const res = await fetch("/api/contact", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					},
+				body: JSON.stringify(values),			
+				});
+		
+				const { error } = await res.json();
+				if (error) {
+				console.log(error);
+				setButtonValid(true);
+				setButtonText("Error");
+				return;
+				}
+				setButtonValid(true)
+				setButtonText("Succes");
+			}
+		};
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -132,7 +180,7 @@ function HireMeModal({ onClose, onRequest }) {
 											focus:ring-1 focus:ring-indigo-900 duration-500"
 										aria-label="Submit Request"
 									>
-										<Button title="Send Request" />
+										<Button title={buttonText} isDisabled={buttonValid} />
 									</span>
 								</div>
 							</form>
