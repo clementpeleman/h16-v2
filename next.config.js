@@ -13,7 +13,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'monkfish-app-9r4qk.ondigitalocean.app/',
+        hostname: 'monkfish-app-9r4qk.ondigitalocean.app',
         port: '',
         pathname: '/**',
       },
