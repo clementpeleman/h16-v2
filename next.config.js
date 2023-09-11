@@ -3,7 +3,7 @@ module.exports = {
     return [
       {
         source: '/login',
-        destination: 'https://dolphin-app-4lkcd.ondigitalocean.app/admin',
+        destination: 'https://monkfish-app-9r4qk.ondigitalocean.app/admin',
         permanent: true,
       },
     ];
@@ -13,7 +13,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'dolphin-app-4lkcd.ondigitalocean.app',
+        hostname: 'monkfish-app-9r4qk.ondigitalocean.app/',
         port: '',
         pathname: '/**',
       },
