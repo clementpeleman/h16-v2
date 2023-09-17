@@ -4,6 +4,7 @@ import ProjectsGrid from '../components/projects/ProjectsGrid';
 import Button from '../components/reusable/Button';
 import AppBanner from '../components/shared/AppBanner';
 import { fetcher } from '../lib/api';
+import AppSecondary from '../components/shared/AppSecondary';
 
 export default function Home({projecten}) {
 	return (
@@ -11,6 +12,8 @@ export default function Home({projecten}) {
 			<PagesMetaHead title="H16 Vastgoedontwikkeling" />
 
 			<AppBanner />
+
+			<AppSecondary/>
 
 			<ProjectsGrid projects={projecten}/>
 

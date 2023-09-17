@@ -1,28 +1,28 @@
-import { useState } from 'react';
-import ProjectSingle from './ProjectSingle';
-import { projectsData } from '../../data/projectsData';
-import ProjectsFilter from './ProjectsFilter';
-import Link from 'next/link';
+import { useState } from "react";
+import ProjectSingle from "./ProjectSingle";
+import { projectsData } from "../../data/projectsData";
+import ProjectsFilter from "./ProjectsFilter";
+import Link from "next/link";
 
-function ProjectsGrid({projects}) {
-	const [selectProject, setSelectProject] = useState();
+function ProjectsGrid({ projects }) {
+  const [selectProject, setSelectProject] = useState();
 
-	const selectProjectsByCategory = projectsData.filter((item) => {
-		let category =
-			item.category.charAt(0).toUpperCase() + item.category.slice(1);
-		return category.includes(selectProject);
-	});
+  const selectProjectsByCategory = projectsData.filter((item) => {
+    let category =
+      item.category.charAt(0).toUpperCase() + item.category.slice(1);
+    return category.includes(selectProject);
+  });
 
-	return (
-		<section className="py-5 mx-3 sm:py-10 mt-20 sm:mt-20">
-			<div className="max-w-[70%] text-left">
-				<p className=" font-general-medium text-2xl sm:text-4xl -mb-5 text-black dark:text-ternary-light">
-					Onze recentste realisaties
-				</p>
-			</div>
+  return (
+    <section className="py-5 mt-14 sm:mt-18">
+      <div className="max-w-[70%] text-left">
+        <p className=" font-general-medium text-3xl sm:text-4xl -mb-5 text-black dark:text-ternary-light">
+          Onze recentste realisaties
+        </p>
+      </div>
 
-			<div className="mt-5 mb-5 sm:mb-16">
-				{/* <h3
+      <div className="mt-5 sm:mt-0 mb-5 sm:mb-16">
+        {/* <h3
 					className="
                         font-general-regular 
                         text-center text-secondary-dark
@@ -34,54 +34,52 @@ function ProjectsGrid({projects}) {
 				>
 					Onze voltooide projecten
 				</h3> */}
-				<div
-					className=" 
+        <div
+          className=" 
                         text-right
                         justify-between
-						pb-5
+						pb-6
                         md:pb-10
                         gap-3
 						md:underline underline-offset-4 decoration-1
 						hover:decoration-accent
                         "
-				>
-                    <Link
-					href="/projects"
-					className="
+        >
+          <Link
+            href="/projects"
+            className="
                         font-general-medium 
                         text-right text-secondary-dark
                         dark:text-ternary-light
-                        text-md
+                        text-xl
                         sm:text-lg
                         sm:mb-3
-						mb-0
+						pr-6
+						pb-0
 						hover:text-primary
 						cursor-pointer
                         "
-				    >
-					 See All
-				    </Link>
-			    </div>
-			</div>
+          >
+            Alles bekijken
+          </Link>
+        </div>
+      </div>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
-				{/* {selectProject
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
+        {/* {selectProject
 					? selectProjectsByCategory.map((project, index) => {
 							return <ProjectSingle key={index} {...project} />;
 					  })
 					: projectsData.map((project, index) => (
 							<ProjectSingle key={index} {...project} />
 					  ))} */}
-				{projects &&
-					projects.data.map((project, index) => {
-						return (
-							<ProjectSingle key={index} {...project} />
-					)
-				})}
-			</div>
-		</section>
-	);
+        {projects &&
+          projects.data.map((project, index) => {
+            return <ProjectSingle key={index} {...project} />;
+          })}
+      </div>
+    </section>
+  );
 }
 
 export default ProjectsGrid;
-
