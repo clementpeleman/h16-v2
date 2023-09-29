@@ -6,10 +6,10 @@ export class AppSecondary extends Component {
     return (
       <div className=" text-md md:text-xl">
         <div className="hidden sm:block my-40 text-right">
-          <p className="font-general-medium italic text-2xl sm:text-3xl mb-5 text-black dark:text-ternary-light font-opensans">
+          <p className="text-2xl sm:text-4xl mb-5 text-black dark:text-ternary-light font-general-regular">
             De kolibrie als symbool van H16
           </p>
-          <div className="max-w-[620px] md:max-w-[1060px] text-justify ml-auto text-gray-500">
+          <div className="max-w-[620px] md:max-w-[1115px] text-justify ml-auto text-gray-500">
             <span className="">
               Door zijn compact formaat en priemvormige snavel is de kolibrie
               een zeer fascinerend en herkenbaar vogeltje dat zich laat
@@ -59,25 +59,22 @@ export class AppSecondary extends Component {
             Ontdek meer
           </Link>
         </div>
-        <p className="hidden sm:block max-w-[620px] md:max-w-[1060px] text-justify text-gray-500 text-xl">
+        <div className="hidden sm:block max-w-[620px] md:max-w-[1060px] text-justify text-gray-500 text-xl">
           Gedreven door passie voor vastgoed en middels degelijke samenwerkingen{" "}
           {/* <span className="text-accent font-opensans"> */}
           neemt H16 uw vastgoedproject onder de vleugels
-          {/* </span> */}. Onze kracht is
-          <span className="text-accent font-opensans">
-            {" "}
-            flexibiliteit
-          </span> en{" "}
-          <span className="text-accent font-opensans">wendbaarheid</span>, net
-          als de kolibrie in zijn soepele vlucht. Elk perspectief wordt ten
-          gronde bekeken, veranderen van perspectief gebeurt snel en levert{" "}
-          <span className="text-accent font-opensans">nieuwe inzichten</span>{" "}
-          op. Wij houden de{" "}
-          <span className="text-accent font-opensans">focus op het doel</span>{" "}
-          tot zolang het bereikt is. Met een persoonlijke aanpak binnen ons
-          klein bedrijf wordt de opdrachtgever totaal ontzorgd in het realiseren
-          van een uniek eindresultaat.
-        </p>
+          {/* </span> */}. Onze krachten zijn:
+          <br />
+          <br />
+          <ul className="list-none  list-inside">
+            <li className="my-2">Flexibiliteit</li>
+            <li className="my-2">Wendbaarheid</li>
+            <li className="my-2">Nieuwe inzichten</li>
+            <li className="my-2">Focus op doel</li>
+            <li className="my-2">Persoonlijke aanpak</li>
+            <li className="my-2">Uniek eindresultaat</li>
+          </ul>
+        </div>
 
         <div className=" sm:pt-30 sm:mt-20 mt-12 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
       </div>
