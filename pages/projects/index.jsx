@@ -16,7 +16,7 @@ function index({ projects }) {
           </p>
         </div> */}
 
-        <div className="mt-5 mb-5 sm:mb-16">
+        <div className="mt-5 mb-5 sm:mb-5">
           {/* <h3
 					className="
                         font-general-regular 
