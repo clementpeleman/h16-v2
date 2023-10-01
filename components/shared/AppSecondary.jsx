@@ -1,50 +1,70 @@
 import Link from "next/link";
 import React, { Component } from "react";
+import Image from "next/image";
+import { ScrollRotate } from "react-scroll-rotate";
 
 export class AppSecondary extends Component {
   render() {
     return (
       <div className=" text-md md:text-xl">
-        <div className="hidden sm:block my-40 text-right">
+        <div className="hidden sm:block mb-40 mt-24 text-right">
           <p className="text-2xl sm:text-4xl mb-5 text-black dark:text-ternary-light font-general-regular">
             De kolibrie als symbool van H16
           </p>
-          <div className="max-w-[620px] md:max-w-[1115px] text-justify ml-auto text-gray-500">
-            <span className="">
-              Door zijn compact formaat en priemvormige snavel is de kolibrie
-              een zeer fascinerend en herkenbaar vogeltje dat zich laat
-              onderscheiden door zijn{" "}
-            </span>
-            <span className=" decoration-1 cursor-pointer transition-all text-primary hover:text-4xl font-normal font-opensans">
-              uitstekend vliegvermogen
-            </span>
-            <span className="">
-              . Hij is in vele opzichten uniek in zijn soort en heeft talenten
-              die andere vogels niet hebben. Hij vliegt in alle richtingen, maar
-              ook ter plaatse én achterwaarts. Hij is razendsnel en komt uit
-              volle vlucht meteen tot stilstand. Met het flapperen van zijn
-              vleugels worden
-            </span>
-            <span className="text-black  font-normal"> </span>
-            <span className=" decoration-1 cursor-pointer transition-all text-primary hover:text-4xl font-normal font-opensans">
-              ongeziene frequenties
-            </span>
-            <span className="text-blackfont-normal"> </span>
-            <span className="">
-              bereikt. Daarnaast bestaat er een eeuwenoude symboliek rond dit
-              vogeltje: in vele culturen werd hij steeds gezien als de
-              boodschapper van{" "}
-            </span>
-            <span className=" decoration-1 cursor-pointer transition-all text-primary  hover:text-4xl font-normal font-opensans">
-              liefde en vreugde
-            </span>
-            <span className="">
-              . De kolibrie benut al deze unieke gaven en weet zijn talenten te
-              gebruiken om zijn doelen te bereiken, net als H16.
-            </span>
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex justify-center flex-grow mr-24">
+              <ScrollRotate
+                method={"perc"}
+                throttle={0.1}
+                animationDuration={0.3}
+                from={300}
+                to={850}
+              >
+                <Image
+                  src="/images/H16_EMBLEEM_BLAUW.png"
+                  width={100}
+                  height={100}
+                  alt="H16 Vogel"
+                />
+              </ScrollRotate>
+            </div>
+            <div className="max-w-[620px] md:max-w-[1115px] text-justify self-end text-gray-500">
+              <span className="">
+                Door zijn compact formaat en priemvormige snavel is de kolibrie
+                een zeer fascinerend en herkenbaar vogeltje dat zich laat
+                onderscheiden door zijn{" "}
+              </span>
+              <span className=" decoration-1 cursor-pointer transition-all text-primary hover:text-4xl font-normal font-opensans">
+                uitstekend vliegvermogen
+              </span>
+              <span className="">
+                . Hij is in vele opzichten uniek in zijn soort en heeft talenten
+                die andere vogels niet hebben. Hij vliegt in alle richtingen,
+                maar ook ter plaatse én achterwaarts. Hij is razendsnel en komt
+                uit volle vlucht meteen tot stilstand. Met het flapperen van
+                zijn vleugels worden
+              </span>
+              <span className="text-black  font-normal"> </span>
+              <span className=" decoration-1 cursor-pointer transition-all text-primary hover:text-4xl font-normal font-opensans">
+                ongeziene frequenties
+              </span>
+              <span className="text-blackfont-normal"> </span>
+              <span className="">
+                bereikt. Daarnaast bestaat er een eeuwenoude symboliek rond dit
+                vogeltje: in vele culturen werd hij steeds gezien als de
+                boodschapper van{" "}
+              </span>
+              <span className=" decoration-1 cursor-pointer transition-all text-primary  hover:text-4xl font-normal font-opensans">
+                liefde en vreugde
+              </span>
+              <span className="">
+                . De kolibrie benut al deze unieke gaven en weet zijn talenten
+                te gebruiken om zijn doelen te bereiken, net als H16.
+              </span>
+            </div>
           </div>
         </div>
-        <div className="sm:pt-30 mt-20 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
+        <div className="sm:pt-30 mt-48 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
         <div className="mt-12 sm:mt-20 mx-4 sm:mx-0 mb-12 sm:mb-8 flex flex-col sm:flex-row place-content-between">
           <p className="font-general-medium  text-2xl sm:text-4xl sm:mb-2 text-black dark:text-ternary-light">
             Jouw <span className="text-accent">bouwproject</span> onder onze

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 export const aboutMeData = [
   {
     id: uuidv4(),
-    bio: "H16 is een jong bedrijf met familiale wortels dat ontstaan is uit passie voor vastgoed. Deze passie -doorgegeven van generatie op generatie- wordt binnen H16 in de praktijk ingezet om het bouwproces te stroomlijnen en te coördineren.",
+    bio: "H16 is een jong bedrijf met familiale wortels dat ontstaan is uit passie voor vastgoed. Deze passie, doorgegeven van generatie op generatie, wordt binnen H16 in de praktijk ingezet om het bouwproces te stroomlijnen en te coördineren.",
   },
   {
     id: uuidv4(),

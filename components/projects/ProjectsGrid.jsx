@@ -14,14 +14,14 @@ function ProjectsGrid({ projects }) {
   });
 
   return (
-    <section className="py-5 mt-14 sm:mt-18">
+    <section className="py-5 mt-14 sm:mt-28">
       <div className="max-w-[70%] text-left">
-        <p className=" font-general-medium text-3xl sm:text-4xl -mb-5 text-black dark:text-ternary-light">
+        <p className=" font-general-medium text-3xl sm:text-4xl -mb-8  text-black dark:text-ternary-light">
           Onze recentste realisaties
         </p>
       </div>
 
-      <div className="mt-5 sm:mt-0 mb-5 sm:mb-16">
+      <div className="mt-5 sm:mt-0 mb-5 sm:mb-8">
         {/* <h3
 					className="
                         font-general-regular 

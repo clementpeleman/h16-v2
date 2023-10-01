@@ -9,7 +9,7 @@ function contact() {
     <div>
       <PagesMetaHead title="Contact" />
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -20,7 +20,7 @@ function contact() {
         className="container mx-auto flex flex-col lg:flex-row py-5 lg:py-10 lg:mt-5"
       >
         <ContactBanner />
-      </motion.div>
+      </motion.div> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
