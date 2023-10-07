@@ -10,11 +10,11 @@ function index({ projects }) {
       <PagesMetaHead title="Projects" />
 
       <section className="py-5 mx-3 sm:pt-10 mt-6 sm:mt-8">
-        {/* <div className="max-w-[70%] text-left">
+        <div className="max-w-[70%] text-left">
           <p className=" font-general-medium text-2xl sm:text-4xl mb-8 text-black dark:text-ternary-light ">
             Onze realisaties
           </p>
-        </div> */}
+        </div>
 
         <div className="mt-5 mb-5 sm:mb-5">
           {/* <h3

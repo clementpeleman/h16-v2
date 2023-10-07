@@ -2,6 +2,8 @@ import Link from "next/link";
 import React, { Component } from "react";
 import Image from "next/image";
 import { ScrollRotate } from "react-scroll-rotate";
+import { TypeAnimation } from "react-type-animation";
+import { FiArrowRight } from "react-icons/fi";
 
 export class AppSecondary extends Component {
   render() {
@@ -80,20 +82,54 @@ export class AppSecondary extends Component {
           </Link>
         </div>
         <div className="hidden sm:block max-w-[620px] md:max-w-[1060px] text-justify text-gray-500 text-xl">
-          Gedreven door passie voor vastgoed en middels degelijke samenwerkingen{" "}
-          {/* <span className="text-accent font-opensans"> */}
-          neemt H16 uw vastgoedproject onder de vleugels
-          {/* </span> */}. Onze krachten zijn:
+          Gedreven door passie voor vastgoed en middels degelijke samenwerkingen
+          neemt H16 uw vastgoedproject onder de vleugels.
           <br />
           <br />
-          <ul className="list-none  list-inside">
+          {/* <span className="font-general-medium text-3xl text-black">
+            Onze krachten zijn:{" "}
+          </span> */}
+          {/* <ul className="list-none  list-inside">
             <li className="my-2">Flexibiliteit</li>
             <li className="my-2">Wendbaarheid</li>
             <li className="my-2">Nieuwe inzichten</li>
             <li className="my-2">Focus op doel</li>
             <li className="my-2">Persoonlijke aanpak</li>
             <li className="my-2">Uniek eindresultaat</li>
-          </ul>
+          </ul> */}
+          <div className="flex items-center">
+            <FiArrowRight
+              style={{
+                height: 30,
+                width: 30,
+                marginTop: 10,
+                marginBottom: 10,
+                marginRight: 10,
+                color: "silver",
+              }}
+            />
+            <TypeAnimation
+              sequence={[
+                // Same substring at the start will only be typed out once, initially
+                "Flexibiliteit",
+                1000, // wait 1s before replacing "Mice" with "Hamsters"
+                "Wendbaarheid",
+                1000,
+                "Nieuwe inzichten",
+                1000,
+                "Focus op doel",
+                1000,
+                "Persoonlijke aanpak",
+                1000,
+                "Uniek eindresultaat",
+                1000,
+              ]}
+              wrapper="span"
+              speed={50}
+              className=" font-general-medium text-3xl text-accent"
+              repeat={Infinity}
+            />
+          </div>
         </div>
 
         <div className=" sm:pt-30 sm:mt-20 mt-12 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
