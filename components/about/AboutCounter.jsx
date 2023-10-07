@@ -31,12 +31,12 @@ function AboutCounter() {
       <div className="sm:pt-30 sm:mb-20 mb-12 mx-32 border-t-2 border-slate-200"></div>
       <div className="w-full text-justify text-ternary-dark flex justify-center italic text-lg sm:text-xl">
         <p className="sm:w-1/2 mx-8 sm:mx-0 ">
-          "Door onze complementaire capaciteiten in ons klein bedrijf te
+          &quote;Door onze complementaire capaciteiten in ons klein bedrijf te
           bundelen, slagen we erin om zeer persoonlijk en gefocust te werken,
           zodat onze realisaties volledig aansluiten op de wensen van de
           opdrachtgever. Met een betrokkenheid op élke dag van het bouwproces
           zorgen we voor kwaliteit in uitvoering, controle van het budget en de
-          uitvoeringstermijn."
+          uitvoeringstermijn.&quote;
         </p>
       </div>
     </div>
