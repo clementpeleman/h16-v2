@@ -8,7 +8,7 @@ function AboutCounter() {
           <span className="text-xl font-general-normal text-primary">
             Construction manager
           </span>
-          <ul className="ml-8 mt-4 list-decimal font-general-regular text-xl list-inside">
+          <ul className="ml-8 mt-4 list-none font-general-regular text-xl list-inside">
             <li className="my-2">Technisch</li>
             <li className="my-2">Planmatig</li>
             <li className="my-2">Constructief</li>
@@ -21,7 +21,7 @@ function AboutCounter() {
           <span className="text-xl font-general-normal text-accent">
             Office manager
           </span>
-          <ul className="ml-8 mt-4 list-decimal font-general-regular text-xl list-inside">
+          <ul className="ml-8 mt-4 list-none font-general-regular text-xl list-inside">
             <li className="my-2">Praktisch</li>
             <li className="my-2">Creatief</li>
             <li className="my-2">Communicatief</li>
