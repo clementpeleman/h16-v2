@@ -12,7 +12,7 @@ function RelatedProjects({props}) {
 				{props.map((project) => {
 					return (
 						<Image
-							src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + `${project.attributes.Thumbnail.data.attributes.url}`}
+							src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + `${project.attributes.thumbnail.data.attributes.url}`}
 							className=" cursor-pointer"
 							width="400"
 							height="400"

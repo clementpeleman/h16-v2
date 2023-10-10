@@ -14,7 +14,7 @@ function ProjectsGrid({ projects }) {
   });
 
   return (
-    <section className="py-5 mt-14 sm:mt-28">
+    <section className="py-5 mt-14 sm:mt-28 sm:px-0 px-4">
       <div className="max-w-[70%] text-left">
         <p className=" font-general-medium text-3xl sm:text-4xl -mb-8  text-black dark:text-ternary-light">
           Onze recentste realisaties

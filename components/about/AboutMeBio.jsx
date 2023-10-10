@@ -7,7 +7,7 @@ import PagesMetaHead from "../PagesMetaHead";
 function AboutMeBio() {
   const [aboutMe, setAboutMe] = useState(aboutMeData);
   return (
-    <div className="container px-0">
+    <div className="container sm:px-0">
       <PagesMetaHead title="Over ons" />
 
       <section className="pt-5 sm:pt-10 mt-6 sm:mt-8">
