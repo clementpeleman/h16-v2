@@ -7,7 +7,7 @@ export class gallery extends Component {
       <div className="container mx-auto">
         <PagesMetaHead title="Projects" />
         <section className="py-5 mx-3 sm:pt-10 mt-6 sm:mt-8">
-          <div className="mt-5 mb-5 sm:mb-5">gallery</div>
+          <div className="mt-5 mb-5 sm:mb-5">Coming soon</div>
         </section>
       </div>
     );
