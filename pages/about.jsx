@@ -3,8 +3,9 @@ import AboutClients from "../components/about/AboutClients";
 import AboutCounter from "../components/about/AboutCounter";
 import AboutMeBio from "../components/about/AboutMeBio";
 import PagesMetaHead from "../components/PagesMetaHead";
+import { fetcher } from "../lib/api";
 
-function about() {
+function about(samenwerkingen) {
   return (
     <div>
       <PagesMetaHead title="Over ons" />
@@ -33,10 +34,21 @@ function about() {
         exit={{ opacity: 0 }}
         className="container mx-auto"
       >
-        <AboutClients />
+        <AboutClients samenwerkings={samenwerkingen} />
       </motion.div>
     </div>
   );
 }
 
 export default about;
+
+export async function getServerSideProps() {
+  const samenwerkingResponse = await fetcher(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/samenwerkingen?populate=*`
+  );
+  return {
+    props: {
+      samenwerkingen: samenwerkingResponse,
+    },
+  };
+}

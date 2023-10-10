@@ -14,30 +14,9 @@ function ProjectSingle(props) {
 
       {/* Header */}
       <div>
-        <p className="font-general-medium text-left text-3xl sm:text-4xl font-bold text-primary-dark dark:text-primary-light mt-14 sm:mt-20 mb-7">
+        <p className="font-general-medium text-left text-3xl sm:text-4xl  text-primary-dark dark:text-primary-light mt-14 sm:mt-20 mb-7">
           {props.project.attributes.naam}
         </p>
-        <div className="flex">
-          <div className="flex items-center mr-10">
-            <FiClock className="text-xl text-ternary-dark dark:text-ternary-light" />
-            <span className="font-general-regular ml-2 leading-none text-primary-dark dark:text-primary-light">
-              {props.project.attributes.publishedAt.substring(0, 4)}
-            </span>
-          </div>
-          <div className="flex items-center">
-            <FiTag className="w-4 h-4 text-ternary-dark dark:text-ternary-light" />
-            {props.project.attributes.Status.data.map((status) => {
-              return (
-                <span
-                  className="font-general-regular ml-2 leading-none text-primary-dark dark:text-primary-light"
-                  key={status.id}
-                >
-                  {status.attributes.Type}
-                </span>
-              );
-            })}
-          </div>
-        </div>
       </div>
 
       {/* Gallery */}
@@ -67,7 +46,7 @@ function ProjectSingle(props) {
         <div className="w-full sm:w-1/3 text-left">
           {/* Single project client details */}
           <div className="mb-7">
-            <p className="font-general-medium text-2xl sm:text-3xl  text-secondary-dark dark:text-secondary-light mb-2">
+            <p className="font-general-medium text-2xl sm:text-3xl  text-primary-dark dark:text-primary-light mb-2">
               Over Project
             </p>
             <ul className="leading-loose">
@@ -75,7 +54,7 @@ function ProjectSingle(props) {
                 className="font-general-regular text-ternary-dark dark:text-ternary-light"
                 key={props.project.attributes.naam}
               >
-                <span>Adres: </span>
+                <span className="font-general-medium">Adres: </span>
                 <a
                   href={
                     "http://maps.google.com/?q=" +
@@ -88,14 +67,20 @@ function ProjectSingle(props) {
                 >
                   {props.project.attributes.naam}
                 </a>
+                <br />
+                <span className="font-general-medium">Status: </span>
+                {props.project.attributes.status.data[0].attributes.Type}
+                <br />
+                <span className="font-general-medium">Jaar: </span>
+                {props.project.attributes.publishedAt.substring(0, 4)}
               </li>
             </ul>
           </div>
 
           {/* Single project social sharing */}
           <div>
-            <p className="font-general-regular text-2xl font-semibold text-ternary-dark dark:text-ternary-light mb-2">
-              Share This
+            <p className="font-general-regular text-2xl sm:text-3xl font-semibold text-primary-dark mt-2">
+              Externe link
             </p>
             <div className="flex items-center gap-3 mt-5">
               <Link
@@ -105,8 +90,9 @@ function ProjectSingle(props) {
                 passHref={true}
                 aria-label="Share Project"
                 className="bg-ternary-light dark:bg-ternary-dark text-gray-400 hover:text-primary-dark dark:hover:text-primary-light p-2 rounded-lg shadow-sm duration-500"
-              ></Link>
-              ;
+              >
+                {props.project.attributes.externe_link}
+              </Link>
             </div>
           </div>
         </div>

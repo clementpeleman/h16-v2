@@ -3,6 +3,8 @@ import { useState } from "react";
 import { aboutMeData } from "../../data/aboutMeData";
 import { ScrollRotate } from "react-scroll-rotate";
 import PagesMetaHead from "../PagesMetaHead";
+import Link from "next/link";
+import { FiArrowRight } from "react-icons/fi";
 
 function AboutMeBio() {
   const [aboutMe, setAboutMe] = useState(aboutMeData);
@@ -35,7 +37,7 @@ function AboutMeBio() {
             </ScrollRotate>
           </div>
 
-          <div className="font-regular  mx-4 sm:mx-0 text-justify sm:w-3/4 text-left">
+          <div className="font-regular flex flex-col leading-none mx-4 sm:mx-0 text-justify sm:w-3/4 text-left">
             <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg">
               H16 is een jong bedrijf met familiale wortels dat ontstaan is uit
               passie voor vastgoed. Deze passie, doorgegeven van generatie op
@@ -83,6 +85,7 @@ function AboutMeBio() {
               professionele partners vormen Gilles en Elena ook in het dagelijks
               leven een sterke tandem.
             </p>
+            <br />
           </div>
         </div>
       </section>
