@@ -10,8 +10,8 @@
 //     from: NEXT_PUBLIC_FROM_EMAIL, // Change to your verified sender
 //     subject: "H16 Contact Formulier",
 //     html: `<p><strong>Naam: </strong>${name}</p>
-//     <p><strong>Email: </strong>${email}</p>   
-//     <p><strong>Onderwerp: </strong>${subject}</p>    
+//     <p><strong>Email: </strong>${email}</p>
+//     <p><strong>Onderwerp: </strong>${subject}</p>
 //     <p>${message}</p>`,
 //   };
 //   await sgMail.send(msg);
@@ -25,27 +25,27 @@
 // }
 // }
 
-import sgMail from '@sendgrid/mail';
+import sgMail from "@sendgrid/mail";
 sgMail.setApiKey(process.env.NEXT_PUBLIC_SG_API_KEY);
-const TO_EMAIL = process.env.NEXT_PUBLIC_TO_EMAIL ?? 'default@gmail.com';
-const FROM_EMAIL = process.env.NEXT_PUBLIC_FROM_EMAIL ?? 'default@gmail.com';
+const TO_EMAIL = process.env.NEXT_PUBLIC_TO_EMAIL ?? "default@gmail.com";
+const FROM_EMAIL = process.env.NEXT_PUBLIC_FROM_EMAIL ?? "default@gmail.com";
 
 export default async (req, res) => {
-    const { name, email, subject, message } = req.body;
-    const msg = {
-        to: TO_EMAIL,
-        from: FROM_EMAIL,
-        subject: subject,
-        html: `<p><strong>Naam: </strong>${name}</p>
+  const { name, email, subject, message } = req.body;
+  const msg = {
+    to: TO_EMAIL,
+    from: FROM_EMAIL,
+    subject: subject,
+    html: `<p><strong>Naam: </strong>${name}</p>
              <p><strong>Email: </strong>${email}</p>   
              <p><strong>Onderwerp: </strong>${subject}</p>    
              <p>${message}</p>`,
-    };
-    try {
-        await sgMail.send(msg);
-        res.status(200).json({ success: true });
-    } catch (error) {   
-        console.error(error);
-        res.status(500).json({ success: false });
-    }
+  };
+  try {
+    await sgMail.send(msg);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false });
+  }
 };
