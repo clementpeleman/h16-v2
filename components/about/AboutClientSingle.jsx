@@ -6,8 +6,8 @@ function AboutClientSingle({ title, image }) {
       <Image
         src={image}
         fill={true}
-        sizes="100vw"
-        style={{ objectFit: "contain", filter: "opacity(0.9)" }}
+        sizes="100%"
+        style={{ objectFit: "scale-down", filter: "opacity(0.9)" }}
       />
     </div>
   );
