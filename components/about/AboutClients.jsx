@@ -1,7 +1,6 @@
 import AboutClientSingle from "./AboutClientSingle";
 
 export default function AboutClients(samenwerkings) {
-  console.log(samenwerkings);
   return (
     <div className="mt-10 sm:mt-32">
       <p className="font-general-medium text-2xl sm:text-3xl  text-center text-primary-dark dark:text-primary-light">
