@@ -73,6 +73,9 @@ function ProjectSingle(props) {
                 <br />
                 <span className="font-general-medium">Jaar: </span>
                 {props.project.attributes.publishedAt.substring(0, 4)}
+                <br />
+                <span className="font-general-medium">Samenwerking: </span>
+                {props.project.attributes.samenwerkings.data[0].attributes.Naam}
               </li>
             </ul>
           </div>
@@ -82,7 +85,7 @@ function ProjectSingle(props) {
             <p className="font-general-regular text-2xl sm:text-3xl font-semibold text-primary-dark mt-2">
               Externe link
             </p>
-            <div className="flex items-center gap-3 mt-5">
+            <div className="flex items-center inline whitespace-initial break-all gap-3 mt-5">
               <Link
                 key={props.project.id}
                 href={props.project.attributes.externe_link}
