@@ -18,7 +18,7 @@ function AboutMeBio() {
             Over ons
           </p>
         </div>
-        <div className="block sm:flex sm:gap-10 sm:mt-12 items-center justify-between">
+        <div className="block sm:flex sm:gap-10 sm:mt-12 min-h-[60vh] items-center justify-between">
           <div className="mb-7 sm:mb-0 flex-grow">
             <ScrollRotate
               method={"perc"}

@@ -1,17 +1,52 @@
 import React, { Component } from "react";
 import PagesMetaHead from "../components/PagesMetaHead";
+import { fetcher } from "../lib/api";
+import GallerySingle from "../components/gallery/GallerySingle";
 
-export class gallery extends Component {
-  render() {
-    return (
-      <div className="container mx-auto">
-        <PagesMetaHead title="Projects" />
-        <section className="py-5 mx-3 sm:pt-10 mt-6 sm:mt-8">
-          <div className="mt-5 mb-5 sm:mb-5">Coming soon</div>
-        </section>
-      </div>
-    );
-  }
+export default function gallery({ gallerij }) {
+  return (
+    <div className="container mx-auto">
+      <PagesMetaHead title="Gallerij" />
+
+      <section className="py-5 mx-3 sm:pt-10 mt-6 sm:mt-8">
+        <div className="max-w-[70%] text-left">
+          <p className=" font-general-medium text-2xl sm:text-4xl mb-8 text-black dark:text-ternary-light ">
+            Gallerij
+          </p>
+        </div>
+
+        <div className="mt-5 mb-5 sm:mb-5">
+          {/* <h3
+					className="
+                        font-general-regular 
+                        text-center text-secondary-dark
+                        dark:text-ternary-light
+                        text-md
+                        sm:text-xl
+                        mb-3
+                        "
+				>
+					Onze voltooide projecten
+				</h3> */}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2  sm:gap-10">
+          {gallerij.data.attributes.gallery.data.map((afbeelding, index) => {
+            return <GallerySingle key={index} {...afbeelding} />;
+          })}
+        </div>
+      </section>
+    </div>
+  );
 }
 
-export default gallery;
+export async function getServerSideProps() {
+  const galleryResponse = await fetcher(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/gallerij?populate=*`
+  );
+  return {
+    props: {
+      gallerij: galleryResponse,
+    },
+  };
+}

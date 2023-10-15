@@ -66,7 +66,7 @@ export class AppSecondary extends Component {
             </div>
           </div>
         </div>
-        <div className="sm:pt-30 mt-48 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
+        <div className="sm:pt-30 mt-64 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
         <div className="mt-12 sm:mt-20 mx-4 sm:mx-0 mb-12 sm:mb-8 flex flex-col sm:flex-row place-content-between">
           <p className="font-general-medium  text-2xl sm:text-4xl sm:mb-2 text-black dark:text-ternary-light">
             Jouw <span className="text-accent">bouwproject</span> onder onze
@@ -132,7 +132,7 @@ export class AppSecondary extends Component {
           </div>
         </div>
 
-        <div className=" sm:pt-30 sm:mt-20 mt-12 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
+        <div className=" sm:pt-30 sm:mt-20 mb-48 mt-12 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
       </div>
     );
   }

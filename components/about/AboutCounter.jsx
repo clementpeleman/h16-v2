@@ -1,6 +1,6 @@
 function AboutCounter() {
   return (
-    <div className="mt-10 sm:mt-20 bg-primary-light dark:bg-ternary-dark shadow-sm pb-24">
+    <div className="mt-20 sm:mt-32 bg-primary-light dark:bg-ternary-dark shadow-sm pb-24">
       <div className="font-general-medium container text-3xl mx-auto py-20 block sm:flex justify-around">
         <div className="  ml-8 sm:ml-0">
           Gilles
