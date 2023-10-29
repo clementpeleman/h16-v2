@@ -3,15 +3,15 @@ import PagesMetaHead from "../components/PagesMetaHead";
 import { fetcher } from "../lib/api";
 import GallerySingle from "../components/gallery/GallerySingle";
 
-export default function gallery({ gallerij }) {
+export default function gallery({ Galerij }) {
   return (
     <div className="container mx-auto">
-      <PagesMetaHead title="Gallerij" />
+      <PagesMetaHead title="Galerij" />
 
       <section className="py-5 mx-3 sm:pt-10 mt-6 sm:mt-8">
         <div className="max-w-[70%] text-left">
           <p className=" font-general-medium text-2xl sm:text-4xl mb-8 text-black dark:text-ternary-light ">
-            Gallerij
+            Galerij
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export default function gallery({ gallerij }) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2  sm:gap-10">
-          {gallerij.data.attributes.gallery.data.map((afbeelding, index) => {
+          {Galerij.data.attributes.gallery.data.map((afbeelding, index) => {
             return <GallerySingle key={index} {...afbeelding} />;
           })}
         </div>
@@ -46,7 +46,7 @@ export async function getServerSideProps() {
   );
   return {
     props: {
-      gallerij: galleryResponse,
+      Galerij: galleryResponse,
     },
   };
 }
