@@ -128,8 +128,8 @@ function AppHeader() {
             </Link>
           </div>
           <div className="block text-left text-lg text-primary-dark dark:text-ternary-light hover:text-secondary-dark dark:hover:text-secondary-light  sm:mx-4 mb-2 sm:py-2 border-t-2 pt-3 sm:pt-2 sm:border-t-0 border-primary-light dark:border-secondary-dark">
-            <Link onClick={toggleMenu} href="/contact" aria-label="Contact">
-              Contact
+            <Link onClick={toggleMenu} href="/contact" aria-label="Samenwerken">
+              Samenwerken
             </Link>
           </div>
           <div className="border-t-2 pt-3 sm:pt-0 sm:border-t-0 border-primary-light dark:border-secondary-dark">
@@ -166,9 +166,9 @@ function AppHeader() {
           </div>
           <div
             className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  sm:mx-4 mb-2 sm:py-2"
-            aria-label="Contact"
+            aria-label="Samenwerken"
           >
-            <Link href="/contact">Contact</Link>
+            <Link href="/contact">Samenwerken</Link>
           </div>
         </div>
 

@@ -7,9 +7,9 @@ import ContactBanner from "../components/contact/ContactBanner";
 function contact() {
   return (
     <div>
-      <PagesMetaHead title="Contact" />
+      <PagesMetaHead title="Samenwerken" />
 
-      {/* <motion.div
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -17,10 +17,10 @@ function contact() {
           duration: 0.5,
           delay: 0.1,
         }}
-        className="container mx-auto flex flex-col lg:flex-row py-5 lg:py-10 lg:mt-5"
+        className="container mx-auto"
       >
         <ContactBanner />
-      </motion.div> */}
+      </motion.div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

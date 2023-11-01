@@ -39,6 +39,7 @@ function AboutCounter() {
           uitvoeringstermijn.&quot;
         </p>
       </div>
+      
     </div>
   );
 }

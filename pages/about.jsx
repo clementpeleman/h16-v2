@@ -4,6 +4,7 @@ import AboutCounter from "../components/about/AboutCounter";
 import AboutMeBio from "../components/about/AboutMeBio";
 import PagesMetaHead from "../components/PagesMetaHead";
 import { fetcher } from "../lib/api";
+import AboutCTA from "../components/about/AboutCTA";
 
 function about(samenwerkingen) {
   return (
@@ -26,6 +27,7 @@ function about(samenwerkingen) {
         exit={{ opacity: 0 }}
       >
         <AboutCounter />
+        <AboutCTA/>
       </motion.div>
 
       {/* <motion.div
