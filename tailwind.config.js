@@ -7,6 +7,12 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
+    listStyleType: {
+      square: "square",
+      circle: "circle",
+      decimal: "decimal",
+      disc: "disc",
+    },
     extend: {
       colors: {
         primary: "#0E468C",
