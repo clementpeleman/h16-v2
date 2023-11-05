@@ -20,7 +20,7 @@ function ProjectSingle(props) {
       </div>
 
       {/* Gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-10 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-10 mt-12">
         {props.project.attributes.afbeeldingen.data.map((project) => {
           return (
             <div className="mb-10 sm:mb-0" key={project.id}>

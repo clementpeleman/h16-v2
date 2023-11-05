@@ -30,7 +30,7 @@ export default function gallery({ Galerij }) {
 				</h3> */}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2  sm:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3  sm:gap-10">
           {Galerij.data.attributes.gallery.data.map((afbeelding, index) => {
             return <GallerySingle key={index} {...afbeelding} />;
           })}
