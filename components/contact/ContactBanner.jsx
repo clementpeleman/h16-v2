@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FiArrowRight } from "react-icons/fi";
 
 export class ContactBanner extends Component {
   render() {
@@ -10,51 +11,51 @@ export class ContactBanner extends Component {
               Samenwerken
             </p>
           </div>
-          <div className="mt-4 text-xl text-black font-general-medium">
+          <div className="mt-4 mb-8 text-xl text-black font-general-medium">
             Wat kan H16 voor jou betekenen?
           </div>
           <br />
           <br />
           <div>
-            <ol className="list-decimal list-inside space-y-8 ">
+            <ol className="list-none list-inside space-y-8 ">
               <div className="grid sm:grid-cols-2 gap-4 items-start">
-                <li className="font-general-medium text-xl hover:text-accent max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-200 shadow-sm ">
+                <li className="font-general-medium hover:z-50  text-xl hover:text-accent max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-200 shadow-sm ">
                   Adviesverlening{" "}
                   <p className=" font-general-regular text-black text-lg mt-2 ml-4">
-                    Sta je voor een bouwproject maar loop je nogal verloren? Wij
-                    analyseren graag uw specifieke vastgoed gerelateerde
-                    situatie of vragen. Nadien evalueren we samen de juridische,
-                    financiële, technische (energetische) en praktische
-                    mogelijkheden en haalbaarheid.
+                    Sta je voor een bouwproject maar loop je verloren? Wij
+                    analyseren graag samen uw specifieke vastgoed gerelateerde
+                    situatie of vragen.
                   </p>
                 </li>
 
-                <li className="font-general-medium row-span-2 hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
+                <li className="font-general-medium hover:z-50 row-span-2 text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-primary bg-opacity-95 text-white dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
                   Bouwcoördinatie
-                  <div className=" font-general-regular text-black text-lg mt-2 ml-4">
+                  <div className=" font-general-regular text-white text-lg mt-2 ml-4">
                     Op zoek naar een zeer concrete hulp bij de effectieve
-                    uitvoering? Wij coördineren uw vastgoedproject met de
-                    grootste zorg:
+                    uitvoering? <br />
+                    Wij coördineren uw vastgoedproject met de grootste zorg:
                     <ol className="  list-inside mt-4">
-                      <li>- Zowel nieuwbouw als renovatie, elke stijl</li>
-                      <li>- Zowel klein als groot</li>
+                      <li>- Nieuwbouw en renovatie</li>
+                      <li>- Klein en groot</li>
                       <li>- Van A tot Z of van A naar B</li>
                       <li>- Zowel residentiële als commerciële projecten</li>
                       <li>- Zowel werken met als zonder architect</li>
-                      <li>
-                        - Architect en aannemers indien gewenst en naar keuze
-                      </li>
-                      <li>- Interieuradvies indien gewenst en naar keuze</li>
+                      <li>- Interieuradvies</li>
                     </ol>
                   </div>
                 </li>
-                <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
+                <li className="font-general-medium hover:z-50  hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
                   Projectontwikkeling
                   <p className=" font-general-regular text-black text-lg mt-2 ml-4">
                     Ben je eigenaar en wil je liever een grond of pand verkopen?
                     Wij zijn ervaren en geïnteresseerd.
                   </p>
                 </li>
+              </div>
+            </ol>
+            <div className="sm:mb-24 mt-24 sm:mt-24 mx-32 border-t-2 border-gray-200"></div>
+            <ol className="list-none list-inside space-y-8 max-w-6xl">
+              <div className="grid sm:grid-cols-2 gap-4 items-start">
                 <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
                   Ben je architect?
                   <p className=" font-general-regular text-black text-lg mt-2 ml-4">
@@ -67,21 +68,31 @@ export class ContactBanner extends Component {
                   Ben je aannemer?
                   <p className=" font-general-regular text-black text-lg mt-2 ml-4">
                     We slaan graag de handen in elkaar met kwalitatieve
-                    aannemers voor een duurzame lange termijn relatie waarbij
-                    klantgerichtheid en kwaliteit centraal staan.
+                    aannemers voor een duurzame relatie waarbij klantgerichtheid
+                    en kwaliteit centraal staan.
                   </p>
                 </li>
               </div>
             </ol>
           </div>
-          <div className="sm:pt-30 sm:mb-28 mt-24 sm:mt-32 mx-32 border-t-2 border-gray-200"></div>
-          <div className="sm:mb-32">
-            <p className=" font-general-medium text-2xl sm:text-4xl mt-24 text-black dark:text-ternary-light ">
+          {/* <div className="sm:pt-30 sm:mb-28 mt-24 sm:mt-32 mx-32 border-t-2 border-gray-200"></div> */}
+          <div className="sm:mb-32 sm:mt-48">
+            <p className=" font-general-medium flex text-2xl sm:text-4xl mt-24 text-black dark:text-ternary-light ">
+              <FiArrowRight
+                style={{
+                  height: 40,
+                  width: 40,
+                  marginTop: 0,
+                  marginBottom: 10,
+                  marginRight: 10,
+                  color: "#D83415",
+                }}
+              />
               Uw voordeel?
             </p>
             <p className="font-general-regular text-black sm:text-lg mt-2 sm:max-w-[50%]">
-              Elke dag van het bouwproces nieuwe uitdagingen met zich mee. Het
-              opvolgen ervan vraagt de juiste kennis, expertise en
+              Elke dag van het bouwproces brengt nieuwe uitdagingen met zich
+              mee. Het opvolgen ervan vraagt de juiste kennis, expertise en
               betrokkenheid. Voor velen is het realiseren van een bouwproject
               geen dagelijkse kost, voor H16 is het dat wel.
               <br />
@@ -93,10 +104,11 @@ export class ContactBanner extends Component {
               <br />
               <br />
               <br />
+              <br />
             </p>
-            <ul className="list-decimal list-inside text-accent font-general-medium text-2xl sm:min-w-[115%] sm:ml-[-7%] grid sm:grid-cols-4 gap-8">
+            <ul className="list-decimal list-inside text-accent font-general-medium text-2xl sm:min-w-[115%] sm:ml-[-7%] grid sm:grid-cols-2 grid-cols-2 xl:grid-cols-4 gap-8">
               <li>
-                <div className="sm:px-6 sm:py-6 p-4 bg-secondary-light shadow-sm">
+                <div className="sm:px-8 sm:py-6 p-4 bg-secondary-light shadow-sm">
                   Bepalen juiste doelstelling
                   <p className=" font-general-regular break-words text-black text-lg  mt-2 ">
                     Het realiseren van een droomhuis of het neerzetten van een
@@ -108,7 +120,7 @@ export class ContactBanner extends Component {
                 </div>
               </li>
               <li>
-                <div className="sm:px-6 sm:py-6 p-4 bg-secondary-light shadow-sm">
+                <div className="sm:px-8 sm:py-6 p-4 bg-secondary-light shadow-sm">
                   Snelheid
                   <p className=" font-general-regular break-words text-black text-lg  mt-2">
                     Door degelijk voorbereidingswerk, een accurate opvolging van
@@ -123,7 +135,7 @@ export class ContactBanner extends Component {
                 </div>
               </li>
               <li>
-                <div className="sm:px-6 sm:py-6 p-4 bg-secondary-light shadow-sm">
+                <div className="sm:px-8 sm:py-6 p-4 bg-secondary-light shadow-sm">
                   Kwaliteit
                   <p className=" font-general-regular break-words text-black text-lg  mt-2">
                     Met een doenersmentaliteit zorgt H16 ervoor dat alles gedaan
@@ -136,16 +148,14 @@ export class ContactBanner extends Component {
                 </div>
               </li>
               <li>
-                <div className="sm:px-6 sm:py-6 p-4 bg-secondary-light shadow-sm">
+                <div className="sm:px-8 sm:py-6 p-4 bg-secondary-light shadow-sm">
                   Budgetcontrole
                   <p className=" font-general-regular break-words text-black text-lg mt-2">
-                    Succesvolle samenwerking met aannemers kunnen zich onder de
-                    vleugels van H16 herhalen, hetgeen onderhandelingsmarge over
-                    prijzen met zich meebrengt. De coördinatie van H16 is
-                    aangenaam voor de aannemer die uitvoert op de site zelf,
-                    waardoor de coördinatiekost van de aannemer daalt. De
-                    coördinatiekost van H16 is geïntegreerd over het volledige
-                    project. <br /> <br />
+                    De expertise van H16 in prijsonderhandeling met aannemers
+                    alsook het vereenvoudigen van de coördinatieopdracht voor de
+                    aannemer zelf levert de klant financieel voordeel op.
+                    <br />
+                    <br />
                     Controle van élke factuur en constante opvolging van het
                     budget zorgen voor het bereiken van de gewenste
                     doelstelling.
