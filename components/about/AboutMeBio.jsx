@@ -18,8 +18,8 @@ function AboutMeBio() {
             Over ons
           </p>
         </div>
-        <div className="block sm:flex sm:gap-10 sm:mt-12 min-h-[60vh] items-center justify-between">
-          <div className="mb-7 sm:mb-0 flex-grow">
+        <div className="block md:flex md:gap-10 md:mt-12 min-h-[60vh] items-center justify-between">
+          <div className="mb-7 md:mb-0 flex-grow">
             <ScrollRotate
               method={"perc"}
               throttle={0.1}
@@ -31,13 +31,17 @@ function AboutMeBio() {
                 src="/images/H16_EMBLEEM_BLAUW.png"
                 width={175}
                 height={175}
-                className="hidden sm:block rounded-sm"
+                className="hidden md:block rounded-sm"
                 alt="Foto H16 Sfeer"
               />
             </ScrollRotate>
           </div>
 
           <div className="font-regular flex flex-col leading-none mx-4 sm:mx-0 text-justify sm:w-3/4 text-left">
+            <div className="text-2xl text-black font-general-medium">
+              Small is beautiful
+            </div>
+            <br />
             <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg">
               H16 is een jong bedrijf met familiale wortels dat ontstaan is uit
               passie voor vastgoed. Deze passie, doorgegeven van generatie op
@@ -49,6 +53,13 @@ function AboutMeBio() {
               </span>
               .
             </p>
+            <br />
+            <br />
+            <br />
+            <div className="text-2xl text-black font-general-medium">
+              Meerwaarde voor uw project
+            </div>
+            <br />
             <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg">
               Met een uitgekiende <span className="font-medium">planning</span>{" "}
               en focus op <span className="font-medium">efficiëntie</span>{" "}
@@ -69,11 +80,9 @@ function AboutMeBio() {
               <span className="font-medium">
                 maatwerk, focus, reactiviteit en feilloze communicatie
               </span>{" "}
-              met{" "}
-              <span className="font-medium">één duidelijk aanspreekpunt</span>.
-              Met de grootste vrijheid en flexibiliteit gaan we samen tot het
-              uiterste om de wensen van de opdrachtgever te detecteren, te
-              realiseren en van elk project{" "}
+              met één duidelijk aanspreekpunt. Met de grootste vrijheid en
+              flexibiliteit gaan we samen tot het uiterste om de wensen van de
+              opdrachtgever te detecteren, te realiseren en van elk project{" "}
               <span className="font-medium">de best mogelijke versie</span> te
               maken.
             </p>
