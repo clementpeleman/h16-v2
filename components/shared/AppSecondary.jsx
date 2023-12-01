@@ -8,9 +8,9 @@ import { FiArrowRight } from "react-icons/fi";
 export class AppSecondary extends Component {
   render() {
     return (
-      <div className=" text-md md:text-xl">
-        <div className="hidden sm:block mb-40 mt-24 text-right">
-          <div className="sm:pt-30 mt-64 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
+      <div className="text-md md:text-xl">
+        <div className=" mb-40 mt-24">
+          <div className="sm:pt-30 mt-32 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
           <div className="mt-12 sm:mt-20 mx-4 sm:mx-0 mb-12 sm:mb-8 flex flex-col sm:flex-row place-content-between">
             <p className="font-general-medium  text-2xl sm:text-4xl sm:mb-2 text-black dark:text-ternary-light">
               Jouw <span className="text-accent">bouwproject</span> onder onze
@@ -19,7 +19,7 @@ export class AppSecondary extends Component {
 
             <Link
               href="/contact"
-              className="font-general-medium inline-block self-center sm:self-auto text-lg text-center max-h-14 xl:max-h-24 border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm rounded-sm mt-10 sm:mt-0 sm:mr-4 lg:mr-16 px-0 sm:px-4 py-3 duration-300 w-48"
+              className="font-general-medium inline-block self-center sm:self-auto text-lg text-center md:max-h-14 xl:max-h-24 border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm rounded-sm mt-10 sm:mt-0 sm:mr-4 lg:mr-16 px-0 sm:px-4 py-3 duration-300 w-48"
               aria-label="Hire Me Button"
             >
               Ontdek meer
@@ -76,13 +76,13 @@ export class AppSecondary extends Component {
             </div>
           </div>
 
-          <div className=" sm:pt-30 sm:mt-20 mb-48 mt-10 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
-          <div className="mb-64">
-            <p className="text-2xl sm:text-4xl mb-5 text-black dark:text-ternary-light font-general-regular">
+          <div className=" sm:pt-30 sm:mt-20 mb-32 mt-10 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
+          <div className="hidden sm:block mb-64">
+            <p className="text-2xl sm:text-4xl mb-5 text-black dark:text-ternary-light text-right font-general-regular">
               De kolibrie als symbool van H16
             </p>
             <div className="flex flex-row items-center justify-between">
-              <div className="flex justify-center flex-grow mr-24">
+              <div className="hidden xl:block flex justify-center flex-grow mr-24">
                 <ScrollRotate
                   method={"perc"}
                   throttle={0.1}

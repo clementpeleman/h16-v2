@@ -25,7 +25,7 @@ function AppBanner() {
           className="md:font-general-regular ml-3 w-5/6 sm:w-full mt-20 md:-mt-5 lg:-mt-26 xl:-mt-32 text-4xl md:text-4xl lg:text-5xl xl:text-7xl text-left sm:text-left leading-normal text-gray-800 dark:text-gray-200"
         >
           <span className=" text-black font-balerno text-[40px] lg:text-[60px] xl:text-[82px]  underline-offset-4 decoration-1 hover:text-accent cursor-pointer">
-            bouwcoördinatie
+            Bouwcoördinatie
           </span>{" "}
           &{" "}
           <span className="text-black font-balerno text-[40px] lg:text-[60px] xl:text-[82px]  underline-offset-4 decoration-1 sm: hover:text-accent cursor-pointer">

@@ -106,7 +106,7 @@ export class ContactBanner extends Component {
               <br />
               <br />
             </p>
-            <ul className="list-decimal list-inside text-accent font-general-medium text-2xl sm:min-w-[115%] sm:ml-[-7%] grid sm:grid-cols-2 grid-cols-2 xl:grid-cols-4 gap-8">
+            <ul className="list-decimal list-inside text-accent font-general-medium text-2xl sm:min-w-[115%] sm:ml-[-7%] grid sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 gap-8">
               <li>
                 <div className="sm:px-8 sm:py-6 p-4 bg-secondary-light shadow-sm">
                   Bepalen juiste doelstelling
