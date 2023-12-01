@@ -38,7 +38,7 @@ function AboutMeBio() {
           </div>
 
           <div className="font-regular flex flex-col leading-none mx-4 sm:mx-0 text-justify sm:w-3/4 text-left">
-            <div className="text-2xl text-black font-general-medium">
+            <div className="text-2xl text-left text-black font-general-medium">
               Small is beautiful
             </div>
             <br />
@@ -56,7 +56,7 @@ function AboutMeBio() {
             <br />
             <br />
             <br />
-            <div className="text-2xl text-black font-general-medium">
+            <div className="text-2xl text-left text-black font-general-medium">
               Meerwaarde voor uw project
             </div>
             <br />
