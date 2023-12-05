@@ -67,17 +67,12 @@ function ProjectsGrid({ projects }) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
-          {/* {selectProject
-					? selectProjectsByCategory.map((project, index) => {
-							return <ProjectSingle key={index} {...project} />;
-					  })
-					: projectsData.map((project, index) => (
-							<ProjectSingle key={index} {...project} />
-					  ))} */}
           {projects &&
-            projects.data.map((project, index) => {
-              return <ProjectSingle key={index} {...project} />;
-            })}
+            projects.data
+              .slice(-3) // This will take the last three projects
+              .map((project, index) => {
+                return <ProjectSingle key={index} {...project} />;
+              })}
         </div>
       </section>
     </div>

@@ -76,8 +76,8 @@ export class AppSecondary extends Component {
             </div>
           </div>
 
-          <div className=" sm:pt-30 sm:mt-20 mb-32 mt-10 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
-          <div className="hidden sm:block mb-64">
+          <div className=" sm:pt-30 sm:mt-20 mb-52 mt-10 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
+          <div className="hidden sm:block mb-72">
             <p className="text-2xl sm:text-4xl mb-5 text-black dark:text-ternary-light text-right font-general-regular">
               De kolibrie als symbool van H16
             </p>
@@ -87,8 +87,8 @@ export class AppSecondary extends Component {
                   method={"perc"}
                   throttle={0.1}
                   animationDuration={0.3}
-                  from={300}
-                  to={850}
+                  from={600}
+                  to={800}
                 >
                   <Image
                     src="/images/H16_EMBLEEM_BLAUW.png"
