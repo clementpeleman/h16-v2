@@ -55,7 +55,7 @@ export class ColabBanner extends Component {
             </ol>
           </div>
           {/* <div className="sm:pt-30 sm:mb-28 mt-24 sm:mt-32 mx-32 border-t-2 border-gray-200"></div> */}
-          <div className="sm:mb-32 sm:mt-36">
+          <div className="sm:mb-32 sm:mt-48">
             <p className=" font-general-medium flex text-2xl sm:text-4xl mt-20 sm:mt-24 text-black dark:text-ternary-light ">
               <FiArrowRight
                 style={{
@@ -64,7 +64,7 @@ export class ColabBanner extends Component {
                   marginTop: 0,
                   marginBottom: 10,
                   marginRight: 10,
-                  color: "grey",
+                  color: "#0E468C",
                 }}
               />
               Uw voordeel?
