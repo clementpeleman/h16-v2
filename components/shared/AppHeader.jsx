@@ -123,13 +123,13 @@ function AppHeader() {
             </Link>
           </div>
           <div className="block text-left text-lg text-primary-dark dark:text-ternary-light hover:text-secondary-dark dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2 border-t-2 pt-3 lg:pt-2 lg:border-t-0 border-primary-light dark:border-secondary-dark">
-            <Link onClick={toggleMenu} href="/gallery" aria-label="Galerij">
-              Galerij
+            <Link onClick={toggleMenu} href="/colab" aria-label="Samenwerken">
+              Samenwerken
             </Link>
           </div>
           <div className="block text-left text-lg text-primary-dark dark:text-ternary-light hover:text-secondary-dark dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2 border-t-2 pt-3 lg:pt-2 lg:border-t-0 border-primary-light dark:border-secondary-dark">
-            <Link onClick={toggleMenu} href="/contact" aria-label="Samenwerken">
-              Samenwerken
+            <Link onClick={toggleMenu} href="/contact" aria-label="Contact">
+              Contact
             </Link>
           </div>
           <div className="border-t-2 pt-3 lg:pt-0 lg:border-t-0 border-primary-light dark:border-secondary-dark">
@@ -157,18 +157,17 @@ function AppHeader() {
           >
             <Link href="/about">Over ons</Link>
           </div>
-
-          <div
-            className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
-            aria-label="Galerij"
-          >
-            <Link href="/gallery">Galerij</Link>
-          </div>
           <div
             className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
             aria-label="Samenwerken"
           >
-            <Link href="/contact">Samenwerken</Link>
+            <Link href="/colab">Samenwerken</Link>
+          </div>
+          <div
+            className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
+            aria-label="Contact"
+          >
+            <Link href="/contact">Contact</Link>
           </div>
         </div>
 

@@ -22,7 +22,7 @@ function ContactDetails() {
   return (
     <div className="w-full lg:w-1/2">
       <div className="text-left max-w-xl px-6">
-        <h2 className="font-general-medium text-2xl mt-12  mb-8">
+        <h2 className="font-general-medium text-2xl mt-6 sm:mt-12  mb-8">
           Contact details
         </h2>
         <ul>

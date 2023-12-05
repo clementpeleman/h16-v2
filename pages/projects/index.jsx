@@ -9,7 +9,7 @@ function index({ projects }) {
     <div className="container mx-auto">
       <PagesMetaHead title="Projects" />
 
-      <section className="py-5 mx-3 sm:pt-10 mt-6 sm:mt-8">
+      <section className="py-5 mx-3 sm:mx-0 sm:pt-10 mt-6 sm:mt-8">
         <div className="max-w-[70%] text-left">
           <p className=" font-general-medium text-2xl sm:text-4xl mb-8 text-black dark:text-ternary-light ">
             Onze realisaties
