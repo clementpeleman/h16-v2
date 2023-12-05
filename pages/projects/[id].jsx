@@ -80,23 +80,28 @@ function ProjectSingle(props) {
             </ul>
           </div>
 
-          {/* Single project social sharing */}
           <div>
-            <p className="font-general-regular text-2xl sm:text-3xl font-semibold text-primary-dark mt-2">
-              Externe link
-            </p>
-            <div className="flex items-center inline whitespace-initial break-all gap-3 mt-5">
-              <Link
-                key={props.project.id}
-                href={props.project.attributes.externe_link}
-                target="__blank"
-                passHref={true}
-                aria-label="Share Project"
-                className="bg-ternary-light dark:bg-ternary-dark text-gray-400 hover:text-primary-dark dark:hover:text-primary-light p-2 rounded-lg shadow-sm duration-500"
-              >
-                {props.project.attributes.externe_link}
-              </Link>
-            </div>
+            {props.project.attributes.externe_link ? (
+              <div>
+                <p className="font-general-regular text-2xl sm:text-3xl font-semibold text-primary-dark mt-2">
+                  Externe link
+                </p>
+                <div className="flex items-center inline whitespace-initial break-all gap-3 mt-5">
+                  <Link
+                    key={props.project.id}
+                    href={props.project.attributes.externe_link}
+                    target="__blank"
+                    passHref={true}
+                    aria-label="Share Project"
+                    className="bg-ternary-light dark:bg-ternary-dark text-gray-400 hover:text-primary-dark dark:hover:text-primary-light p-2 rounded-lg shadow-sm duration-500"
+                  >
+                    {props.project.attributes.externe_link}
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
 
