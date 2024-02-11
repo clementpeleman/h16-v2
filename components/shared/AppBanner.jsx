@@ -24,18 +24,18 @@ function AppBanner() {
             duration: 0.7,
             delay: 0.3,
           }}
-          className="font-balerno text-[38px] sm:text-[36px] md:text-[46px] lg:text-[60px] xl:text-[76px]  ml-3 w-5/6 sm:w-full mt-32 md:-mt-5 lg:-mt-26 xl:-mt-24  text-left sm:text-left leading-normal "
+          className="font-balerno text-[9vw] sm:text-[36px] md:text-[46px] lg:text-[68px] xl:text-[70px]  ml-3 w-5/6 sm:w-full mt-32 md:-mt-5 lg:-mt-26 xl:-mt-24  text-left sm:text-left leading-normal "
         >
           <Link
             href="/colab"
-            className=" text-black font-balerno text-[38px] sm:text-[36px] md:text-[46px] lg:text-[60px] xl:text-[76px]  underline-offset-4 decoration-1 hover:text-accent cursor-pointer"
+            className=" text-black font-balerno text-[10vw] sm:text-[36px] md:text-[52px] lg:text-[72px] xl:text-[82px]  underline-offset-4 decoration-1 hover:text-accent cursor-pointer"
           >
             Bouwcoördinatie
           </Link>{" "}
           &{" "}
           <Link
             href="/colab"
-            className="text-black font-balerno text-[38px] sm:text-[36px] md:text-[46px] lg:text-[60px] xl:text-[76px]  underline-offset-4 decoration-1 sm: hover:text-accent cursor-pointer"
+            className="text-black font-balerno text-[10vw] sm:text-[36px] md:text-[52px] lg:text-[72px] xl:text-[82px]  underline-offset-4 decoration-1 sm: hover:text-accent cursor-pointer"
           >
             Projectontwikkeling
           </Link>
@@ -55,7 +55,7 @@ function AppBanner() {
         method={"perc"}
         throttle={0.1}
         animationDuration={0.3}
-        from={3}
+        from={0}
         to={-45}
       >
         <motion.div

@@ -2,8 +2,9 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/login',
-        destination: 'https://monkfish-app-9r4qk.ondigitalocean.app/admin',
+        source: "/login",
+        destination:
+          "http://ec2-13-39-162-105.eu-west-3.compute.amazonaws.com:1337/admin",
         permanent: true,
       },
     ];
@@ -12,11 +13,11 @@ module.exports = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'monkfish-app-9r4qk.ondigitalocean.app',
-        port: '',
-        pathname: '/**',
+        protocol: "http",
+        hostname: "ec2-13-39-162-105.eu-west-3.compute.amazonaws.com",
+        port: "1337",
+        pathname: "/**",
       },
     ],
   },
-}
+};
