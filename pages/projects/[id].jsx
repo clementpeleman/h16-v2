@@ -29,7 +29,7 @@ function ProjectSingle(props) {
                   process.env.NEXT_PUBLIC_STRAPI_ASSET_URL +
                   project.attributes.url
                 }
-                className=" cursor-pointer shadow-lg sm:shadow-none"
+                className="sm:hover:scale-[1.4] transistion ease-in-out delay-150 duration-300 shadow-lg"
                 alt={project.name}
                 key={project.id}
                 layout="responsive"
