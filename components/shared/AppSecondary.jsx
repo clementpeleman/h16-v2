@@ -9,7 +9,7 @@ export class AppSecondary extends Component {
   render() {
     return (
       <div className="text-md md:text-xl">
-        <div className=" mb-40 mt-24">
+        <div className="mt-10 sm:mb-40 sm:mt-24">
           <div className="sm:pt-30 mt-32 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
           <div className="mt-12 sm:mt-20 mx-4 sm:mx-0 mb-12 sm:mb-8 flex flex-col sm:flex-row place-content-between">
             <p className="font-general-medium  text-2xl sm:text-4xl sm:mb-2 text-black dark:text-ternary-light">
@@ -18,7 +18,7 @@ export class AppSecondary extends Component {
             </p>
 
             <Link
-              href="/contact"
+              href="/colab"
               className="font-general-medium inline-block self-center sm:self-auto text-lg text-center md:max-h-14 xl:max-h-24 border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm rounded-sm mt-10 sm:mt-0 sm:mr-4 lg:mr-16 px-0 sm:px-4 py-3 duration-300 w-48"
               aria-label="Hire Me Button"
             >
@@ -26,8 +26,14 @@ export class AppSecondary extends Component {
             </Link>
           </div>
           <div className="hidden sm:block max-w-[620px] md:max-w-[1060px] text-justify text-gray-500 text-xl">
-            Gedreven door passie voor vastgoed en middels degelijke
-            samenwerkingen neemt H16 uw vastgoedproject onder de vleugels.
+            Er bestaat er een mooie symboliek rond dit bijzondere vogeltje: in
+            eeuwenoude culturen werd hij gezien als de boodschapper van liefde
+            en vreugde. Hij heeft speciale gaven die hij weet te gebruiken om
+            zijn doelen te bereiken en onderscheidt zich daarmee van de rest.
+            Zijn uitstekend vliegvermogen is uniek: hij beweegt in alle
+            richtingen, vliegt ook ter plaatse én achterwaarts, is razendsnel en
+            heeft een bijzonder reactievermogen. Met het flapperen van zijn
+            vleugels worden ongeziene frequenties bereikt. Dit inspireert H16.
             <br />
             <br />
             {/* <span className="font-general-medium text-3xl text-black">
@@ -76,27 +82,19 @@ export class AppSecondary extends Component {
             </div>
           </div>
 
-          <div className=" sm:pt-30 sm:mt-20 mb-52 mt-10 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
+          <div className=" sm:pt-30 sm:mt-20 mb-40 sm:mb-52 mt-10 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
           <div className="hidden sm:block mb-72">
             <p className="text-2xl sm:text-4xl mb-5 text-black dark:text-ternary-light text-right font-general-regular">
               De kolibrie als symbool van H16
             </p>
             <div className="flex flex-row items-center justify-between">
               <div className="hidden xl:block flex justify-center flex-grow mr-24">
-                <ScrollRotate
-                  method={"perc"}
-                  throttle={0.1}
-                  animationDuration={0.3}
-                  from={600}
-                  to={800}
-                >
-                  <Image
-                    src="/images/H16_EMBLEEM_BLAUW.png"
-                    width={100}
-                    height={100}
-                    alt="H16 Vogel"
-                  />
-                </ScrollRotate>
+                <Image
+                  src="/images/H16_EMBLEEM_BLAUW.png"
+                  width={120}
+                  height={120}
+                  alt="H16 Vogel"
+                />
               </div>
               <div className="max-w-[620px] md:max-w-[1115px] text-justify self-end text-gray-500">
                 <span className="">

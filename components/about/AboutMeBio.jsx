@@ -25,7 +25,7 @@ function AboutMeBio() {
               throttle={0.1}
               animationDuration={0.3}
               from={-10}
-              to={75}
+              to={55}
             >
               <Image
                 src="/images/H16_EMBLEEM_BLAUW.png"
@@ -42,16 +42,10 @@ function AboutMeBio() {
               Small is beautiful
             </div>
             <br />
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg">
+            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
               H16 is een jong bedrijf met familiale wortels dat ontstaan is uit
               passie voor vastgoed. Deze passie, doorgegeven van generatie op
-              generatie, wordt binnen H16 in de{" "}
-              <span className="font-medium">praktijk</span> ingezet om het
-              bouwproces{" "}
-              <span className="font-medium">
-                te stroomlijnen en te coördineren
-              </span>
-              .
+              generatie, is binnen H16 de drijvende kracht van élke dag.
             </p>
             <br />
             <br />
@@ -60,7 +54,7 @@ function AboutMeBio() {
               Meerwaarde voor uw project
             </div>
             <br />
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg">
+            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
               Met een uitgekiende <span className="font-medium">planning</span>{" "}
               en focus op <span className="font-medium">efficiëntie</span>{" "}
               worden de <span className="font-medium">kwaliteit</span>, het{" "}
@@ -68,7 +62,7 @@ function AboutMeBio() {
               <span className="font-medium">doorlooptijd</span> van een
               bouwproject geoptimaliseerd.
             </p>
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg">
+            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
               Daarvoor werkt H16 uitsluitend met betrouwbare vakmannen. Duurzame
               professionele relaties waar zowel H16 als de vakmannen eer
               uithalen, zijn ons ultieme streefdoel. Dankzij de ervaring en
@@ -76,23 +70,13 @@ function AboutMeBio() {
               ontstaan. Dit geheel wordt telkens specifiek op maat van de
               persoonlijke wensen van de klant/opdrachtgever en elk uniek
               project afgestemd. De kleinschaligheid van H16 doet ruimte
-              ontstaan voor{" "}
-              <span className="font-medium">
-                maatwerk, focus, reactiviteit en feilloze communicatie
-              </span>{" "}
-              met één duidelijk aanspreekpunt. Met de grootste vrijheid en
-              flexibiliteit gaan we samen tot het uiterste om de wensen van de
-              opdrachtgever te detecteren, te realiseren en van elk project{" "}
+              ontstaan voor maatwerk, focus, reactiviteit en feilloze
+              communicatie met één duidelijk aanspreekpunt. Met de grootste
+              vrijheid en flexibiliteit gaan we samen tot het uiterste om de
+              wensen van de opdrachtgever te detecteren, te realiseren en van
+              elk project{" "}
               <span className="font-medium">de best mogelijke versie</span> te
               maken.
-            </p>
-            <br />
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg">
-              H16 wordt geleid door{" "}
-              <span className="font-medium">Gilles De Brabander</span> en{" "}
-              <span className="font-medium">Elena Versyp</span>. Naast
-              professionele partners vormen Gilles en Elena ook in het dagelijks
-              leven een sterke tandem.
             </p>
             <br />
           </div>

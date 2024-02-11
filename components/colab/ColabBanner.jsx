@@ -18,20 +18,20 @@ export class ColabBanner extends Component {
           <br />
           <div>
             <ol className="list-none list-inside space-y-8 ">
-              <div className="grid sm:grid-cols-2 gap-4 items-start">
-                <li className="font-general-medium hover:z-50 row-span-2 text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-primary bg-opacity-95 text-white dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
+              <div className="grid sm:grid-cols-1 gap-4 items-start">
+                <li className="font-general-medium hover:z-50  text-xl hover:text-accent max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-200 shadow-sm ">
                   Bouwcoördinatie
-                  <div className=" font-general-regular text-white text-lg mt-2 ml-4">
+                  <div className=" font-general-regular text-black text-lg mt-2 ml-4">
                     Op zoek naar een zeer concrete hulp bij de effectieve
                     uitvoering? <br />
                     Wij coördineren uw vastgoedproject met de grootste zorg:
-                    <ol className="  list-inside mt-4">
-                      <li>- Nieuwbouw en renovatie</li>
-                      <li>- Klein en groot</li>
-                      <li>- Van A tot Z of van A naar B</li>
-                      <li>- Zowel residentiële als commerciële projecten</li>
-                      <li>- Zowel werken met als zonder architect</li>
-                      <li>- Interieuradvies</li>
+                    <ol className="ml-4  list-inside mt-4">
+                      <li>Nieuwbouw en renovatie</li>
+                      <li>Klein en groot</li>
+                      <li>Van A tot Z of van A naar B</li>
+                      <li>Zowel residentiële als commerciële projecten</li>
+                      <li>Zowel werken met als zonder architect</li>
+                      <li>Interieuradvies</li>
                     </ol>
                   </div>
                 </li>
@@ -53,6 +53,29 @@ export class ColabBanner extends Component {
                 </li>
               </div>
             </ol>
+            <div className="sm:mb-24 mb-24 mt-24 sm:mt-24 "></div>
+            <div className=" flex justify-center">
+              <ol className="list-none list-inside space-y-8 max-w-6xl mb-6">
+                <div className="grid sm:grid-cols-2 gap-4 items-start">
+                  <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
+                    Ben je architect?
+                    <p className=" font-general-regular text-black text-lg mt-2 ml-4">
+                      Een bouwproces is intensief en tijdrovend. Wil je je als
+                      architect focussen op ontwerp? Dan nemen wij graag een
+                      deel van het uitvoerend werk uit handen.
+                    </p>
+                  </li>
+                  <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm ">
+                    Ben je aannemer?
+                    <p className=" font-general-regular text-black text-lg mt-2 ml-4">
+                      We slaan graag de handen in elkaar met kwalitatieve
+                      aannemers voor een duurzame relatie waarbij
+                      klantgerichtheid en kwaliteit centraal staan.
+                    </p>
+                  </li>
+                </div>
+              </ol>
+            </div>
           </div>
           {/* <div className="sm:pt-30 sm:mb-28 mt-24 sm:mt-32 mx-32 border-t-2 border-gray-200"></div> */}
           <div className="sm:mb-32 sm:mt-48">
@@ -142,29 +165,6 @@ export class ColabBanner extends Component {
                 </div>
               </li>
             </ul>
-          </div>
-          <div className="sm:mb-24 mb-24 mt-24 sm:mt-24  border-t-2 border-gray-200"></div>
-          <div className=" flex justify-center">
-            <ol className="list-none list-inside space-y-8 max-w-6xl mb-6">
-              <div className="grid sm:grid-cols-2 gap-4 items-start">
-                <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
-                  Ben je architect?
-                  <p className=" font-general-regular text-black text-lg mt-2 ml-4">
-                    Een bouwproces is intensief en tijdrovend. Wil je je als
-                    architect focussen op ontwerp? Dan nemen wij graag een deel
-                    van het uitvoerend werk uit handen.
-                  </p>
-                </li>
-                <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm ">
-                  Ben je aannemer?
-                  <p className=" font-general-regular text-black text-lg mt-2 ml-4">
-                    We slaan graag de handen in elkaar met kwalitatieve
-                    aannemers voor een duurzame relatie waarbij klantgerichtheid
-                    en kwaliteit centraal staan.
-                  </p>
-                </li>
-              </div>
-            </ol>
           </div>
         </section>
       </div>
