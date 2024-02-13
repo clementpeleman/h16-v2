@@ -13,7 +13,7 @@ function AppBanner() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 0.9, delay: 0.2 }}
-      className="flex flex-col min-h-[80vh] sm:justify-between  items-center sm:flex-row sm:my-10 sm:mb-20"
+      className="flex flex-col min-h-[80vh] sm:justify-between items-center sm:flex-row sm:my-10 sm:mb-20"
     >
       <div className="w-full sm:w-4/6">
         <motion.p
@@ -51,26 +51,28 @@ function AppBanner() {
           className="flex justify-center sm:block"
         ></motion.div>
       </div>
-      <ScrollRotate
-        method={"perc"}
-        throttle={0.1}
-        animationDuration={0.3}
-        from={0}
-        to={-45}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 130 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ease: "easeInOut", duration: 0.9, delay: 0.1 }}
-          className="w-full p-16 mt-20 p-10 sm:p-0 sm:pl-28 md:pl-12 lg:pl-20 2xl:pl-64 text-right float-right mt-10 md:mt-0 "
+      <div className="w-3/4">
+        <ScrollRotate
+          method={"perc"}
+          throttle={0}
+          animationDuration={0.3}
+          from={0}
+          to={-45}
         >
-          <img
-            layout="responsive"
-            src={"/images/H16_EMBLEEM_BLAUW.png"}
-            alt="Kolibri"
-          />
-        </motion.div>
-      </ScrollRotate>
+          <motion.div
+            initial={{ opacity: 0, y: 130 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ease: "easeInOut", duration: 0.9, delay: 0.1 }}
+            className="w-full mt-20 sm:p-0 sm:pl-28 md:pl-12 lg:pl-20 2xl:pl-64 text-center float-center mt-10 md:mt-0 "
+          >
+            <img
+              layout="responsive"
+              src={"/images/H16_EMBLEEM_BLAUW.png"}
+              alt="Kolibri"
+            />
+          </motion.div>
+        </ScrollRotate>
+      </div>
     </motion.section>
   );
 }
