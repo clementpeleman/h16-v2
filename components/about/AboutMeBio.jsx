@@ -14,12 +14,12 @@ function AboutMeBio() {
 
       <section className="pt-5 sm:pt-10 mt-6 sm:mt-8">
         <div className="max-w-[70%] text-left">
-          <p className=" font-general-medium text-2xl sm:text-4xl text-black dark:text-ternary-light ">
+          <p className="mb-8 sm:mb-0 font-general-medium text-2xl sm:text-4xl text-black dark:text-ternary-light ">
             Over ons
           </p>
         </div>
         <div className="block md:flex md:gap-10 md:mt-12 min-h-[60vh] items-center justify-between">
-          <div className="mb-7 md:mb-0 flex-grow">
+          <div className="hidden md:block mb-7 md:mb-0 flex-grow">
             <ScrollRotate
               method={"perc"}
               throttle={0.1}
@@ -31,7 +31,7 @@ function AboutMeBio() {
                 src="/images/H16_EMBLEEM_BLAUW.png"
                 width={175}
                 height={175}
-                className="hidden md:block rounded-sm"
+                className=" rounded-sm"
                 alt="Foto H16 Sfeer"
               />
             </ScrollRotate>
