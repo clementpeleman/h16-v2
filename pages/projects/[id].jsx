@@ -20,10 +20,11 @@ function ProjectSingle(props) {
       </div>
 
       {/* Gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-10 mt-12">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-10 mt-12"> */}
+      <div className="columns-3 sm:gap-10 mt-12">
         {props.project.attributes.afbeeldingen.data.map((project) => {
           return (
-            <div className="mb-10 sm:mb-0" key={project.id}>
+            <div className="mb-10" key={project.id}>
               <Image
                 src={
                   process.env.NEXT_PUBLIC_STRAPI_ASSET_URL +
