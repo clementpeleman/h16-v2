@@ -26,7 +26,7 @@ export class AppSecondary extends Component {
             </Link>
           </div>
           <div className="hidden sm:block max-w-[620px] md:max-w-[1060px] text-justify text-gray-500 text-xl">
-            Er bestaat er een mooie symboliek rond dit bijzondere vogeltje: in
+            Er bestaat een mooie symboliek rond dit bijzondere vogeltje: in
             eeuwenoude culturen werd hij gezien als de boodschapper van liefde
             en vreugde. Hij heeft speciale gaven die hij weet te gebruiken om
             zijn doelen te bereiken en onderscheidt zich daarmee van de rest.
