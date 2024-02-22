@@ -70,13 +70,22 @@ function ProjectSingle(props) {
                 </a>
                 <br />
                 <span className="font-general-medium">Status: </span>
-                {props.project.attributes.status.data[0].attributes.Type}
+                {props.project.attributes.status.data.length > 0
+                  ? props.project.attributes.status.data[0].attributes.Type
+                  : "-"}
+
                 <br />
                 <span className="font-general-medium">Jaar: </span>
-                {props.project.attributes.publishedAt.substring(0, 4)}
+                {props.project.attributes.publishedAt
+                  ? props.project.attributes.publishedAt.substring(0, 4)
+                  : "-"}
                 <br />
                 <span className="font-general-medium">Samenwerking: </span>
-                {props.project.attributes.samenwerkings.data[0].attributes.Naam}
+                {props.project.attributes.samenwerkings.data.length > 0
+                  ? props.project.attributes.samenwerkings.data
+                      .map((item) => item.attributes.Naam)
+                      .join(", ")
+                  : "Geen samenwerkingen beschikbaar"}
               </li>
             </ul>
           </div>
