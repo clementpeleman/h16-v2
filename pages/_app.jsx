@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import UseScrollToTop from "../hooks/useScrollToTop";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -11,6 +12,7 @@ function MyApp({ Component, pageProps }) {
         <DefaultLayout>
           <Component {...pageProps} />
           <Analytics />
+          <SpeedInsights />
         </DefaultLayout>
         <UseScrollToTop />
       </div>
