@@ -70,6 +70,7 @@ function ProjectsGrid({ projects }) {
           {projects &&
             projects.data
               .slice(-3) // This will take the last three projects
+              .reverse()
               .map((project, index) => {
                 return <ProjectSingle key={index} {...project} />;
               })}

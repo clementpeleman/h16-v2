@@ -40,7 +40,7 @@ function index({ projects }) {
 							<ProjectSingle key={index} {...project} />
 					  ))} */}
           {projects &&
-            projects.data.map((project, index) => {
+            projects.data.reverse().map((project, index) => {
               return <ProjectSingle key={index} {...project} />;
             })}
         </div>
