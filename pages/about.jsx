@@ -49,6 +49,7 @@ export async function getStaticProps() {
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/samenwerkingen?populate=*`
   );
   return {
+    revalidate: 10,
     props: {
       samenwerkingen: samenwerkingResponse,
     },
