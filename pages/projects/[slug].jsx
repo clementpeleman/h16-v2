@@ -186,6 +186,7 @@ export async function getStaticProps(context) {
   const negprojectFilter = removeObjectWithId(projectsResponse.data, slug);
 
   return {
+    revalidate: 10,
     props: {
       project: projectFilter,
       related: negprojectFilter,
