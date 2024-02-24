@@ -7,7 +7,6 @@ import { fetcher } from "../lib/api";
 import AppSecondary from "../components/shared/AppSecondary";
 
 export default function Home({ projecten }) {
-  console.log(projecten);
   return (
     <div className="container mx-auto">
       <PagesMetaHead title="H16 Vastgoedontwikkeling" />

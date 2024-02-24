@@ -7,7 +7,7 @@ import { fetcher } from "../../lib/api";
 import Link from "next/link";
 import AboutClientSingle from "../../components/about/AboutClientSingle";
 
-function ProjectSingle(props) {
+function Project(props) {
   return (
     <div className="container mx-auto">
       <PagesMetaHead title={props.project.attributes.naam} />
@@ -166,17 +166,18 @@ export async function getStaticPaths() {
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps(context) {
   const { params } = context;
   const slug = params.slug;
-  console.log(slug);
 
   const projectsResponse = await fetcher(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=*`
   );
+
+  console.log(projectsResponse);
 
   const projectFilter = projectsResponse.data.filter(
     (project) => project.attributes.slug === slug
@@ -192,4 +193,4 @@ export async function getStaticProps(context) {
   };
 }
 
-export default ProjectSingle;
+export default Project;

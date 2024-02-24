@@ -32,7 +32,13 @@ export default function gallery({ Galerij }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-3  sm:gap-10">
           {Galerij.data.attributes.gallery.data.map((afbeelding, index) => {
-            return <GallerySingle key={index} {...afbeelding} />;
+            // Voeg een voorwaardelijke verklaring toe om te controleren of de afbeelding beschikbaar is
+            if (afbeelding) {
+              return <GallerySingle key={index} {...afbeelding} />;
+            } else {
+              // Je kunt hier ook een fallback toevoegen voor het geval dat de afbeelding niet beschikbaar is
+              return <p key={index}>Afbeelding niet beschikbaar</p>;
+            }
           })}
         </div>
       </section>
@@ -44,6 +50,8 @@ export async function getStaticProps() {
   const galleryResponse = await fetcher(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/gallerij?populate=*`
   );
+  console.log("galerij");
+  console.log(galleryResponse);
   return {
     props: {
       Galerij: galleryResponse,
