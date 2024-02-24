@@ -161,27 +161,28 @@ export async function getStaticPaths() {
 
   // Get the paths we want to pre-render based on posts
   const paths = posts.data.map((post) => ({
-    params: { id: post.id.toString() },
+    params: { slug: post.attributes.slug },
   }));
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps(context) {
   const { params } = context;
-  const id = params.id;
+  const slug = params.slug;
+  console.log(slug);
 
   const projectsResponse = await fetcher(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=*`
   );
 
   const projectFilter = projectsResponse.data.filter(
-    (project) => project.id === parseInt(id)
+    (project) => project.attributes.slug === slug
   )[0];
 
-  const negprojectFilter = removeObjectWithId(projectsResponse.data, id);
+  const negprojectFilter = removeObjectWithId(projectsResponse.data, slug);
 
   return {
     props: {

@@ -16,8 +16,11 @@ const ProjectSingle = (props) => {
       }}
     >
       <Link
-        href="/projects/[id]"
-        as={"/projects/" + props.id}
+        href={{
+          pathname: "/projects/[slug]",
+          query: { slug: props.attributes.slug },
+        }}
+        as={"/projects/" + props.attributes.slug}
         aria-label="Single Project"
         passHref
       >
