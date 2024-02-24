@@ -27,7 +27,7 @@ function about(samenwerkingen) {
         exit={{ opacity: 0 }}
       >
         <AboutCounter />
-        <AboutCTA/>
+        <AboutCTA />
       </motion.div>
 
       {/* <motion.div
@@ -44,7 +44,7 @@ function about(samenwerkingen) {
 
 export default about;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const samenwerkingResponse = await fetcher(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/samenwerkingen?populate=*`
   );

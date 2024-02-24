@@ -24,7 +24,7 @@ function AppBanner() {
             duration: 0.7,
             delay: 0.3,
           }}
-          className="font-balerno text-[9vw] sm:text-[5vw] md:text-[46px] lg:text-[68px] xl:text-[70px]  ml-3 w-5/6 w-full mt-32 md:-mt-5 lg:-mt-26 xl:-mt-24 sm:text-left leading-normal "
+          className="font-balerno text-[9vw] sm:text-[5vw] md:text-[46px] lg:text-[68px] xl:text-[70px]  ml-3 w-5/6 w-full mt-24 md:-mt-5 lg:-mt-26 xl:-mt-24 sm:text-left leading-normal "
         >
           <Link
             href="/colab"
@@ -63,7 +63,7 @@ function AppBanner() {
             initial={{ opacity: 0, y: 130 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: "easeInOut", duration: 0.9, delay: 0.1 }}
-            className="w-full mt-20 sm:p-0 sm:pl-28 md:pl-12 lg:pl-20 2xl:pl-64 text-center float-center mt-10 md:mt-0 "
+            className="w-full mt-[15vh] sm:p-0 sm:pl-28 md:pl-12 lg:pl-20 2xl:pl-64 text-center float-center md:mt-0 "
           >
             <img
               layout="responsive"

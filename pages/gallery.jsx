@@ -40,7 +40,7 @@ export default function gallery({ Galerij }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const galleryResponse = await fetcher(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/gallerij?populate=*`
   );

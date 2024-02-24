@@ -152,8 +152,27 @@ function removeObjectWithId(arr, id) {
   return arrCopy;
 }
 
-export async function getServerSideProps({ query }) {
-  const { id } = query;
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=*`
+  );
+  const posts = await res.json();
+
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.data.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps(context) {
+  const { params } = context;
+  const id = params.id;
+
   const projectsResponse = await fetcher(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=*`
   );
