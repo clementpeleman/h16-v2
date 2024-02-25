@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiSun, FiMoon, FiX, FiMenu } from "react-icons/fi";
 import HireMeModal from "../HireMeModal";
@@ -55,7 +55,10 @@ function AppHeader() {
                   width={150}
                   height={130}
                   priority
-                />
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               ) : (
                 <Image
                   src={logo}
@@ -63,7 +66,10 @@ function AppHeader() {
                   alt="Dark Logo"
                   width={150}
                   height={130}
-                />
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               )}
             </Link>
           </div>

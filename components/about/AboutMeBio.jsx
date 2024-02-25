@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { useState } from "react";
 import { aboutMeData } from "../../data/aboutMeData";
 import { ScrollRotate } from "react-scroll-rotate";
@@ -33,7 +33,10 @@ function AboutMeBio() {
                 height={175}
                 className=" rounded-sm"
                 alt="Foto H16 Sfeer"
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </ScrollRotate>
           </div>
 

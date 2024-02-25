@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 
 const imageStyle = { maxWidth: "100%", height: "auto" };
@@ -24,10 +24,13 @@ const GallerySingle = (props) => {
             }
             className=" border-none"
             alt="Gallerij afbeelding"
-            layout="responsive"
             width={100}
             height={90}
-          />
+            sizes="100vw"
+            style={{
+              width: "100%",
+              height: "auto"
+            }} />
         </div>
         <div className="text-left pb-3 pt-2">
           <p className="font-general-medium text-lg md:text-xl text-ternary-dark dark:text-ternary-light ">

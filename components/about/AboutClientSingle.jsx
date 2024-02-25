@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 function AboutClientSingle({ title, image }) {
   return (
@@ -7,8 +7,12 @@ function AboutClientSingle({ title, image }) {
         src={image}
         fill={true}
         sizes="100%"
-        style={{ objectFit: "scale-down", filter: "opacity(0.9)" }}
-      />
+        style={{
+          objectFit: "scale-down",
+          filter: "opacity(0.9)",
+          maxWidth: "100%",
+          height: "auto"
+        }} />
     </div>
   );
 }

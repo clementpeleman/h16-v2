@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { Component } from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { ScrollRotate } from "react-scroll-rotate";
 import { TypeAnimation } from "react-type-animation";
 import { FiArrowRight } from "react-icons/fi";
@@ -94,7 +94,10 @@ export class AppSecondary extends Component {
                   width={120}
                   height={120}
                   alt="H16 Vogel"
-                />
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               </div>
               <div className="max-w-[620px] md:max-w-[1115px] text-justify self-end text-gray-500">
                 <span className="">

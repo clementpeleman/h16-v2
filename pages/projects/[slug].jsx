@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { FiClock, FiTag } from "react-icons/fi";
 import PagesMetaHead from "../../components/PagesMetaHead";
 import { projectsData } from "../../data/projectsData";
@@ -33,10 +33,13 @@ function Project(props) {
                 className="sm:hover:scale-[1.4] transistion ease-in-out delay-150 duration-300 shadow-lg"
                 alt={project.name}
                 key={project.id}
-                layout="responsive"
                 width={100}
                 height={90}
-              />
+                sizes="100vw"
+                style={{
+                  width: "100%",
+                  height: "auto"
+                }} />
             </div>
           );
         })}
