@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { Component } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ScrollRotate } from "react-scroll-rotate";
 import { TypeAnimation } from "react-type-animation";
 import { FiArrowRight } from "react-icons/fi";
