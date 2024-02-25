@@ -117,7 +117,7 @@ function Project(props) {
 
         {/*  Single project right section details */}
         <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0">
-          <p className="text-primary-dark dark:text-primary-light text-2xl sm:text-3xl font-general-medium  mb-7">
+          <p className="text-primary-dark text-justify dark:text-primary-light text-2xl sm:text-3xl font-general-medium  mb-7">
             Beschrijving
           </p>
           <p>{props.project.attributes.beschrijving}</p>
@@ -139,7 +139,7 @@ function Project(props) {
 			</div>
 		</div> */}
 
-      <RelatedProjects props={props.related} />
+      {/* <RelatedProjects props={props.related} /> */}
     </div>
   );
 }
@@ -186,7 +186,7 @@ export async function getStaticProps(context) {
   const negprojectFilter = removeObjectWithId(projectsResponse.data, slug);
 
   return {
-    revalidate: 10,
+    revalidate: 1,
     props: {
       project: projectFilter,
       related: negprojectFilter,

@@ -53,7 +53,7 @@ export async function getStaticProps() {
   console.log("galerij");
   console.log(galleryResponse);
   return {
-    revalidate: 10,
+    revalidate: 1,
     props: {
       Galerij: galleryResponse,
     },
