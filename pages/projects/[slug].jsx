@@ -116,8 +116,8 @@ function Project(props) {
         </div>
 
         {/*  Single project right section details */}
-        <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0">
-          <p className="text-primary-dark text-justify dark:text-primary-light text-2xl sm:text-3xl font-general-medium  mb-7">
+        <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0 text-justify">
+          <p className="text-primary-dark dark:text-primary-light text-2xl sm:text-3xl font-general-medium  mb-7">
             Beschrijving
           </p>
           <p>{props.project.attributes.beschrijving}</p>
