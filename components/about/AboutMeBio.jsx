@@ -9,17 +9,17 @@ import { FiArrowRight } from "react-icons/fi";
 function AboutMeBio() {
   const [aboutMe, setAboutMe] = useState(aboutMeData);
   return (
-    <div className="container sm:px-0">
+    <div className="container px-6 sm:px-4">
       <PagesMetaHead title="Over ons" />
 
-      <section className="pt-5 sm:pt-10 mt-6 sm:mt-8">
+      <section className="pt-5 sm:pt-10 mt-8">
         <div className="max-w-[70%] text-left">
-          <p className="mb-8 sm:mb-0 font-general-medium text-2xl sm:text-4xl text-black dark:text-ternary-light ">
+          <p className="font-general-medium text-4xl text-black dark:text-ternary-light ">
             Over ons
           </p>
         </div>
-        <div className="block md:flex md:gap-10 md:mt-12 min-h-[60vh] items-center justify-between">
-          <div className="hidden md:block mb-7 md:mb-0 flex-grow">
+        <div className="block md:flex md:gap-10 mt-8 md:mt-12 min-h-[60vh] items-center justify-between">
+          <div className="hidden lg:block mb-7 md:mb-0 flex-grow">
             <ScrollRotate
               method={"perc"}
               throttle={0.1}
@@ -40,11 +40,11 @@ function AboutMeBio() {
             </ScrollRotate>
           </div>
 
-          <div className="font-regular flex flex-col leading-none mx-4 sm:mx-0 text-justify sm:w-3/4 text-left">
-            <div className="text-2xl text-left text-black font-general-medium">
+          <div className="font-regular flex flex-col leading-none mx-0 text-justify lg:w-3/4 text-left">
+            <div className="text-2xl mb-2 text-left text-black font-general-medium">
               Small is beautiful
             </div>
-            <br />
+            
             <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
               H16 is een jong bedrijf met familiale wortels dat ontstaan is uit
               passie voor vastgoed. Deze passie, doorgegeven van generatie op
@@ -53,10 +53,10 @@ function AboutMeBio() {
             <br />
             <br />
             <br />
-            <div className="text-2xl text-left text-black font-general-medium">
+            <div className="text-2xl mb-2 text-left text-black font-general-medium">
               Meerwaarde voor uw project
             </div>
-            <br />
+            
             <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
               Met een uitgekiende <span className="font-medium">planning</span>{" "}
               en focus op <span className="font-medium">efficiëntie</span>{" "}

@@ -114,7 +114,7 @@ function AppHeader() {
         <div
           className={
             showMenu
-              ? "block m-0 lg:ml-4 lg:mt-3 md:flex px-5 py-3 lg:p-0 justify-between items-center shadow-lg lg:shadow-none"
+              ? "block m-0 lg:ml-4 lg:mt-3 lg:flex px-5 py-3 lg:p-0 justify-between items-center shadow-lg lg:shadow-none"
               : "hidden"
           }
         >
@@ -150,27 +150,27 @@ function AppHeader() {
         </div>
 
         {/* Header links large screen */}
-        <div className="font-general-medium hidden m-0 lg:ml-16 mt-5 lg:mt-5 lg:flex p-5 lg:p-0 justify-center items-center shadow-lg lg:shadow-none">
+        <div className="font-general-medium hidden m-0 md:ml-8 xl:ml-16 mt-5 lg:mt-5 lg:flex p-5 lg:p-0 justify-center items-center shadow-lg lg:shadow-none">
           <div
-            className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
+            className="block text-left text-lg xl:text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
             aria-label="Projects"
           >
             <Link href="/projects">Projecten</Link>
           </div>
           <div
-            className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
+            className="block text-left text-lg xl:text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
             aria-label="About Me"
           >
             <Link href="/about">Over ons</Link>
           </div>
           <div
-            className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
+            className="block text-left text-lg xl:text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
             aria-label="Samenwerken"
           >
             <Link href="/colab">Samenwerken</Link>
           </div>
           <div
-            className="block text-left text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
+            className="block text-left text-lg xl:text-xl font-medium text-black dark:text-ternary-light hover:text-primary dark:hover:text-secondary-light  lg:mx-4 mb-2 lg:py-2"
             aria-label="Contact"
           >
             <Link href="/contact">Contact</Link>
@@ -182,7 +182,7 @@ function AppHeader() {
           <div className="hidden md:flex">
             <button
               onClick={showHireMeModal}
-              className="text-lg font-general-medium border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm  px-6 py-3 duration-300"
+              className="text-md xl:text-lg font-general-medium border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm  px-6 py-3 duration-300"
               aria-label="Contact us"
             >
               Contacteer ons

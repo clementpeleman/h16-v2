@@ -1,9 +1,22 @@
+import { FiArrowRight } from "react-icons/fi";
+
 function AboutCounter() {
   return (
-    <div className="sm:px-0 px-4 mt-12 sm:mt-32 bg-primary-light dark:bg-ternary-dark shadow-sm pb-24">
-      <div className=" sm:w-full text-md md:text-xl flex justify-center">
-        <div className="sm:w-3/6 mt-16 mb-8">
-          <div className="text-3xl mb-8 text-left text-black font-general-medium">
+    <div className="sm:px-0 px-4 mt-24 sm:mt-32 bg-primary-light dark:bg-ternary-dark shadow-sm pb-24">
+      <div className="container mx-auto sm:w-full text-md md:text-xl flex">
+        <div className=" w-full mx-4 lg:w-1/2 mt-24 lg:mb-4">
+          
+          <div className="text-4xl flex mb-2 text-left text-black font-general-medium">
+          <FiArrowRight
+                style={{
+                  height: 40,
+                  width: 40,
+                  marginTop: 0,
+                  marginBottom: 10,
+                  marginRight: 10,
+                  color: "silver",
+                }}
+              />
             Wie is wie?
           </div>
 
@@ -17,12 +30,11 @@ function AboutCounter() {
         </div>
       </div>
       <div className="font-general-medium container text-3xl mx-auto pt-20 sm:py-20 block sm:flex justify-around">
-        <div className="  ml-8 sm:ml-0">
+        <div className="mb-2 ml-8 sm:ml-0">
           Gilles
-          <br />
-          <span className="text-xl font-general-normal text-primary">
+          <p className=" text-xl font-general-normal text-primary">
             Construction manager
-          </span>
+          </p>
           <ul className="ml-8 mt-4 list-none font-general-regular text-xl list-inside">
             <li className="my-2">Technisch</li>
             <li className="my-2">Planmatig</li>
@@ -30,12 +42,12 @@ function AboutCounter() {
           </ul>
         </div>
 
-        <div className="  mt-20 sm:mt-0 ml-8 sm:ml-0">
+        <div className="mb-2 mt-20 sm:mt-0 ml-8 sm:ml-0">
           Elena
           <br />
-          <span className="text-xl font-general-normal text-accent">
+          <p className="text-xl font-general-normal text-accent">
             Office manager
-          </span>
+          </p>
           <ul className="ml-8 mt-4 list-none font-general-regular text-xl list-inside">
             <li className="my-2">Praktisch</li>
             <li className="my-2">Creatief</li>
@@ -45,7 +57,7 @@ function AboutCounter() {
       </div>
       <div className="sm:pt-30 sm:mb-20 mb-12 mx-64 border-t-2 border-slate-200"></div>
       <div className="w-full text-justify text-ternary-dark flex justify-center italic text-lg sm:text-xl">
-        <p className="sm:w-1/2 mx-4 sm:mx-8 sm:mx-0 sm:my-16 mt-16 ">
+        <p className="lg:w-1/2 mx-16  sm:my-16 mt-16 ">
           &quot;Door onze complementaire capaciteiten in ons klein bedrijf te
           bundelen, slagen we erin om zeer persoonlijk en gefocust te werken,
           zodat onze realisaties volledig aansluiten op de wensen van de

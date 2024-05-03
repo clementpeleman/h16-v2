@@ -13,10 +13,10 @@ function AppBanner() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 0.9, delay: 0.2 }}
-      className="flex flex-col min-h-[80vh] sm:justify-between items-center sm:flex-row sm:my-10 sm:mb-20"
+      className="flex flex-col min-h-[80vh] sm:justify-between items-center sm:flex-row my-0 lg:my-10 sm:mb-20"
     >
       <div className="w-full sm:w-4/6">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
@@ -24,22 +24,24 @@ function AppBanner() {
             duration: 0.7,
             delay: 0.3,
           }}
-          className="font-balerno text-[9vw] sm:text-[5vw] md:text-[46px] lg:text-[68px] xl:text-[70px]  ml-3 w-5/6 w-full mt-16 md:-mt-5 lg:-mt-26 xl:-mt-24 sm:text-left leading-normal "
+          className="font-balerno text-[9vw] sm:text-[38px] md:text-[46px] lg:text-[56px] xl:text-[62px] w-5/6  mt-16 md:-mt-5 lg:-mt-26 xl:-mt-24 text-center leading-normal "
         >
+          <div className="flex items-center">
+            <div>
           <Link
             href="/colab"
-            className=" text-black font-balerno text-[10vw] sm:text-[5vw] md:text-[52px] lg:text-[72px] xl:text-[82px]  underline-offset-4 decoration-1 hover:text-accent cursor-pointer"
+            className=" text-black font-balerno text-[10vw] sm:text-[42px] md:text-[52px] lg:text-[60px] xl:text-[68px]  underline-offset-4 decoration-1 hover:text-accent cursor-pointer"
           >
             Bouwcoördinatie
-          </Link>{" "}
-          &{" "}
+          </Link></div>{" "}<div className="mt-2 ml-4">
+          &{" "}</div></div>
           <Link
             href="/colab"
-            className="text-black font-balerno text-[10vw] sm:text-[5vw] md:text-[52px] lg:text-[72px] xl:text-[82px] underline-offset-4 decoration-1 hover:text-accent cursor-pointer"
+            className="text-black font-balerno text-[10vw] sm:text-[42px] md:text-[52px] lg:text-[60px] xl:text-[68px] underline-offset-4 decoration-1 hover:text-accent cursor-pointer"
           >
             Projectontwikkeling
           </Link>
-        </motion.p>
+        </motion.div>
         <motion.div
           initial={{ opacity: 0.3 }}
           animate={{ opacity: 1 }}
@@ -63,7 +65,7 @@ function AppBanner() {
             initial={{ opacity: 0, y: 130 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ease: "easeInOut", duration: 0.9, delay: 0.1 }}
-            className="w-full mt-[15vh] sm:p-0 sm:pl-28 md:pl-12 lg:pl-20 2xl:pl-64 text-center float-center md:mt-0 "
+            className="w-full mt-[10vh] sm:p-0 sm:pl-16 md:pl-12 lg:pl-28 xl:pl-32 2xl:pl-64 text-center float-center md:mt-0 "
           >
             <img
               layout="responsive"
