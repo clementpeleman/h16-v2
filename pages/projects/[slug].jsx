@@ -6,6 +6,9 @@ import RelatedProjects from "../../components/projects/RelatedProjects";
 import { fetcher } from "../../lib/api";
 import Link from "next/link";
 import AboutClientSingle from "../../components/about/AboutClientSingle";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 function Project(props) {
   return (
@@ -120,10 +123,12 @@ function Project(props) {
 
         {/*  Single project right section details */}
         <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0 text-justify">
-          <p className="text-primary-dark dark:text-primary-light text-2xl sm:text-3xl font-general-medium  mb-7">
+          <p className="text-primary-dark dark:text-primary-light text-2xl sm:text-3xl font-general-medium mb-2">
             Beschrijving
           </p>
-          <p>{props.project.attributes.beschrijving}</p>
+          <section className="font-general-regular">
+              <Markdown children={props.project.attributes.beschrijving} remarkPlugins={[remarkGfm, remarkBreaks]} />
+          </section>          
         </div>
       </div>
 

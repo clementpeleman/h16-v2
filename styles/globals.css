@@ -9,9 +9,12 @@ body {
   font-family: "GeneralSans-Variable";
 }
 
+section a{
+  text-decoration: underline;
+}
+
 a {
   color: inherit;
-  text-decoration: none;
 }
 
 * {
