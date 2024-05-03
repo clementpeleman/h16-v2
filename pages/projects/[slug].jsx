@@ -77,8 +77,10 @@ function Project(props) {
                 <br />
                 <span className="font-general-medium">Status: </span>
                 {props.project.attributes.status.data.length > 0
-                  ? props.project.attributes.status.data[0].attributes.Type
-                  : "-"}
+                ? props.project.attributes.status.data
+                    .map((item) => item.attributes.Type)
+                    .join(", ")
+                : "Geen status beschikbaar"}
 
                 <br />
                 <span className="font-general-medium">Jaar: </span>
