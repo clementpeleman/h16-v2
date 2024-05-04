@@ -124,7 +124,7 @@ function Project(props) {
         </div>
 
         {/*  Single project right section details */}
-        <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0 text-justify">
+        <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0 sm:text-justify">
           <p className="text-primary-dark dark:text-primary-light text-2xl sm:text-3xl font-general-medium mb-2">
             Beschrijving
           </p>
