@@ -5,6 +5,7 @@ import AboutMeBio from "../components/about/AboutMeBio";
 import PagesMetaHead from "../components/PagesMetaHead";
 import { fetcher } from "../lib/api";
 import AboutCTA from "../components/about/AboutCTA";
+import UseScrollToTop from "../hooks/useScrollToTop";
 
 function about(samenwerkingen) {
   return (
@@ -38,6 +39,8 @@ function about(samenwerkingen) {
       >
         <AboutClients samenwerkings={samenwerkingen} />
       </motion.div> */}
+
+      <UseScrollToTop />
     </div>
   );
 }

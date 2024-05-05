@@ -9,10 +9,6 @@ body {
   font-family: "GeneralSans-Variable";
 }
 
-section a{
-
-}
-
 a {
   color: inherit;
 }
@@ -247,9 +243,14 @@ a {
   justify-content: center;
   z-index: 999;
   cursor: pointer;
-  animation: fadeIn 0.3s;
+  animation: fadeIn 0.7s;
   transition: opacity 0.4s;
   opacity: 1;
+}
+
+.moreInfoButton {
+  animation: fadeIn 0.7s;
+  transition: opacity 0.4s;
 }
 
 .scrollToTop:hover {
@@ -261,6 +262,6 @@ a {
     opacity: 0;
   }
   100% {
-    opacity: 0.5;
+    opacity: 1;
   }
 }

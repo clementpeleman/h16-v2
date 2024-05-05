@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
           <Analytics />
           <SpeedInsights />
         </DefaultLayout>
-        <UseScrollToTop />
+
       </div>
     </AnimatePresence>
   );

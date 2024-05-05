@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import PagesMetaHead from "../components/PagesMetaHead";
 import ColabBanner from "../components/colab/ColabBanner";
+import UseScrollToTop from "../hooks/useScrollToTop";
 
 function colab() {
   return (
@@ -19,6 +20,9 @@ function colab() {
       >
         <ColabBanner />
       </motion.div>
+
+
+      <UseScrollToTop />
     </div>
   );
 }

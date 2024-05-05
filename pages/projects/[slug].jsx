@@ -9,6 +9,7 @@ import AboutClientSingle from "../../components/about/AboutClientSingle";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import UseScroll from "../../hooks/useScroll"; 
 
 function Project(props) {
   return (
@@ -150,6 +151,7 @@ function Project(props) {
 		</div> */}
 
       {/* <RelatedProjects props={props.related} /> */}
+      <UseScroll/>
     </div>
   );
 }

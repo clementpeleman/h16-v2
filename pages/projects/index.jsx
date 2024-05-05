@@ -3,6 +3,7 @@ import PagesMetaHead from "../../components/PagesMetaHead";
 import ProjectsGrid from "../../components/projects/ProjectsGrid";
 import { fetcher } from "../../lib/api";
 import ProjectSingle from "../../components/projects/ProjectSingle";
+import UseScrollToTop from "../../hooks/useScrollToTop";
 
 function index({ projects }) {
   return (
@@ -37,6 +38,7 @@ function index({ projects }) {
           })}
         </div>
       </section>
+      <UseScrollToTop />
     </div>
   );
 }

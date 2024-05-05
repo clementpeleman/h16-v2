@@ -5,6 +5,7 @@ import Button from "../components/reusable/Button";
 import AppBanner from "../components/shared/AppBanner";
 import { fetcher } from "../lib/api";
 import AppSecondary from "../components/shared/AppSecondary";
+import UseScrollToTop from "../hooks/useScrollToTop";
 
 export default function Home({ projecten }) {
   return (
@@ -16,6 +17,8 @@ export default function Home({ projecten }) {
       <AppSecondary />
 
       <ProjectsGrid projects={projecten} />
+      
+      <UseScrollToTop />
     </div>
   );
 }
