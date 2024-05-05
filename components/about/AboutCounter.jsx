@@ -20,7 +20,7 @@ function AboutCounter() {
             Wie is wie?
           </div>
 
-          <p className="sm:mb-4 text-lg text-gray-200 sm:text-xl">
+          <p className="sm:mb-4 text-lg text-gray-700 sm:text-xl">
             H16 wordt geleid door{" "}
             <span className="text-black font-medium">Gilles De Brabander</span> en{" "}
             <span className="text-black font-medium">Elena Versyp</span>. Naast
