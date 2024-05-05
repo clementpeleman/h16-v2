@@ -65,7 +65,7 @@ function AboutMeBio() {
               <span className="font-medium">doorlooptijd</span> van een
               bouwproject geoptimaliseerd.
             </p>
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
+            <p className="mb-4 text-black text-lg sm:text-xl">
               Daarvoor werkt H16 uitsluitend met betrouwbare vakmannen. Duurzame
               professionele relaties waar zowel H16 als de vakmannen eer
               uithalen, zijn ons ultieme streefdoel. Dankzij de ervaring en
