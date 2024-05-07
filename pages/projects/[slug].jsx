@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FiClock, FiTag } from "react-icons/fi";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import PagesMetaHead from "../../components/PagesMetaHead";
 import { projectsData } from "../../data/projectsData";
 import RelatedProjects from "../../components/projects/RelatedProjects";
@@ -62,20 +63,23 @@ function Project(props) {
                 className="font-general-regular text-ternary-dark dark:text-ternary-light"
                 key={props.project.attributes.naam}
               >
-                <span className="font-general-medium">Adres: </span>
-                <a
-                  href={
-                    "http://maps.google.com/?q=" +
-                    props.project.attributes.adres
-                  }
-                  className={
-                    "hover:underline hover:text-indigo-500 dark:hover:text-indigo-400 cursor-pointer duration-300"
-                  }
-                  aria-label="Project Website and Phone"
-                >
-                  {props.project.attributes.naam}
-                </a>
-                <br />
+                <div className="flex">
+                  <span className="font-general-medium mr-1">Adres: </span>
+                  <a
+                    href={
+                      "http://maps.google.com/?q=" +
+                      props.project.attributes.adres
+                    }
+                    className={
+                      "flex hover:underline hover:text-indigo-500 dark:hover:text-indigo-400 cursor-pointer duration-300"
+                    }
+                    aria-label="Project Website and Phone"
+                  >
+                    {props.project.attributes.naam}
+                    <FaExternalLinkAlt className="mt-2 ml-2" />
+                  </a>
+                </div>
+
                 <span className="font-general-medium">Status: </span>
                 {props.project.attributes.status.data.length > 0
                 ? props.project.attributes.status.data
@@ -116,6 +120,7 @@ function Project(props) {
                   >
                     {props.project.attributes.externe_link}
                   </Link>
+
                 </div>
               </div>
             ) : (
