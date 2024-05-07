@@ -45,7 +45,7 @@ function AboutMeBio() {
               Small is beautiful
             </div>
             
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
+            <p className="mb-4 text-black text-lg sm:text-xl">
               H16 is een jong bedrijf met familiale wortels dat ontstaan is uit
               passie voor vastgoed. Deze passie, doorgegeven van generatie op
               generatie, is binnen H16 de drijvende kracht van élke dag.
@@ -57,7 +57,7 @@ function AboutMeBio() {
               Meerwaarde voor uw project
             </div>
             
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
+            <p className="mb-4 text-black text-lg sm:text-xl">
               Met een uitgekiende <span className="font-medium">planning</span>{" "}
               en focus op <span className="font-medium">efficiëntie</span>{" "}
               worden de <span className="font-medium">kwaliteit</span>, het{" "}
@@ -65,7 +65,7 @@ function AboutMeBio() {
               <span className="font-medium">doorlooptijd</span> van een
               bouwproject geoptimaliseerd.
             </p>
-            <p className="mb-4 text-ternary-dark dark:text-ternary-light text-lg sm:text-xl">
+            <p className="mb-4 text-black text-lg sm:text-xl">
               Daarvoor werkt H16 uitsluitend met betrouwbare vakmannen. Duurzame
               professionele relaties waar zowel H16 als de vakmannen eer
               uithalen, zijn ons ultieme streefdoel. Dankzij de ervaring en

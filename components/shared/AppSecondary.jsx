@@ -26,14 +26,7 @@ export class AppSecondary extends Component {
             </Link>
           </div>
           <div className="hidden sm:block max-w-[620px] md:max-w-[1060px] text-justify text-gray-500 text-xl">
-            Er bestaat een mooie symboliek rond dit bijzondere vogeltje: in
-            eeuwenoude culturen werd hij gezien als de boodschapper van liefde
-            en vreugde. Hij heeft speciale gaven die hij weet te gebruiken om
-            zijn doelen te bereiken en onderscheidt zich daarmee van de rest.
-            Zijn uitstekend vliegvermogen is uniek: hij beweegt in alle
-            richtingen, vliegt ook ter plaatse én achterwaarts, is razendsnel en
-            heeft een bijzonder reactievermogen. Met het flapperen van zijn
-            vleugels worden ongeziene frequenties bereikt. Dit inspireert H16.
+            Gedreven door passie voor vastgoed en middels degelijke samenwerkingen neemt H16 uw vastgoedproject onder de vleugels. Onze kracht is flexibiliteit en wendbaarheid, net als de kolibri in zijn soepele vlucht. Elk perspectief wordt ten gronde bekeken, veranderen van perspectief gebeurt snel en levert nieuwe inzichten op. Wij houden de focus op het doel tot zolang het bereikt is. Met een persoonlijke aanpak binnen ons klein bedrijf wordt de opdrachtgever totaal ontzorgd in het realiseren van een uniek eindresultaat.
             <br />
             <br />
             {/* <span className="font-general-medium text-3xl text-black">

@@ -20,10 +20,10 @@ function AboutCounter() {
             Wie is wie?
           </div>
 
-          <p className="sm:mb-4 text-lg sm:text-xl">
+          <p className="sm:mb-4 text-lg text-gray-600 sm:text-xl">
             H16 wordt geleid door{" "}
-            <span className="font-medium">Gilles De Brabander</span> en{" "}
-            <span className="font-medium">Elena Versyp</span>. Naast
+            <span className="text-black font-medium">Gilles De Brabander</span> en{" "}
+            <span className="text-black font-medium">Elena Versyp</span>. Naast
             professionele partners vormen Gilles en Elena ook in het dagelijks
             leven een sterke tandem:
           </p>
