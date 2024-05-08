@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import PagesMetaHead from "../components/PagesMetaHead";
 import ColabBanner from "../components/colab/ColabBanner";
-import UseScrollToTop from "../hooks/useScrollToTop";
+import UseScroll from "../hooks/useScrollToTop";
+import AboutCTA from "../components/about/AboutCTA";
 
 function colab() {
   return (
@@ -19,10 +20,12 @@ function colab() {
         className="container mx-auto"
       >
         <ColabBanner />
+
       </motion.div>
+      <AboutCTA/>
 
 
-      <UseScrollToTop />
+      <UseScroll />
     </div>
   );
 }
