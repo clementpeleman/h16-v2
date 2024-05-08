@@ -14,6 +14,10 @@ a {
   color: inherit;
 }
 
+#markdown a{
+  text-decoration: underline;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -134,7 +134,7 @@ function Project(props) {
           <p className="text-primary-dark dark:text-primary-light text-2xl sm:text-3xl font-general-medium mb-2">
             Beschrijving
           </p>
-          <section className="font-general-regular">
+          <section id="markdown" className="font-general-regular">
               <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>{props.project.attributes.beschrijving}</Markdown>
           </section>          
         </div>
