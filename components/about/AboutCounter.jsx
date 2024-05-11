@@ -17,7 +17,7 @@ function AboutCounter() {
                   color: "silver",
                 }}
               />
-            Wie is wie?
+            wie is wie?
           </div>
 
           <p className="sm:mb-4 text-lg text-gray-600 sm:text-xl">
@@ -57,7 +57,7 @@ function AboutCounter() {
       </div>
       <div className="sm:pt-30 sm:mb-20 mb-12 mx-64 border-t-2 border-slate-200"></div>
       <div className="w-full text-justify text-ternary-dark flex justify-center italic text-lg sm:text-xl">
-        <p className="lg:w-1/2 mx-16  sm:my-16 mt-16 ">
+        <p className="lg:w-1/2 mx-4 sm:mx-16  sm:my-16 mt-16 ">
           &quot;Door onze complementaire capaciteiten in ons klein bedrijf te
           bundelen, slagen we erin om zeer persoonlijk en gefocust te werken,
           zodat onze realisaties volledig aansluiten op de wensen van de
