@@ -7,7 +7,7 @@ function AboutCounter() {
         <div className=" w-full mx-4 lg:w-1/2 mt-24 lg:mb-4">
           
           <div className="text-4xl flex mb-2 text-left text-black font-general-medium">
-          <FiArrowRight
+          {/* <FiArrowRight
                 style={{
                   height: 40,
                   width: 40,
@@ -16,7 +16,7 @@ function AboutCounter() {
                   marginRight: 10,
                   color: "silver",
                 }}
-              />
+              /> */}
             Wie is wie?
           </div>
 

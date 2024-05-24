@@ -9,7 +9,7 @@ export class AboutCTA extends Component {
       <div className="container flex justify-center text-md md:text-xl">
         <div>
           <div className="mt-20 sm:mt-32 mx-4 sm:mx mb-4 sm:mb-4 flex flex-col sm:flex-row place-content-between">
-            <p className="font-general-medium text-2xl sm:text-3xl lg:text-4xl sm:mb-2 text-black dark:text-ternary-light">
+            <p className="font-general-medium text-2xl sm:text-3xl lg:text-4xl text-black dark:text-ternary-light">
               Vraag <span className="text-accent">vrijblijvend</span> meer
               informatie!
             </p>
