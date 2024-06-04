@@ -75,7 +75,7 @@ function Project(props) {
                     }
                     aria-label="Project Website and Phone"
                   >
-                    {props.project.attributes.naam}
+                    {props.project.attributes.adres}
                     <FaExternalLinkAlt className="mt-2 ml-2" />
                   </a>
                 </div>
