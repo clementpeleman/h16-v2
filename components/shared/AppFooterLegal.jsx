@@ -1,3 +1,4 @@
+import { FiInstagram, FiFacebook } from "react-icons/fi";
 import { company } from "../../data/companyData";
 
 // The footer carried two social icons and a credit line — 393px tall for 114px
@@ -14,7 +15,7 @@ const linkClasses =
 
 function AppFooterLegal() {
   return (
-    <div className="mt-20 pt-12 border-t border-gray-200 grid gap-10 sm:grid-cols-3 text-meta text-ternary-dark text-left">
+    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-meta text-ternary-dark text-left">
       <address className="not-italic">
         <span className="block font-strong">{company.legalName}</span>
         {company.registeredSeat}
@@ -31,6 +32,19 @@ function AppFooterLegal() {
       </div>
 
       <div>{company.vat}</div>
+
+      <ul className="flex gap-4">
+        <li>
+          <a href="https://www.facebook.com/H16.be/" target="_blank" rel="noopener noreferrer" aria-label="H16 op Facebook" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
+            <FiFacebook className="h-6 w-6" aria-hidden="true" />
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/h16.be/" target="_blank" rel="noopener noreferrer" aria-label="H16 op Instagram" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
+            <FiInstagram className="h-6 w-6" aria-hidden="true" />
+          </a>
+        </li>
+      </ul>
     </div>
   );
 }

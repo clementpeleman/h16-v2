@@ -22,7 +22,7 @@ function contact() {
           both orders back in agreement, and a real gap replaces the two
           columns' internal margins. */}
       <div
-        className="enter-fade container mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 mt-14 sm:mt-20"
+        className="enter-fade container mx-auto grid gap-14 lg:grid-cols-[3fr_2fr] lg:gap-16 mt-group"
       >
         <ContactForm />
 

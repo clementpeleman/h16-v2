@@ -35,14 +35,14 @@ const linkClasses =
 
 function ContactDetails() {
   return (
-    <div className="w-full lg:w-1/2">
+    <div>
       {/* This column measured 469px of empty space beside a filled form. The
           portrait fills it with the one thing the site never showed: the two
           people the visitor is about to trust with a building project. */}
       <FoundersPortrait className="mb-12" />
 
       <div className="text-left max-w-xl">
-        <h2 className="text-h2 mb-8">Contactgegevens</h2>
+        <p className="mb-6 text-meta uppercase tracking-[0.08em] text-ternary-dark">Contactgegevens</p>
         <ul>
           {contacts.map((contact) => (
             <li className="flex gap-4 mb-6" key={contact.id}>
@@ -64,10 +64,6 @@ function ContactDetails() {
             </li>
           ))}
         </ul>
-        <p className="mt-8 text-meta text-ternary-dark">
-          We antwoorden binnen twee werkdagen. Liever meteen iemand aan de lijn?
-          Bel ons gerust.
-        </p>
       </div>
     </div>
   );

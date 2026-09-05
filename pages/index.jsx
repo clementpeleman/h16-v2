@@ -5,7 +5,6 @@ import AppBanner from "../components/shared/AppBanner";
 import { fetcher, toProjectCard } from "../lib/api";
 import AppSecondary from "../components/shared/AppSecondary";
 import AboutCTA from "../components/about/AboutCTA";
-import UseScrollToTop from "../hooks/useScrollToTop";
 
 export default function Home({ projecten }) {
   return (
@@ -23,7 +22,6 @@ export default function Home({ projecten }) {
 
       <AboutCTA />
 
-      <UseScrollToTop />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 function AppFooterCopyright() {
   return (
-    <div className="flex justify-center items-center text-center">
+    <div className="text-left">
       <div className="text-meta text-ternary-dark">
         &copy; {new Date().getFullYear()}{" "}
         <a

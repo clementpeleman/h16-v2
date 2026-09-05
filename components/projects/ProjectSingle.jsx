@@ -32,11 +32,11 @@ const ProjectSingle = ({
         className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-4 rounded-sm"
       >
         <div className="cursor-pointer">
-          {/* A fixed ratio, matching the missing-image placeholder below. The
-              photographs are portrait and landscape at different heights, so
-              intrinsic sizing pushed the titles in one grid row to three
-              different baselines — measured at an 85px spread. */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden bg-ternary-light">
+          {/* A fixed ratio so titles in one grid row share a baseline
+              (intrinsic sizing spread them 85px). Portrait rather than
+              landscape: most of the photographs are façades, and a 4:3 crop
+              cut the roofline and the ground floor off a three-storey house. */}
+          <div className="relative aspect-[3/4] w-full overflow-hidden bg-ternary-light">
             {imageSrc ? (
               <Image
                 src={imageSrc}

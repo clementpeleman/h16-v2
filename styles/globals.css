@@ -6,7 +6,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  scroll-behavior: smooth;
   /* The committed brand cream. It used to be applied as `bg-background
      bg-opacity-60` on a wrapper over a transparent body, which composited it
      to a washed near-white and let the browser canvas show through. */
@@ -67,80 +66,10 @@ a {
   font-display: swap;
 }
 
-/* Floating scroll affordances.
- *
- * These were an <svg onClick> and a <div onClick> positioned entirely by
- * inline styles, which is why this rule could declare `width: 100%; height:
- * 20px` — a full-width fixed accent bar — without anyone noticing: the inline
- * styles overrode it. They are real <button>s now, so the geometry lives here,
- * and `hidden` handles visibility rather than an inline `display`.
- */
-.scrollToTop {
-  position: fixed;
-  right: 20px;
-  /* Clear the home indicator on iOS rather than sitting under it. */
-  bottom: max(25px, env(safe-area-inset-bottom) + 12px);
-  z-index: 999;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  animation: fadeIn 0.4s ease-out both;
-  /* The button is fixed and repaints on its own layer; keeping the transition
-     to opacity avoids invalidating layout while the page is scrolling. */
-  transition: opacity 0.3s, background-color 0.3s;
-}
 
-@media (min-width: 769px) {
-  .scrollToTop {
-    right: 50px;
-    bottom: 45px;
-  }
-}
-
-.scrollToTop {
-  @apply bg-accent text-white;
-  width: 40px;
-  height: 40px;
-  padding: 7px;
-  border-radius: 999px;
-}
-
-
-/* A `display` declaration on the class beats the UA's `[hidden] { display:
-   none }`, so the attribute has to be re-asserted at higher specificity. */
-.scrollToTop[hidden] {
-  display: none;
-}
-
-.scrollToTop:hover {
-  opacity: 0.85;
-}
-
-.scrollToTop:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(14, 70, 140, 0.4);
-}
-
-.scrollToTop svg {
-  width: 100%;
-  height: 100%;
-}
-
-
-
-@media (prefers-reduced-motion: reduce) {
-  .scrollToTop {
-    animation: none;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 

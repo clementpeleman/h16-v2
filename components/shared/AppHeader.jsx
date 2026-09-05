@@ -107,15 +107,6 @@ function AppHeader() {
               </Link>
             </div>
           ))}
-          <div className="border-t border-primary-light pt-4 pb-2">
-            <Link
-              href="/contact"
-              onClick={closeMenu}
-              className="block text-left text-ui border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm rounded-sm px-4 py-2 mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300 w-fit"
-            >
-              Contacteer ons
-            </Link>
-          </div>
         </div>
 
         {/* Large screen */}
@@ -136,16 +127,6 @@ function AppHeader() {
           ))}
         </div>
 
-        <div className="hidden lg:block ml-auto">
-          <div>
-            <Link
-              href="/contact"
-              className="text-ui border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm px-6 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
-            >
-              Contacteer ons
-            </Link>
-          </div>
-        </div>
       </div>
     </nav>
   );

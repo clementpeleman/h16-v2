@@ -4,7 +4,7 @@ import { company } from "../../data/companyData";
 export class ContactBanner extends Component {
   render() {
     return (
-      <section className="mt-24 sm:mt-32 lg:mt-40">
+      <section className="mt-section">
         <h1 className="font-display text-h1 text-black [text-wrap:balance]">
           Contacteer ons
         </h1>

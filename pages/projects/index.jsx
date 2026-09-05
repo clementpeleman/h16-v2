@@ -3,7 +3,6 @@ import PagesMetaHead from "../../components/PagesMetaHead";
 import ProjectsGrid from "../../components/projects/ProjectsGrid";
 import { fetcher, toProjectCard } from "../../lib/api";
 import ProjectSingle from "../../components/projects/ProjectSingle";
-import UseScrollToTop from "../../hooks/useScrollToTop";
 import AboutCTA from "../../components/about/AboutCTA";
 
 function index({ projects }) {
@@ -14,9 +13,9 @@ function index({ projects }) {
         description="De projecten die H16 Vastgoedontwikkeling realiseerde en begeleidde."
       />
 
-      <section className="mt-24 sm:mt-32 lg:mt-40">
+      <section className="mt-section">
         <div className="text-left">
-          <h1 className="font-display text-h1 mb-12 text-black [text-wrap:balance]">
+          <h1 className="font-display text-h1 mb-group text-black [text-wrap:balance]">
             Onze realisaties
           </h1>
         </div>
@@ -61,7 +60,6 @@ function index({ projects }) {
 
       <AboutCTA />
 
-      <UseScrollToTop />
     </div>
   );
 }

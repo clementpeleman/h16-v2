@@ -16,7 +16,7 @@ function AppBanner() {
   return (
     <section
       style={{ "--enter-delay": "0.2s" }}
-      className="enter-fade flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 mt-16 sm:mt-24 lg:mt-28 mb-32 sm:mb-40 lg:mb-48"
+      className="enter-fade flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 mt-group lg:mt-24"
     >
       <div className="w-full lg:w-3/5">
         {/* The h1 used to be two links to /colab, which spent the hero's entire
@@ -25,7 +25,7 @@ function AppBanner() {
             the buttons below carry the intent. */}
         <h1
           style={{ "--enter-delay": "0.3s" }}
-          className="enter-fade font-display text-black [text-wrap:balance] text-center lg:text-left mt-10 lg:mt-0"
+          className="enter-fade font-display text-black [text-wrap:balance] text-left"
         >
           <span
             lang="nl"
@@ -49,7 +49,7 @@ function AppBanner() {
 
         <p
           style={{ "--enter-delay": "0.4s" }}
-          className="enter-fade mt-8 max-w-[46ch] text-lead text-gray-700 text-center lg:text-left"
+          className="enter-fade mt-8 max-w-[46ch] text-lead text-gray-700 text-left"
         >
           Een klein familiebedrijf uit Oosterzele. Wij nemen uw bouwproject
           van begin tot eind onder onze vleugels.
@@ -57,7 +57,7 @@ function AppBanner() {
 
         <div
           style={{ "--enter-delay": "0.5s" }}
-          className="enter-fade mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 justify-center lg:justify-start"
+          className="enter-fade mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 justify-start"
         >
           <Link
             href="/contact"
@@ -74,7 +74,7 @@ function AppBanner() {
         </div>
       </div>
 
-      <div className="w-1/2 sm:w-2/5 lg:w-2/5">
+      <div className="hidden lg:block lg:w-2/5">
         {/* Scroll-linked rotation is motion the visitor did not ask for. */}
         {reducedMotion ? (
           <div className="w-full text-center">{emblem}</div>

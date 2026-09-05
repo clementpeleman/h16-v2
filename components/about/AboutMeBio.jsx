@@ -1,72 +1,22 @@
-import Image from "next/image";
-import { useState } from "react";
-import { aboutMeData } from "../../data/aboutMeData";
-import { ScrollRotate } from "react-scroll-rotate";
-import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
-import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
 
 function AboutMeBio() {
-  const [aboutMe, setAboutMe] = useState(aboutMeData);
-  const reducedMotion = usePrefersReducedMotion();
   return (
     <div>
 
-      <section className="mt-24 sm:mt-32 lg:mt-40">
+      <section className="mt-section">
         <div className="text-left">
           <h1 className="font-display text-h1 text-black [text-wrap:balance]">
             Over ons
           </h1>
         </div>
-        <div className="block md:flex gap-10 lg:gap-16 mt-14 sm:mt-20">
-          {/* `flex-grow` gave this column 436px to hold a 195px mark, so the
-              emblem sat stranded in 241px of nothing. It is a margin mark: it
-              gets exactly its own width and sits with the first heading. */}
-          <div className="hidden lg:block shrink-0 w-[200px]">
-            {reducedMotion ? (
-              <Image
-                src="/images/H16_EMBLEEM_BLAUW.png"
-                width={175}
-                height={175}
-                className="rounded-sm"
-                alt=""
-                style={{
-                  maxWidth: "100%",
-                  height: "auto"
-                }} />
-            ) : (
-            <ScrollRotate
-                method={"perc"}
-                throttle={0.1}
-                animationDuration={0.3}
-                from={-10}
-                to={55}
-              >
-                <Image
-                  src="/images/H16_EMBLEEM_BLAUW.png"
-                  width={175}
-                  height={175}
-                  className="rounded-sm"
-                  alt=""
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto"
-                  }} />
-              </ScrollRotate>
-            )}
-          </div>
-
+        <div className="mt-group">
           <div className="flex flex-col text-left max-w-[70ch]">
-            <h2 className="text-h2 mb-5 text-left text-black">
-              Small is beautiful
-            </h2>
-
-            <p className="mb-6 text-black text-body">
+            <p className="text-lead text-gray-700 max-w-[52ch]">
               H16 is een jong bedrijf met familiale wortels dat ontstaan is uit
               passie voor vastgoed. Deze passie, doorgegeven van generatie op
               generatie, is binnen H16 de drijvende kracht van élke dag.
             </p>
-            <h2 className="text-h2 mt-16 sm:mt-20 mb-5 text-left text-black">
+            <h2 className="text-h2 mt-group mb-5 text-left text-black">
               Meerwaarde voor uw project
             </h2>
             <p className="mb-4 text-black text-body">

@@ -9,7 +9,7 @@ const EMPTY = { name: "", email: "", phone: "", subject: "", message: "" };
 const fieldClasses =
   "w-full px-5 py-3 rounded-md text-base " +
   "bg-secondary-light text-primary-dark placeholder:text-gray-500 " +
-  "border border-gray-400 shadow-sm " +
+  "border border-gray-400 " +
   "focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 " +
   "aria-[invalid=true]:border-accent-deep aria-[invalid=true]:ring-accent-deep/25 " +
   "duration-200";
@@ -145,10 +145,10 @@ function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="w-full lg:w-1/2">
+      <div>
         <div>
           <div
-            className="max-w-xl p-8 sm:p-10 bg-secondary-light shadow-sm text-left border-t-2 border-primary"
+            className="max-w-xl text-left border-t-2 border-primary pt-8"
             role="status"
             aria-live="polite"
           >
@@ -180,7 +180,7 @@ function ContactForm() {
             <button
               type="button"
               onClick={() => setStatus("idle")}
-              className="text-ui px-7 py-4 text-primary border border-primary text-center tracking-wider rounded-lg hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
+              className="text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
             >
               Nog een bericht sturen
             </button>
@@ -191,18 +191,14 @@ function ContactForm() {
   }
 
   return (
-    <div className="w-full lg:w-1/2">
+    <div>
       <div>
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="max-w-xl p-8 sm:p-10 bg-secondary-light shadow-sm text-left"
+          className="max-w-xl text-left"
         >
-          <h2 className="text-h2 mb-3">Stuur ons uw vraag</h2>
-          <p className="mb-8 text-meta text-ternary-dark">
-            Velden met <span className="text-accent-deep">*</span> zijn
-            verplicht. We antwoorden binnen twee werkdagen.
-          </p>
+          <h2 className="text-h2 mb-8">Stuur ons uw vraag</h2>
 
           {status === "error" && (
             <div
@@ -358,8 +354,9 @@ function ContactForm() {
           </div>
 
           <p className="mt-5 text-meta text-ternary-dark">
-            Vrijblijvend en gratis. We gebruiken uw gegevens uitsluitend om uw
-            vraag te beantwoorden en delen ze met niemand.
+            Velden met <span className="text-accent-deep">*</span> zijn
+            verplicht. Vrijblijvend en gratis; we gebruiken uw gegevens
+            uitsluitend om uw vraag te beantwoorden.
           </p>
         </form>
       </div>

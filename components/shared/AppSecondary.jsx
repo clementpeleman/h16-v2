@@ -1,9 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
-import { FiArrowRight } from "react-icons/fi";
 
 const TYPED_WORDS = [
   "Flexibiliteit",
@@ -17,106 +15,54 @@ const TYPED_WORDS = [
 function AppSecondary() {
   const reducedMotion = usePrefersReducedMotion();
   return (
+    // The typed words used to trail an eight-line paragraph as a loose h3 —
+    // a moving element with no place of its own. They are the distilled
+    // version of the paragraph, so they get the same stage the emblem gets in
+    // the banner: a second column, in the display face, at heading size.
+    <section className="mt-section grid gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:items-center">
       <div>
-        <div>
-          <div className="mt-24 sm:mt-32 lg:mt-40 border-t-2 border-gray-200"></div>
+        <h2 className="text-h2 text-black max-w-[24ch]">
+          Jouw <span className="text-accent">bouwproject</span> onder onze
+          vleugels?
+        </h2>
+        <p className="mt-6 text-lead text-gray-700 max-w-[52ch]">
+          Gedreven door passie voor vastgoed en met degelijke samenwerkingen
+          nemen wij uw vastgoedproject onder de vleugels. Elk perspectief wordt
+          ten gronde bekeken, en wij houden de focus op het doel tot het bereikt
+          is. Binnen ons klein bedrijf wordt u persoonlijk begeleid en volledig
+          ontzorgd, tot een uniek eindresultaat.
+        </p>
+        <p className="mt-8">
+          <Link
+            href="/colab"
+            className="text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+          >
+            Bekijk onze werkwijze
+          </Link>
+        </p>
+      </div>
 
-          <div className="mt-24 sm:mt-32 lg:mt-40 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
-            <h2 className="text-h2 text-black">
-              Jouw <span className="text-accent">bouwproject</span> onder onze
-              vleugels?
-            </h2>
-
-            <Link
-              href="/colab"
-              className="text-ui shrink-0 self-start sm:self-auto text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
-            >
-              Bekijk onze werkwijze
-            </Link>
-          </div>
-
-          <div className="mt-8 max-w-[65ch]">
-            <p className="text-gray-700 text-lead">
-            Gedreven door passie voor vastgoed en middels degelijke
-            samenwerkingen neemt H16 uw vastgoedproject onder de vleugels. Onze
-            kracht is flexibiliteit en wendbaarheid, net als de kolibrie in zijn
-            soepele vlucht. Elk perspectief wordt ten gronde bekeken, veranderen
-            van perspectief gebeurt snel en levert nieuwe inzichten op. Wij
-            houden de focus op het doel tot zolang het bereikt is. Met een
-            persoonlijke aanpak binnen ons klein bedrijf wordt de opdrachtgever
-            totaal ontzorgd in het realiseren van een uniek eindresultaat.
-            </p>
-            <div className="flex items-center mt-8">
-              <FiArrowRight
-                aria-hidden="true"
-                className="h-7 w-7 mr-3 shrink-0 text-primary"
-              />
-              {/* An infinite type-and-delete loop with no pause control is a
-                  WCAG 2.2.2 (Pause, Stop, Hide) failure for anything moving
-                  longer than five seconds. Reduced motion gets the same six
-                  words, at rest. */}
-              {reducedMotion ? (
-                <span className="text-h3 text-accent">
-                  {TYPED_WORDS.join(" · ")}
-                </span>
-              ) : (
-                <TypeAnimation
-                  sequence={TYPED_WORDS.flatMap((w) => [w, 1000])}
-                  wrapper="span"
-                  speed={50}
-                  className="text-h3 text-accent"
-                  repeat={Infinity}
-                />
-              )}
-            </div>
-          </div>
-
-          <div className="mt-24 sm:mt-32 lg:mt-40 border-t-2 border-gray-200"></div>
-
-          <div className="mt-24 sm:mt-32 lg:mt-40">
-            <h2 className="text-h2 mb-8 text-black text-left">
-              De kolibrie als symbool van H16
-            </h2>
-            <div className="flex flex-row items-center gap-16">
-              <div className="hidden xl:block shrink-0">
-                <Image
-                  src="/images/H16_EMBLEEM_BLAUW.png"
-                  width={120}
-                  height={120}
-                  alt="Het kolibrie-embleem van H16"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                  }}
-                />
-              </div>
-              <p className="max-w-[68ch] text-gray-700 text-body">
-                Er bestaat een eeuwenoude symboliek rond dit bijzondere
-                vogeltje: in vele culturen werd hij steeds gezien als de
-                boodschapper van{" "}
-                <span className="text-primary font-strong">
-                  liefde en vreugde
-                </span>
-                . De kolibrie heeft unieke gaven en weet zijn talenten te
-                gebruiken om zijn doelen te bereiken, net als H16. Door zijn
-                compact formaat en priemvormige snavel onderscheidt de kolibrie
-                zich van de rest. Zijn uitstekend vliegvermogen is uniek en hij
-                gebruikt zijn talent om{" "}
-                <span className="text-primary font-strong">
-                  in alle richtingen
-                </span>{" "}
-                te vliegen, waaronder ter plaatse én achterwaarts. Hij is
-                razendsnel en heeft een bijzonder reactievermogen. Met het
-                flapperen van zijn vleugels worden{" "}
-                <span className="text-primary font-strong">
-                  ongeziene frequenties
-                </span>{" "}
-                bereikt.
-              </p>
-            </div>
-          </div>
+      <div className="lg:border-l lg:border-gray-200 lg:pl-16">
+        <p className="text-meta uppercase tracking-[0.08em] text-ternary-dark">
+          Onze kracht
+        </p>
+        {/* Fixed height for two lines so the loop never shifts the section.
+            An infinite type-and-delete loop with no pause control is a
+            WCAG 2.2.2 failure; reduced motion gets the six words at rest. */}
+        <div className="mt-4 min-h-[2.5em] font-display text-h1 text-accent [text-wrap:balance]">
+          {reducedMotion ? (
+            <span>{TYPED_WORDS.join(", ")}</span>
+          ) : (
+            <TypeAnimation
+              sequence={TYPED_WORDS.flatMap((w) => [w, 1200])}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          )}
         </div>
       </div>
+    </section>
   );
 }
 

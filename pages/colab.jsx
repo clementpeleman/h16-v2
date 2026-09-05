@@ -1,6 +1,5 @@
 import PagesMetaHead from "../components/PagesMetaHead";
 import ColabBanner from "../components/colab/ColabBanner";
-import UseScroll from "../hooks/useScrollToTop";
 import AboutCTA from "../components/about/AboutCTA";
 import { fetcher, toProjectCard } from "../lib/api";
 
@@ -12,16 +11,12 @@ function colab({ proof }) {
         description="Bouwcoördinatie, adviesverlening en projectontwikkeling — en samenwerking met architecten en aannemers."
       />
 
-      <div
-        className="enter-fade container mx-auto"
-      >
+      <div className="enter-fade container mx-auto">
         <ColabBanner proof={proof} />
-
+        <AboutCTA />
       </div>
-      <AboutCTA/>
 
 
-      <UseScroll />
     </div>
   );
 }

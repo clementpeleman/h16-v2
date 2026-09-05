@@ -83,6 +83,14 @@ module.exports = {
         // A real axis value for inline emphasis, replacing the family swap.
         strong: "500",
       },
+      spacing: {
+        // Two cadence values instead of the mt-24 sm:mt-32 lg:mt-40 /
+        // mt-14 sm:mt-20 triplets repeated in every file. Always applied as a
+        // TOP margin on the later element, never as a bottom margin on the
+        // earlier one — seams used to stack two owners into 258-354px voids.
+        section: "clamp(6rem, 5rem + 4vw, 10rem)",
+        group: "clamp(3.5rem, 3rem + 2vw, 5rem)",
+      },
       colors: {
         primary: "#0E468C",
         secondary: "#E0EFF0",

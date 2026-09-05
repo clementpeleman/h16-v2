@@ -6,7 +6,6 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
-import UseScrollToTop from "../../hooks/useScrollToTop";
 
 function Project({ project }) {
   // The facts about a property are a sentence, not a form. Aard, fase, jaar
@@ -56,7 +55,13 @@ function Project({ project }) {
       />
 
       {/* Title + metaline */}
-      <header className="mt-24 sm:mt-32 lg:mt-40 max-w-4xl">
+      <header className="mt-section max-w-4xl">
+        <Link
+          href="/projects"
+          className="inline-block mb-8 text-meta text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+        >
+          ← Alle realisaties
+        </Link>
         <h1 className="font-display text-h1 text-black max-w-[24ch] [text-wrap:balance]">
           {project.naam}
         </h1>
@@ -71,14 +76,14 @@ function Project({ project }) {
           </p>
         )}
         {metaZin && (
-          <p className="mt-3 text-lead text-gray-700 max-w-[46ch]">{metaZin}</p>
+          <p className="mt-4 text-lead text-gray-700 max-w-[46ch]">{metaZin}</p>
         )}
       </header>
 
       {/* The building leads. The gallery used to sit after the text; a
           property page that opens on a spec list has its priorities inverted. */}
       {hero && (
-        <div className="relative mt-12 sm:mt-16 aspect-[16/10] w-full overflow-hidden bg-ternary-light shadow-sm">
+        <div className="relative mt-group aspect-[16/10] w-full overflow-hidden bg-ternary-light">
           <Image
             src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + hero.url}
             alt={hero.alt || project.naam}
@@ -91,7 +96,7 @@ function Project({ project }) {
       )}
 
       {/* Description: one prose column, not two competing ones. */}
-      <div className="mt-16 sm:mt-24 max-w-[70ch]">
+      <div className="mt-section max-w-[70ch]">
         <section id="markdown" className="text-body text-ternary-dark">
           {project.beschrijving ? (
             <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
@@ -169,37 +174,65 @@ function Project({ project }) {
         )}
       </div>
 
-      {/* The rest of the photographs. */}
+      {/* The rest of the photographs. Twenty-odd full-width images ran to
+          8.7k px on a phone; the first nine show inline, the rest open on
+          request. Photographs on cream need neither shadow nor a hover zoom. */}
       {rest.length > 0 && (
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 lg:gap-10 mt-24 sm:mt-32 lg:mt-40">
-          {rest.map((beeld, index) => (
-            <div className="mb-6 lg:mb-10 overflow-hidden" key={beeld.id ?? index}>
-              <Image
-                src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
-                className="sm:hover:scale-[1.06] transition-transform ease-in-out duration-300 shadow-lg"
-                alt={beeld.alt || project.naam}
-                width={beeld.width || 1000}
-                height={beeld.height || 750}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                style={{ width: "100%", height: "auto" }}
-              />
+        <div className="mt-section">
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6">
+            {rest.slice(0, 9).map((beeld, index) => (
+              <div className="mb-4 lg:mb-6" key={beeld.id ?? index}>
+                <Image
+                  src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
+                  alt={beeld.alt || project.naam}
+                  width={beeld.width || 1000}
+                  height={beeld.height || 750}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </div>
+            ))}
+          </div>
+          {rest.length > 9 && (
+            <details className="mt-6 group">
+              <summary className="cursor-pointer list-none text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
+                <span className="group-open:hidden">Alle foto&apos;s ({rest.length})</span>
+                <span className="hidden group-open:inline">Minder foto&apos;s</span>
+              </summary>
+              <div className="mt-6 columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6">
+                {rest.slice(9).map((beeld, index) => (
+                  <div className="mb-4 lg:mb-6" key={beeld.id ?? `x${index}`}>
+                    <Image
+                      src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
+                      alt={beeld.alt || project.naam}
+                      width={beeld.width || 1000}
+                      height={beeld.height || 750}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      style={{ width: "100%", height: "auto" }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </details>
+          )}
+
+          {/* The only conversion on the page sat above 3-9k px of gallery and
+              was never repeated. Once more, at the point a reader has seen it all. */}
+          {isOffer && (
+            <div className="mt-group flex flex-wrap items-center gap-x-8 gap-y-4">
+              {project.prijs && <span className="text-h3 text-black">{project.prijs}</span>}
+              <Link
+                href={`/contact?project=${encodeURIComponent(project.naam || "")}`}
+                className="inline-block text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
+              >
+                Vraag een bezichtiging aan
+              </Link>
             </div>
-          ))}
+          )}
         </div>
       )}
 
-      {/* Without this a visitor who landed here from a search result has no
-          route deeper into the site than the browser's back button. */}
-      <div className="mt-24 sm:mt-32 lg:mt-40 mb-32 sm:mb-40">
-        <Link
-          href="/projects"
-          className="text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
-        >
-          ← Alle realisaties
-        </Link>
-      </div>
 
-      <UseScrollToTop />
     </div>
   );
 }
