@@ -6,7 +6,10 @@
 
 FROM node:20-alpine AS deps
 WORKDIR /app
-COPY package.json package-lock.json ./
+# .npmrc carries `legacy-peer-deps=true`, which npm ci needs to resolve
+# react-scroll-rotate's stale React 16 peer range. Without copying it the
+# container resolves differently from every local install and the build fails.
+COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 
 FROM node:20-alpine AS builder
