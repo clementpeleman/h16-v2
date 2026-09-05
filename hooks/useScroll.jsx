@@ -1,104 +1,95 @@
-import { useState, useEffect } from 'react';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { useEffect, useRef, useState } from "react";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
-function useScrollToTop() {
-	const [showScroll, setShowScroll] = useState(false);
-	const [prevScrollPos, setPrevScrollPos] = useState(0);
-	const [scrollDirection, setScrollDirection] = useState('up');
+// Despite the `use` name this is a component, rendered as <UseScroll />.
+//
+// Same leak as UseScrollToTop: the subscription was in the render body with a
+// fresh closure per render and no removal, and the effect beside it re-ran on
+// every render because `prevScrollPos` was a dependency. Scroll position is a
+// ref now — it changes many times a second and nothing renders from it — so
+// the listener is attached exactly once and coalesced per frame.
+function UseScroll() {
+  const [showScroll, setShowScroll] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState("up");
 
-	const checkScrollDirection = () => {
-		const currentScrollPos = window.pageYOffset;
-		if (Math.abs(currentScrollPos - prevScrollPos) > 400) {
-			if (currentScrollPos > prevScrollPos && currentScrollPos > 400) {
-				setShowScroll(true);
-				setScrollDirection('down');
-			} else if (currentScrollPos < prevScrollPos || currentScrollPos <= 400) {
-				setShowScroll(true);
-				setScrollDirection('up');
-			}
-			setPrevScrollPos(currentScrollPos);
-		}
-	};
+  const prevScrollPos = useRef(0);
+  const shownRef = useRef(false);
+  const directionRef = useRef("up");
 
-	useEffect(() => {
-		window.addEventListener('scroll', checkScrollDirection);
-		return function cleanup() {
-			window.removeEventListener('scroll', checkScrollDirection);
-		};
-	}, [prevScrollPos]); // Voeg prevScrollPos toe als een afhankelijkheid
+  useEffect(() => {
+    let frame = null;
+    prevScrollPos.current = window.pageYOffset;
 
-	const backToTop = () => {
-		window.scrollTo({
-			top: 0,
-			behavior: 'smooth',
-		});
-	};
+    const evaluate = () => {
+      frame = null;
+      const current = window.pageYOffset;
+      if (Math.abs(current - prevScrollPos.current) <= 400) return;
 
-	const scrollToBottom = () => {
-		window.scrollTo({
-			top: document.body.scrollHeight - window.innerHeight - (isMobile ? 550 : 400),
-			behavior: 'smooth',
-		});
-	};
+      const nextDirection =
+        current > prevScrollPos.current && current > 400 ? "down" : "up";
 
+      if (!shownRef.current) {
+        shownRef.current = true;
+        setShowScroll(true);
+      }
+      if (nextDirection !== directionRef.current) {
+        directionRef.current = nextDirection;
+        setScrollDirection(nextDirection);
+      }
+      prevScrollPos.current = current;
+    };
 
-	if (typeof window !== 'undefined') {
-		window.addEventListener('scroll', checkScrollDirection);
-	}
+    const onScroll = () => {
+      if (frame === null) frame = window.requestAnimationFrame(evaluate);
+    };
 
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-	return (
-		<>
-			{scrollDirection === 'up' ? (
-				<FiChevronUp
-					className="scrollToTop"
-					onClick={backToTop}
-					style={{
-						height: 40,
-						width: 40,
-						padding: 7,
-						borderRadius: 50,
-                        bottom: isMobile ? 30 : 50,
-                        right: isMobile ? 20 : 50,
-						display: showScroll ? 'flex' : 'none',
-					}}
-				/>
-			) : (
-				<div
-					className="moreInfoButton"
-					onClick={scrollToBottom}
-					style={{
-						position: 'fixed',
-                        bottom: isMobile ? 25 : 45,
-                        right: isMobile ? 20 : 50,
-						backgroundColor: 'blue',
-						color: 'white',
-						padding: '10px 20px',
-						cursor: 'pointer',
-						borderRadius: 5,
-						alignItems: 'center',
-						display: showScroll ? 'flex' : 'none',
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
-					}}
-				>
-					Meer info
-					<FiChevronDown
-						style={{
-							height: 28,
-							width: 28,
-							padding: 1,
-							marginTop: 3,
-							marginLeft: 8,
-                            marginRight: -4,
-						}}
-					/>
-				</div>
-			)}
-		</>
-	);
+  const scrollTo = (top) => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
+  };
+
+  const backToTop = () => scrollTo(0);
+
+  const scrollToBottom = () => {
+    const isMobile = window.innerWidth <= 768;
+    scrollTo(
+      document.body.scrollHeight - window.innerHeight - (isMobile ? 550 : 400)
+    );
+  };
+
+  if (scrollDirection === "up") {
+    return (
+      <button
+        type="button"
+        onClick={backToTop}
+        className="scrollToTop"
+        aria-label="Terug naar boven"
+        hidden={!showScroll}
+      >
+        <FiChevronUp aria-hidden="true" focusable="false" />
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={scrollToBottom}
+      className="moreInfoButton"
+      hidden={!showScroll}
+    >
+      Naar de beschrijving
+      <FiChevronDown aria-hidden="true" focusable="false" />
+    </button>
+  );
 }
 
-
-
-export default useScrollToTop;
+export default UseScroll;

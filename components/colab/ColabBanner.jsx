@@ -1,145 +1,191 @@
 import React, { Component } from "react";
-import { FiArrowRight,FiArrowDown } from "react-icons/fi";
+import Image from "next/image";
+import Link from "next/link";
+import { FiArrowRight, FiArrowDown } from "react-icons/fi";
+
+// One card spec for all three families. They used to have three: padding
+// 32/40 vs 32/40 vs 24/32, heading-to-body gaps of 32 / 8 / 8, and gutters of
+// 16 / 16 / 32 — the last one faked with per-child margins instead of a grid
+// gap, which left the outer edges inset by 16 while the inner gutter was 32.
+const cardClasses =
+  "p-6 sm:p-8 bg-secondary-light shadow-sm transform transition-transform duration-200 hover:scale-[1.02]";
+
+// Two peer offers are a comparison, not a list. Gutter (24/40) is now larger
+// than the card's own padding (24/32), so the boundary between two cards is
+// stronger than the space inside one — which is what makes them read as two.
+const gridClasses = "grid gap-6 lg:gap-10 sm:grid-cols-2 list-none";
+
+// Which project illustrates which benefit. These are DEFAULTS in project
+// order — set them deliberately once you know which job best demonstrates
+// each point. A benefit with no matching project simply renders without an
+// image; nothing breaks and no claim is invented.
+const VOORDELEN = [
+  {
+    title: "Bepalen juiste doelstelling",
+    body: [
+      "Het realiseren van een droomhuis of het neerzetten van een rendabele vastgoedinvestering?",
+      "Twee aparte werelden. Zet de focus juist om het gewenste doel te bereiken.",
+    ],
+  },
+  {
+    title: "Snelheid",
+    body: [
+      "Voorbereiding, opvolging, planning en communicatie stroomlijnen uw bouwproces.",
+      "Hierdoor treedt er tijdswinst op, die altijd gepaard gaat met financiële voordelen.",
+    ],
+  },
+  {
+    title: "Kwaliteit",
+    body: [
+      "Met een doenersmentaliteit zorgt H16 ervoor dat alles gedaan wordt én dat dit ook op een degelijke manier gebeurt.",
+      "Langdurige samenwerkingen met aannemers maken het mogelijk om zekerheid over kwaliteit en nazorg in te bouwen.",
+    ],
+  },
+  {
+    title: "Budgetcontrole",
+    body: [
+      "H16 onderhandelt een goede prijs, élke factuur wordt gecontroleerd en het budget wordt opgevolgd.",
+      "Zo wordt de gewenste doelstelling bereikt.",
+    ],
+  },
+];
 
 export class ColabBanner extends Component {
   render() {
+    const proof = this.props.proof ?? [];
     return (
-      <div className="mx-4 sm:mx-0">
-        <section className="pt-5 sm:pt-10 mt-6 sm:mt-8 sm:-mb-16">
-          <div className="max-w-[70%] text-left">
-            <p className=" font-general-medium text-2xl sm:text-4xl text-black dark:text-ternary-light ">
-              Samenwerken
-            </p>
-          </div>
-          <div className="mt-4 sm:mb-12 text-xl text-black font-general-medium">
-            Wat kan H16 voor jou betekenen?
-          </div>
-          <br />
-          <br />
-          <div>
-            <ol className="flex justify-between items-start list-none list-inside max-w-8xl ">
-              <div className="grid sm:grid-cols-1 gap-4 items-start">
-                <li className="font-general-medium  space-y-8 hover:z-50  text-xl hover:text-accent max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-200 shadow-sm ">
-                  Bouwcoördinatie en Adviesverlening
-                  <div className=" font-general-regular text-black text-lg mt-2">
-                    Sta je voor een bouwproject maar loop je verloren? Op zoek naar een zeer concrete hulp bij de effectieve uitvoering?
-                    Wij analyseren graag samen uw specifieke vastgoed gerelateerde situatie of vragen en coördineren uw vastgoedproject met de grootste zorg.
-                  </div>
-                </li>
+      <section className="mt-16 sm:mt-24">
+        <h1 className="font-display text-h1 text-black [text-wrap:balance]">
+          Samenwerken
+        </h1>
 
-                <li className="font-general-medium space-y-8 hover:z-50  hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
-                  Projectontwikkeling
-                  <p className=" font-general-regular text-black text-lg mt-2">
-                    Ben je eigenaar en wil je liever een grond of pand verkopen?
-                    Wij zijn ervaren en geïnteresseerd.
-                  </p>
-                </li>
-              </div>
-              <a href="#voordeel" className="hidden xl:flex hover:text-accent text-4xl font-balerno  decoration-1 underline-offset-2">
-                <FiArrowDown style={{color: "#0E468C"}}/>
-                Colab
-              </a>
-            </ol>
-            <div className="sm:mb-24 sm:mb-24 mt-16 sm:mt-24 "></div>
-            <div className="sm:pt-30 sm:mb-20 sm:mb-12 mb-16 sm:mx-64 border-t-2 border-slate-200"></div>
-            <div className=" flex">
-              <ol className="list-none list-inside space-y-8 max-w-8xl mb-6">
-                <div className="grid sm:grid-cols-2 gap-4 items-start">
-                  <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm">
-                    Ben je architect?
-                    <p className=" font-general-regular text-black text-lg mt-2">
-                      Een bouwproces is intensief en tijdrovend. Wil je je als
-                      architect focussen op ontwerp? Dan nemen wij graag een
-                      deel van het uitvoerend werk uit handen.
+        <h2 className="mt-4 text-h2 text-black">Wat kan H16 voor u betekenen?</h2>
+
+        {/* The jump link used to sit inside the card row, where `justify-between`
+            parked it at the far edge and left 196px of nothing beside the
+            cards. It was also `hidden xl:flex`, so it only existed above
+            1280px. It is a standalone link under the heading now, at every
+            width, and it names its destination. */}
+        <a
+          href="#voordeel"
+          className="mt-4 inline-flex items-center gap-2 text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+        >
+          <FiArrowDown aria-hidden="true" className="h-5 w-5 shrink-0" />
+          Uw voordeel
+        </a>
+
+        <ul className={`${gridClasses} mt-12 sm:mt-16`}>
+          <li className={cardClasses}>
+            <h3 className="text-h3">Bouwcoördinatie en Adviesverlening</h3>
+            <p className="mt-4 text-black text-body">
+              Staat u voor een bouwproject maar loopt u verloren? Op zoek naar
+              zeer concrete hulp bij de effectieve uitvoering? Wij analyseren
+              graag samen uw specifieke vastgoedsituatie of vragen, en
+              coördineren uw vastgoedproject met de grootste zorg.
+            </p>
+          </li>
+
+          <li className={cardClasses}>
+            <h3 className="text-h3">Projectontwikkeling</h3>
+            <p className="mt-4 text-black text-body">
+              Bent u eigenaar en wilt u liever een grond of pand verkopen? Wij
+              zijn ervaren en geïnteresseerd.
+            </p>
+          </li>
+        </ul>
+
+        <div className="my-16 sm:my-24 mx-auto max-w-2xl border-t-2 border-slate-200"></div>
+
+        {/* This group addresses professional peers rather than clients, which
+            is why its copy stays informal. The heading makes that deliberate. */}
+        <h2 className="text-h2 text-black">Voor architecten en aannemers</h2>
+
+        <ul className={`${gridClasses} mt-12 sm:mt-16`}>
+          <li className={cardClasses}>
+            <h3 className="text-h3">Ben je architect?</h3>
+            <p className="mt-4 text-black text-body">
+              Een bouwproces is intensief en tijdrovend. Wil je je als architect
+              focussen op ontwerp? Dan nemen wij graag een deel van het
+              uitvoerend werk uit handen.
+            </p>
+          </li>
+          <li className={cardClasses}>
+            <h3 className="text-h3">Ben je aannemer?</h3>
+            <p className="mt-4 text-black text-body">
+              We slaan graag de handen in elkaar met kwalitatieve aannemers voor
+              een duurzame relatie waarbij klantgerichtheid en kwaliteit
+              centraal staan.
+            </p>
+          </li>
+        </ul>
+
+        {/* `sm:pt-[1px]` used to live here purely to stop this element's top
+            margin collapsing with its child heading's — two 96px margins held
+            apart by a 1px hack, for a 217px gap nobody chose. The heading no
+            longer carries its own margin, so the section owns the gap. */}
+        <div id="voordeel" className="mt-16 sm:mt-24 scroll-mt-8">
+          <h2 className="flex items-center text-h2 text-black">
+            <FiArrowRight
+              aria-hidden="true"
+              className="h-8 w-8 mr-3 shrink-0 text-primary"
+            />
+            Uw voordeel?
+          </h2>
+
+          <p className="mt-4 text-black text-body max-w-[65ch]">
+            Elke dag van het bouwproces brengt nieuwe uitdagingen met zich mee.
+            Het opvolgen ervan vraagt de juiste kennis, expertise en
+            betrokkenheid. Voor velen is het realiseren van een bouwproject geen
+            dagelijkse kost, voor H16 is het dat wel.
+          </p>
+
+          <p className="mt-8 text-black text-lead font-strong max-w-[65ch]">
+            Door een deskundige opvolging op uw project los te laten, treden
+            enkele belangrijke voordelen op:
+          </p>
+
+          <div className={`${gridClasses} mt-12 sm:mt-16`}>
+            {VOORDELEN.map((v, i) => {
+              const project = proof[i];
+              return (
+                <div key={v.title} className={cardClasses}>
+                  {project?.thumbnail && (
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="block relative aspect-[4/3] w-full overflow-hidden bg-ternary-light mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-4 rounded-sm"
+                    >
+                      <Image
+                        src={
+                          process.env.NEXT_PUBLIC_STRAPI_ASSET_URL +
+                          project.thumbnail.url
+                        }
+                        alt={project.naam || ""}
+                        fill
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    </Link>
+                  )}
+                  <h3 className="text-h3 text-accent">{v.title}</h3>
+                  {v.body.map((line) => (
+                    <p key={line} className="mt-4 break-words text-black text-body">
+                      {line}
                     </p>
-                  </li>
-                  <li className="font-general-medium hover:text-accent text-xl max-w-3xl p-4 sm:px-10 sm:py-8 bg-secondary-light dark:bg-secondary-dark hover:scale-105 transform transition-transform duration-20 shadow-sm ">
-                    Ben je aannemer?
-                    <p className=" font-general-regular text-black text-lg mt-2">
-                      We slaan graag de handen in elkaar met kwalitatieve
-                      aannemers voor een duurzame relatie waarbij
-                      klantgerichtheid en kwaliteit centraal staan.
-                    </p>
-                  </li>
+                  ))}
+                  {project?.slug && (
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="mt-4 inline-block text-meta text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+                    >
+                      Bekijk {project.naam}
+                    </Link>
+                  )}
                 </div>
-              </ol>
-            </div>
+              );
+            })}
           </div>
-          {/* <div className="sm:pt-30 sm:mb-28 mt-24 sm:mt-32 mx-32 border-t-2 border-gray-200"></div> */}
-          <div id="voordeel" className="sm:mb-32 sm:pt-[1px] sm:mt-24">
-            <p className=" font-general-medium flex text-3xl sm:text-4xl mt-20 sm:mt-24 text-black dark:text-ternary-light ">
-              <FiArrowRight
-                style={{
-                  height: 40,
-                  width: 40,
-                  marginTop: 0,
-                  marginBottom: 10,
-                  marginRight: 10,
-                  color: "#0E468C",
-                }}
-              />
-              Uw voordeel?
-            </p>
-            <p className="font-general-regular text-black sm:text-lg mt-2 sm:max-w-[55%]">
-              Elke dag van het bouwproces brengt nieuwe uitdagingen met zich
-              mee. Het opvolgen ervan vraagt de juiste kennis, expertise en
-              betrokkenheid. Voor velen is het realiseren van een bouwproject
-              geen dagelijkse kost, voor H16 is het dat wel.
-              <br />
-              <br />
-              <span className="font-general-medium text-lg sm:text-xl">
-                Door een deskundige opvolging op uw project los te laten, treden
-                enkele belangrijke voordelen op:
-              </span>
-              <br />
-              <br />
-              <br />
-            </p>
-            <div className="grid sm:grid-cols-2 list-inside text-accent font-general-medium text-3xl">
-              <div className="">
-                <div className="sm:px-8 sm:py-6 p-4 my-4 sm:mr-4 bg-secondary-light shadow-sm">
-                  Bepalen juiste doelstelling
-                  <p className=" font-general-regular break-words text-black text-lg  mt-2 ">
-                  Het realiseren van een droomhuis of het neerzetten van een rendabele vastgoedinvestering?<br/><br/>
-                  Twee aparte werelden! Zet de focus juist om het gewenste doel te bereiken!
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <div className="sm:px-8 sm:py-6 p-4 my-4 sm:ml-4 bg-secondary-light shadow-sm">
-                  Snelheid
-                  <p className=" font-general-regular break-words text-black text-lg  mt-2">
-                  Voorbereiding, opvolging, planning en communicatie stroomlijnen uw bouwproces.<br/><br/>
-                  Hierdoor treedt er tijdswinst op, die altijd gepaard gaat met financiële voordelen
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <div className="sm:px-8 sm:py-6 p-4 my-4 sm:mr-4 bg-secondary-light shadow-sm">
-                  Kwaliteit
-                  <p className=" font-general-regular break-words text-black text-lg  mt-2">
-                  Met een doenersmentaliteit zorgt H16 ervoor dat alles gedaan wordt én dat dit ook op een degelijke manier gebeurt.<br/><br/>
-                  Langdurige samenwerkingen met aannemers maken het mogelijk om zekerheid over kwaliteit en nazorg in te bouwen.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <div className="sm:px-8 sm:py-6 p-4 my-4 sm:ml-4 bg-secondary-light shadow-sm">
-                  Budgetcontrole
-                  <p className=" font-general-regular break-words text-black text-lg mt-2">
-                  H16 onderhandelt een goede prijs, élke factuur wordt gecontroleerd en het budget wordt opgevolgd.<br/><br/>
-                  Zo wordt de gewenste doelstelling bereikt!
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
     );
   }
 }

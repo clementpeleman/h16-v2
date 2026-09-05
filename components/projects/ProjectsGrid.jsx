@@ -1,82 +1,38 @@
-import { useState } from "react";
 import ProjectSingle from "./ProjectSingle";
-import { projectsData } from "../../data/projectsData";
-import ProjectsFilter from "./ProjectsFilter";
 import Link from "next/link";
 
 function ProjectsGrid({ projects }) {
-  const [selectProject, setSelectProject] = useState();
+  // Newest first, then take three — the same ordering /projects uses.
+  const recent = (projects ?? []).slice(0, 3);
 
-  const selectProjectsByCategory = projectsData.filter((item) => {
-    let category =
-      item.category.charAt(0).toUpperCase() + item.category.slice(1);
-    return category.includes(selectProject);
-  });
+  // If there is nothing to show, show nothing: a heading promising "onze
+  // recentste realisaties" above an empty grid, with a link to an equally
+  // empty page, reads as a firm that has built nothing.
+  if (recent.length === 0) return null;
 
   return (
-    <div className="mx-4 sm:mx-0">
-      <section className="pt-5 sm:pt-10 mt-6 sm:mt-8">
-        <div className="max-w-[70%] text-left">
-          <p className=" font-general-medium text-3xl sm:text-4xl -mb-8  text-black dark:text-ternary-light">
-            Onze recentste realisaties
-          </p>
-        </div>
+    <section className="mt-16 sm:mt-24">
+      {/* The heading and "Alles bekijken" used to be two block elements with
+          the link pulled up by a fixed `-mb-8` to fake a shared row. It only
+          lined up by accident and collapsed the moment the heading wrapped —
+          confirmed at 375px. `items-baseline` gives the same alignment as a
+          real relationship, and survives the wrap. */}
+      <div className="flex flex-wrap items-baseline justify-between gap-4 mb-8">
+        <h2 className="text-h2 text-black">Onze recentste realisaties</h2>
+        <Link
+          href="/projects"
+          className="text-ui py-1 text-secondary-dark hover:text-primary underline underline-offset-4 decoration-1 hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm cursor-pointer duration-200"
+        >
+          Alles bekijken
+        </Link>
+      </div>
 
-        <div className="mt-5 sm:mt-0 mb-5 sm:mb-8">
-          {/* <h3
-					className="
-                        font-general-regular 
-                        text-center text-secondary-dark
-                        dark:text-ternary-light
-                        text-md
-                        sm:text-xl
-                        mb-3
-                        "
-				>
-					Onze voltooide projecten
-				</h3> */}
-          <div
-            className=" 
-                        text-right
-                        justify-between
-						pb-6
-                        md:pb-10
-                        gap-3
-						md:underline underline-offset-4 decoration-1
-						hover:decoration-accent
-                        "
-          >
-            <Link
-              href="/projects"
-              className="
-                        font-general-medium 
-                        text-right text-secondary-dark
-                        dark:text-ternary-light
-                        text-xl
-                        sm:text-lg
-                        sm:mb-3
-						pr-6
-						pb-0
-						hover:text-primary
-						cursor-pointer
-                        "
-            >
-              Alles bekijken
-            </Link>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
-          {projects &&
-            projects.data
-              .slice(-3) // This will take the last three projects
-              .reverse()
-              .map((project, index) => {
-                return <ProjectSingle key={index} {...project} />;
-              })}
-        </div>
-      </section>
-    </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {recent.map((project) => (
+          <ProjectSingle key={project.id} {...project} />
+        ))}
+      </div>
+    </section>
   );
 }
 

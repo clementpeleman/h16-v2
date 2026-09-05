@@ -1,52 +1,62 @@
-import { useState, useEffect } from 'react';
-import { FiChevronUp } from 'react-icons/fi';
+import { useEffect, useRef, useState } from "react";
+import { FiChevronUp } from "react-icons/fi";
 
-function useScrollToTop() {
-	const [showScroll, setShowScroll] = useState(false);
+// Despite the `use` name this is a component, rendered as <UseScrollToTop />.
+//
+// It used to call window.addEventListener in the render body, outside any
+// effect and with a fresh closure each time, so every render leaked one more
+// scroll listener that was never removed — measured at one per render, and the
+// listener itself sets state, so scrolling compounded it. The subscription now
+// lives in one effect with an empty dependency array, reads through a ref, and
+// is coalesced into a single requestAnimationFrame per frame.
+function UseScrollToTop() {
+  const [showScroll, setShowScroll] = useState(false);
+  const showScrollRef = useRef(false);
 
-	useEffect(() => {
-		window.addEventListener('scroll', scrollToTop);
-		return function cleanup() {
-			window.removeEventListener('scroll', scrollToTop);
-		};
-	});
+  useEffect(() => {
+    let frame = null;
 
-	const scrollToTop = () => {
-		if (!showScroll && window.pageYOffset > 400) {
-			setShowScroll(true);
-		} else if (showScroll && window.pageYOffset <= 400) {
-			setShowScroll(false);
-		}
-	};
+    const evaluate = () => {
+      frame = null;
+      const past = window.pageYOffset > 400;
+      if (past !== showScrollRef.current) {
+        showScrollRef.current = past;
+        setShowScroll(past);
+      }
+    };
 
-	const backToTop = () => {
-		window.scrollTo({
-			top: 0,
-			behavior: 'smooth',
-		});
-	};
+    const onScroll = () => {
+      // Many scroll events land per frame; only the last one matters.
+      if (frame === null) frame = window.requestAnimationFrame(evaluate);
+    };
 
-	if (typeof window !== 'undefined') {
-		window.addEventListener('scroll', scrollToTop);
-	}
+    // passive: this handler never calls preventDefault, and saying so lets the
+    // browser keep scrolling off the main thread.
+    window.addEventListener("scroll", onScroll, { passive: true });
+    evaluate();
 
-	return (
-		<>
-			<FiChevronUp
-				className="scrollToTop"
-				onClick={backToTop}
-				style={{
-					height: 40,
-					width: 40,
-					padding: 7,
-					borderRadius: 50,
-					right: 50,
-					bottom: 50,
-					display: showScroll ? 'flex' : 'none',
-				}}
-			/>
-		</>
-	);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  const backToTop = () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={backToTop}
+      className="scrollToTop"
+      aria-label="Terug naar boven"
+      hidden={!showScroll}
+    >
+      <FiChevronUp aria-hidden="true" focusable="false" />
+    </button>
+  );
 }
 
-export default useScrollToTop;
+export default UseScrollToTop;

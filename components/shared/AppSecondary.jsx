@@ -1,139 +1,123 @@
 import Link from "next/link";
-import React, { Component } from "react";
+import React from "react";
 import Image from "next/image";
-import { ScrollRotate } from "react-scroll-rotate";
 import { TypeAnimation } from "react-type-animation";
+import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
 import { FiArrowRight } from "react-icons/fi";
 
-export class AppSecondary extends Component {
-  render() {
-    return (
-      <div className="text-md md:text-xl">
-        <div className="mt-10 sm:mb-40 sm:mt-24">
-          <div className="sm:pt-30 mt-32 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
-          <div className="mt-12 sm:mt-20 mx-4 sm:mx-0 mb-12 sm:mb-8 flex flex-col sm:flex-row place-content-between">
-            <p className="font-general-medium  text-2xl sm:text-4xl sm:mb-2 text-black dark:text-ternary-light">
+const TYPED_WORDS = [
+  "Flexibiliteit",
+  "Wendbaarheid",
+  "Nieuwe inzichten",
+  "Focus op doel",
+  "Persoonlijke aanpak",
+  "Uniek eindresultaat",
+];
+
+function AppSecondary() {
+  const reducedMotion = usePrefersReducedMotion();
+  return (
+      <div>
+        <div>
+          <div className="mt-16 sm:mt-24 border-t-2 border-gray-200"></div>
+
+          <div className="mt-16 sm:mt-24 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+            <h2 className="text-h2 text-black">
               Jouw <span className="text-accent">bouwproject</span> onder onze
               vleugels?
-            </p>
+            </h2>
 
             <Link
               href="/colab"
-              className="font-general-medium inline-block self-center sm:self-auto text-lg text-center md:max-h-14 xl:max-h-24 border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm rounded-sm mt-10 sm:mt-0 sm:mr-4 lg:mr-16 px-0 sm:px-4 py-3 duration-300 w-48"
-              aria-label="Hire Me Button"
+              className="text-ui shrink-0 self-start sm:self-auto inline-block text-center border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm rounded-sm px-6 py-3 duration-300"
             >
-              Ontdek meer
+              Bekijk onze werkwijze
             </Link>
           </div>
-          <div className="hidden sm:block max-w-[620px] md:max-w-[1060px] text-justify text-gray-500 text-xl">
-            Gedreven door passie voor vastgoed en middels degelijke samenwerkingen neemt H16 uw vastgoedproject onder de vleugels. Onze kracht is flexibiliteit en wendbaarheid, net als de kolibri in zijn soepele vlucht. Elk perspectief wordt ten gronde bekeken, veranderen van perspectief gebeurt snel en levert nieuwe inzichten op. Wij houden de focus op het doel tot zolang het bereikt is. Met een persoonlijke aanpak binnen ons klein bedrijf wordt de opdrachtgever totaal ontzorgd in het realiseren van een uniek eindresultaat.
-            <br />
-            <br />
-            {/* <span className="font-general-medium text-3xl text-black">
-            Onze krachten zijn:{" "}
-          </span> */}
-            {/* <ul className="list-none  list-inside">
-            <li className="my-2">Flexibiliteit</li>
-            <li className="my-2">Wendbaarheid</li>
-            <li className="my-2">Nieuwe inzichten</li>
-            <li className="my-2">Focus op doel</li>
-            <li className="my-2">Persoonlijke aanpak</li>
-            <li className="my-2">Uniek eindresultaat</li>
-          </ul> */}
-            <div className="flex items-center">
+
+          <div className="mt-8 max-w-[65ch]">
+            <p className="text-gray-700 text-lead">
+            Gedreven door passie voor vastgoed en middels degelijke
+            samenwerkingen neemt H16 uw vastgoedproject onder de vleugels. Onze
+            kracht is flexibiliteit en wendbaarheid, net als de kolibrie in zijn
+            soepele vlucht. Elk perspectief wordt ten gronde bekeken, veranderen
+            van perspectief gebeurt snel en levert nieuwe inzichten op. Wij
+            houden de focus op het doel tot zolang het bereikt is. Met een
+            persoonlijke aanpak binnen ons klein bedrijf wordt de opdrachtgever
+            totaal ontzorgd in het realiseren van een uniek eindresultaat.
+            </p>
+            <div className="flex items-center mt-8">
               <FiArrowRight
-                style={{
-                  height: 30,
-                  width: 30,
-                  marginTop: 10,
-                  marginBottom: 10,
-                  marginRight: 10,
-                  color: "silver",
-                }}
+                aria-hidden="true"
+                className="h-7 w-7 mr-3 shrink-0 text-primary"
               />
-              <TypeAnimation
-                sequence={[
-                  // Same substring at the start will only be typed out once, initially
-                  "Flexibiliteit",
-                  1000, // wait 1s before replacing "Mice" with "Hamsters"
-                  "Wendbaarheid",
-                  1000,
-                  "Nieuwe inzichten",
-                  1000,
-                  "Focus op doel",
-                  1000,
-                  "Persoonlijke aanpak",
-                  1000,
-                  "Uniek eindresultaat",
-                  1000,
-                ]}
-                wrapper="span"
-                speed={50}
-                className=" font-general-medium text-3xl text-accent"
-                repeat={Infinity}
-              />
+              {/* An infinite type-and-delete loop with no pause control is a
+                  WCAG 2.2.2 (Pause, Stop, Hide) failure for anything moving
+                  longer than five seconds. Reduced motion gets the same six
+                  words, at rest. */}
+              {reducedMotion ? (
+                <span className="text-h3 text-accent">
+                  {TYPED_WORDS.join(" · ")}
+                </span>
+              ) : (
+                <TypeAnimation
+                  sequence={TYPED_WORDS.flatMap((w) => [w, 1000])}
+                  wrapper="span"
+                  speed={50}
+                  className="text-h3 text-accent"
+                  repeat={Infinity}
+                />
+              )}
             </div>
           </div>
 
-          <div className=" sm:pt-30 sm:mt-20 mb-40 sm:mb-52 mt-10 border-t-2 border-gray-200 dark:border-secondary-dark"></div>
-          <div className="hidden sm:block mb-72">
-            <p className="text-2xl sm:text-4xl mb-5 text-black dark:text-ternary-light text-right font-general-regular">
+          <div className="mt-16 sm:mt-24 border-t-2 border-gray-200"></div>
+
+          <div className="mt-16 sm:mt-24">
+            <h2 className="text-h2 mb-8 text-black text-left">
               De kolibrie als symbool van H16
-            </p>
-            <div className="flex flex-row items-center justify-between">
-              <div className="hidden xl:block flex justify-center flex-grow mr-24">
+            </h2>
+            <div className="flex flex-row items-center gap-16">
+              <div className="hidden xl:block shrink-0">
                 <Image
                   src="/images/H16_EMBLEEM_BLAUW.png"
                   width={120}
                   height={120}
-                  alt="H16 Vogel"
+                  alt="Het kolibrie-embleem van H16"
                   style={{
                     maxWidth: "100%",
-                    height: "auto"
-                  }} />
+                    height: "auto",
+                  }}
+                />
               </div>
-              <div className="max-w-[620px] md:max-w-[1115px] text-justify self-end text-gray-500">
-                <span className="">
-                  Er bestaat er een eeuwenoude symboliek rond dit bijzondere
-                  vogeltje: in vele culturen werd hij steeds gezien als de
-                  boodschapper van{" "}
-                </span>
-                <span className=" decoration-1 cursor-pointer transition-all text-primary hover:text-3xl font-normal font-opensans">
+              <p className="max-w-[68ch] text-gray-700 text-body">
+                Er bestaat een eeuwenoude symboliek rond dit bijzondere
+                vogeltje: in vele culturen werd hij steeds gezien als de
+                boodschapper van{" "}
+                <span className="text-primary font-strong">
                   liefde en vreugde
                 </span>
-                <span className="">
-                  . De kolibrie heeft unieke gaven en weet zijn talenten te
-                  gebruiken om zijn doelen te bereiken, net als H16.
-                </span>
-                <span className="text-black  font-normal"> </span>
-                <span className="text-blackfont-normal"> </span>
-                <span className="">
-                  Door zijn compact formaat en priemvormige snavel onderscheidt
-                  de kolibrie zich van de rest. Zijn uitstekend vliegvermogen is
-                  uniek en hij gebruikt zijn talent om
-                  <span className=" decoration-1 cursor-pointer transition-all text-primary  hover:text-3xl font-normal font-opensans">
-                    {" "}
-                    in alle richtingen{" "}
-                  </span>
-                  te vliegen, waaronder ter plaatse én achterwaarts
-                </span>
-
-                <span className="">
-                  . Hij is razendsnel en heeft een bijzonder reactievermogen.
-                  Met het flapperen van zijn vleugels worden
-                  <span className=" decoration-1 cursor-pointer transition-all text-primary  hover:text-3xl font-normal font-opensans">
-                    {" "}
-                    ongeziene frequenties{" "}
-                  </span>
-                  bereikt.
-                </span>
-              </div>
+                . De kolibrie heeft unieke gaven en weet zijn talenten te
+                gebruiken om zijn doelen te bereiken, net als H16. Door zijn
+                compact formaat en priemvormige snavel onderscheidt de kolibrie
+                zich van de rest. Zijn uitstekend vliegvermogen is uniek en hij
+                gebruikt zijn talent om{" "}
+                <span className="text-primary font-strong">
+                  in alle richtingen
+                </span>{" "}
+                te vliegen, waaronder ter plaatse én achterwaarts. Hij is
+                razendsnel en heeft een bijzonder reactievermogen. Met het
+                flapperen van zijn vleugels worden{" "}
+                <span className="text-primary font-strong">
+                  ongeziene frequenties
+                </span>{" "}
+                bereikt.
+              </p>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+  );
 }
 
 export default AppSecondary;

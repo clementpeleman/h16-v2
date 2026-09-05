@@ -6,8 +6,12 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "GeneralSans-Variable";
   scroll-behavior: smooth;
+  /* The committed brand cream. It used to be applied as `bg-background
+     bg-opacity-60` on a wrapper over a transparent body, which composited it
+     to a washed near-white and let the browser canvas show through. */
+  background-color: #f1ede8;
+  color-scheme: light;
 }
 
 a {
@@ -22,244 +26,138 @@ a {
   box-sizing: border-box;
 }
 
-/* Fonts */
+/* Fonts
+ *
+ * Two families, three files. GeneralSans ships as a single variable family
+ * carrying the whole 200-700 axis in both upright and italic, so weight is a
+ * real, interpolable dimension of the hierarchy. It used to be fifteen static
+ * @font-face blocks — one family name per weight — which meant `font-weight`
+ * utilities hit families that did not have the requested weight and the
+ * browser synthesised the difference: the footer credit was a faux bold on
+ * GeneralSans-Regular, the About blockquote a faux oblique on a face declared
+ * font-style: normal.
+ *
+ * The italic face is deliberately not declared: this engine fetches every
+ * face of a family in use regardless of whether any element asks for that
+ * style, so a 40 KB italic was downloading on all six pages to serve a single
+ * blockquote. The quote is distinguished by size and placement instead.
+ *
+ * Balerno is the display voice. It previously shipped as a 120 KB .otf with
+ * no font-display, which resolves to `auto` — a ~3s block period during which
+ * the entire above-the-fold hero renders invisible. It is now a 62 KB woff2
+ * with `swap`, and both families declare a real fallback stack so a failed
+ * or slow load degrades to a matching genre rather than the browser default.
+ */
 @font-face {
-  font-family: "GeneralSans-Variable";
+  font-family: "GeneralSans";
   src: url("../public/fonts/GeneralSans-Variable.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Variable.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Variable.ttf") format("truetype");
+    url("../public/fonts/GeneralSans-Variable.woff") format("woff");
   font-weight: 200 700;
-  font-display: swap;
   font-style: normal;
-}
-
-.font-general-variable {
-  font-family: "GeneralSans-Variable";
-}
-
-@font-face {
-  font-family: "GeneralSans-VariableItalic";
-  src: url("../public/fonts/GeneralSans-VariableItalic.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-VariableItalic.woff") format("woff"),
-    url("../public/fonts/GeneralSans-VariableItalic.ttf") format("truetype");
-  font-weight: 200 700;
   font-display: swap;
-  font-style: italic;
-}
-
-.font-general-variable-italic {
-  font-family: "GeneralSans-VariableItalic";
-}
-
-@font-face {
-  font-family: "GeneralSans-Extralight";
-  src: url("../public/fonts/GeneralSans-Extralight.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Extralight.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Extralight.ttf") format("truetype");
-  font-weight: 200;
-  font-display: swap;
-  font-style: normal;
-}
-
-.font-general-extralight {
-  font-family: "GeneralSans-Extralight";
-}
-
-@font-face {
-  font-family: "GeneralSans-ExtralightItalic";
-  src: url("../public/fonts/GeneralSans-ExtralightItalic.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-ExtralightItalic.woff") format("woff"),
-    url("../public/fonts/GeneralSans-ExtralightItalic.ttf") format("truetype");
-  font-weight: 200;
-  font-display: swap;
-  font-style: italic;
-}
-
-.font-general-extralight-italic {
-  font-family: "GeneralSans-ExtralightItalic";
-}
-
-@font-face {
-  font-family: "GeneralSans-Light";
-  src: url("../public/fonts/GeneralSans-Light.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Light.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-display: swap;
-  font-style: normal;
-}
-
-.font-general-light {
-  font-family: "GeneralSans-Light";
-}
-
-@font-face {
-  font-family: "GeneralSans-LightItalic";
-  src: url("../public/fonts/GeneralSans-LightItalic.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-LightItalic.woff") format("woff"),
-    url("../public/fonts/GeneralSans-LightItalic.ttf") format("truetype");
-  font-weight: 300;
-  font-display: swap;
-  font-style: italic;
-}
-
-.font-general-light-italic {
-  font-family: "GeneralSans-LightItalic";
-}
-
-@font-face {
-  font-family: "GeneralSans-Regular";
-  src: url("../public/fonts/GeneralSans-Regular.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Regular.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
-}
-
-.font-general-regular {
-  font-family: "GeneralSans-Regular";
-}
-
-@font-face {
-  font-family: "GeneralSans-Italic";
-  src: url("../public/fonts/GeneralSans-Italic.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Italic.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Italic.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-  font-style: italic;
-}
-
-.font-general-italic {
-  font-family: "GeneralSans-Italic";
-}
-
-@font-face {
-  font-family: "GeneralSans-Medium";
-  src: url("../public/fonts/GeneralSans-Medium.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Medium.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-display: swap;
-  font-style: normal;
-}
-
-.font-general-medium {
-  font-family: "GeneralSans-Medium";
-}
-
-@font-face {
-  font-family: "GeneralSans-MediumItalic";
-  src: url("../public/fonts/GeneralSans-MediumItalic.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-MediumItalic.woff") format("woff"),
-    url("../public/fonts/GeneralSans-MediumItalic.ttf") format("truetype");
-  font-weight: 500;
-  font-display: swap;
-  font-style: italic;
-}
-
-.font-general-medium-italic {
-  font-family: "GeneralSans-MediumItalic";
-}
-
-@font-face {
-  font-family: "GeneralSans-Semibold";
-  src: url("../public/fonts/GeneralSans-Semibold.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Semibold.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Semibold.ttf") format("truetype");
-  font-weight: 600;
-  font-display: swap;
-  font-style: normal;
-}
-
-.font-general-semibold {
-  font-family: "GeneralSans-Semibold";
-}
-
-@font-face {
-  font-family: "GeneralSans-SemiboldItalic";
-  src: url("../public/fonts/GeneralSans-SemiboldItalic.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-SemiboldItalic.woff") format("woff"),
-    url("../public/fonts/GeneralSans-SemiboldItalic.ttf") format("truetype");
-  font-weight: 600;
-  font-display: swap;
-  font-style: italic;
-}
-
-.font-general-semibold-italic {
-  font-family: "GeneralSans-SemiboldItalic";
-}
-
-@font-face {
-  font-family: "GeneralSans-Bold";
-  src: url("../public/fonts/GeneralSans-Bold.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-Bold.woff") format("woff"),
-    url("../public/fonts/GeneralSans-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-display: swap;
-  font-style: normal;
-}
-
-.font-general-bold {
-  font-family: "GeneralSans-Bold";
-}
-
-@font-face {
-  font-family: "GeneralSans-BoldItalic";
-  src: url("../public/fonts/GeneralSans-BoldItalic.woff2") format("woff2"),
-    url("../public/fonts/GeneralSans-BoldItalic.woff") format("woff"),
-    url("../public/fonts/GeneralSans-BoldItalic.ttf") format("truetype");
-  font-weight: 700;
-  font-display: swap;
-  font-style: italic;
-}
-
-.font-general-bold-italic {
-  font-family: "GeneralSans-BoldItalic";
 }
 
 @font-face {
   font-family: "Balerno";
-  src: url("../public/fonts/My-Creative-Land-Balerno-Serif-Bold.otf")
-    format("opentype");
-}
-
-.font-balerno {
-  font-family: "Balerno";
-}
-
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap");
-
-.font-opensans {
-  font-family: "Roboto";
+  src: url("../public/fonts/Balerno.woff2") format("woff2"),
+    url("../public/fonts/My-Creative-Land-Balerno-Serif-Bold.otf")
+      format("opentype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
-/* Scroll to top style */
-.scrollToTop {
-  @apply bg-accent;
-  @apply text-white;
+/* Floating scroll affordances.
+ *
+ * These were an <svg onClick> and a <div onClick> positioned entirely by
+ * inline styles, which is why this rule could declare `width: 100%; height:
+ * 20px` — a full-width fixed accent bar — without anyone noticing: the inline
+ * styles overrode it. They are real <button>s now, so the geometry lives here,
+ * and `hidden` handles visibility rather than an inline `display`.
+ */
+.scrollToTop,
+.moreInfoButton {
   position: fixed;
-  width: 100%;
-  align-items: center;
-  height: 20px;
-  justify-content: center;
+  right: 20px;
+  /* Clear the home indicator on iOS rather than sitting under it. */
+  bottom: max(25px, env(safe-area-inset-bottom) + 12px);
   z-index: 999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  animation: fadeIn 0.7s;
-  transition: opacity 0.4s;
-  opacity: 1;
+  animation: fadeIn 0.4s ease-out both;
+  /* The button is fixed and repaints on its own layer; keeping the transition
+     to opacity avoids invalidating layout while the page is scrolling. */
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+@media (min-width: 769px) {
+  .scrollToTop,
+  .moreInfoButton {
+    right: 50px;
+    bottom: 45px;
+  }
+}
+
+.scrollToTop {
+  @apply bg-accent text-white;
+  width: 40px;
+  height: 40px;
+  padding: 7px;
+  border-radius: 999px;
 }
 
 .moreInfoButton {
-  animation: fadeIn 0.7s;
-  transition: opacity 0.4s;
+  @apply bg-primary text-white text-ui;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 5px;
 }
 
-.scrollToTop:hover {
-  opacity: 1;
+/* A `display` declaration on the class beats the UA's `[hidden] { display:
+   none }`, so the attribute has to be re-asserted at higher specificity. */
+.scrollToTop[hidden],
+.moreInfoButton[hidden] {
+  display: none;
+}
+
+.scrollToTop:hover,
+.moreInfoButton:hover {
+  opacity: 0.85;
+}
+
+.scrollToTop:focus-visible,
+.moreInfoButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(14, 70, 140, 0.4);
+}
+
+.scrollToTop svg {
+  width: 100%;
+  height: 100%;
+}
+
+.moreInfoButton svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 419px) {
+  .moreInfoButton {
+    /* The label ran to 60% of a 320px viewport across the photographs. */
+    font-size: 0;
+    gap: 0;
+    padding: 12px;
+    border-radius: 999px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollToTop,
+  .moreInfoButton {
+    animation: none;
+  }
 }
 
 @keyframes fadeIn {
@@ -269,4 +167,67 @@ a {
   100% {
     opacity: 1;
   }
+}
+
+/* Entrance fade.
+ *
+ * These used to be framer-motion `initial={{ opacity: 0 }}` wrappers, which
+ * ship opacity:0 in the server-rendered HTML and only become visible once JS
+ * hydrates and the animation runs. With framer-motion 5 on React 18 that
+ * animation frequently never completes, leaving the hero — and the whole page
+ * above the fold — blank. Content must not depend on JS to become visible, so
+ * the same fade now runs in CSS: no hydration, no framework, no blank page.
+ */
+.enter-fade {
+  /* `both` is deliberate. Switching to `forwards` was tried and reverted: with
+     `forwards` nothing fills backwards, so during the delay the element paints
+     at full opacity and then snaps to 0 when the animation starts — a visible
+     flash for every visitor, traded against a background-tab risk that does
+     not materialise (CSS animations, unlike rAF, keep running in hidden tabs).
+     The delays here are 0.1-0.3s, so the invisible window is bounded and
+     short. */
+  animation: fadeIn 0.7s ease-in-out both;
+  animation-delay: var(--enter-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-fade {
+    animation: none;
+  }
+}
+
+
+/* CMS prose
+ *
+ * Preflight resets h1-h6 to `font-size: inherit; font-weight: inherit`, so a
+ * heading typed into Strapi rendered identically to body text. These rules put
+ * the role scale back for content this codebase does not author.
+ */
+#markdown {
+  max-width: 70ch;
+}
+
+#markdown h2 {
+  @apply text-h3 mt-10 mb-2;
+}
+
+#markdown h3 {
+  @apply text-ui mt-6 mb-1;
+}
+
+#markdown p {
+  @apply mb-4;
+}
+
+#markdown ul,
+#markdown ol {
+  @apply mb-4 pl-5;
+}
+
+#markdown ul {
+  list-style-type: disc;
+}
+
+#markdown ol {
+  list-style-type: decimal;
 }

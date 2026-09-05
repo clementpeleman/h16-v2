@@ -33,3 +33,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Working files, deliberately not published.
+# .backup holds Strapi dumps that contain the property owner's personal email —
+# committing them to a public repo would republish it permanently in history.
+.backup/
+# Internal design-review snapshots.
+.impeccable/
+# Brand source files, including a licensed commercial font (Balerno .otf).
+assets/

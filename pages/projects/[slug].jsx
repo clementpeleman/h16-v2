@@ -1,185 +1,221 @@
 import Image from "next/image";
-import { FiClock, FiTag } from "react-icons/fi";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import PagesMetaHead from "../../components/PagesMetaHead";
-import { projectsData } from "../../data/projectsData";
-import RelatedProjects from "../../components/projects/RelatedProjects";
-import { fetcher } from "../../lib/api";
+import { fetcher, toProjectDetail } from "../../lib/api";
 import Link from "next/link";
-import AboutClientSingle from "../../components/about/AboutClientSingle";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import UseScroll from "../../hooks/useScroll"; 
 
-function Project(props) {
+function Project({ project }) {
+  // Aard / Fase / Beschikbaarheid come from the CMS and may each be empty.
+  // Only rows with a real value are rendered — an empty "Fase:" label is worse
+  // than no row at all.
+  const specs = [
+    { label: "Aard", value: project.aard },
+    { label: "Fase", value: project.fase },
+    { label: "Jaar", value: project.jaar },
+    { label: "Samenwerking", value: project.samenwerkingen.join(", ") },
+  ].filter((row) => row.value && String(row.value).trim());
+
+  // A property that is for sale or for rent is an offer, not a portfolio
+  // entry. The price and the way to enquire used to live as the last line of a
+  // ~350-word markdown dump — along with a private individual's personal email
+  // address. This block gives those facts somewhere structured to live so they
+  // can never end up in prose again.
+  const isOffer = /te koop|te huur/i.test(project.beschikbaarheid || "");
+
   return (
     <div className="container mx-auto">
-      <PagesMetaHead title={props.project.attributes.naam} />
+      <PagesMetaHead
+        title={project.naam}
+        description={project.korteBeschrijving || undefined}
+      />
 
       {/* Header */}
       <div>
-        <p className="font-general-medium text-left text-3xl sm:text-4xl  text-primary-dark dark:text-primary-light mt-14 sm:mt-20 mb-7">
-          {props.project.attributes.naam}
-        </p>
-      </div>
+        <h1 className="font-display text-h1 text-left text-black mt-16 sm:mt-24 mb-4 max-w-[24ch] [text-wrap:balance]">
+          {project.naam}
+        </h1>
 
-      {/* Gallery */}
-      {/* <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-10 mt-12"> */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-0 sm:gap-10 mt-12">
-        {props.project.attributes.afbeeldingen.data.map((project) => {
-          return (
-            <div className="mb-6 sm:mb-10" key={project.id}>
-              <Image
-                src={
-                  process.env.NEXT_PUBLIC_STRAPI_ASSET_URL +
-                  project.attributes.url
-                }
-                className="sm:hover:scale-[1.4] transistion ease-in-out delay-150 duration-300 shadow-lg"
-                alt={project.name}
-                key={project.id}
-                width={100}
-                height={90}
-                sizes="100vw"
-                style={{
-                  width: "100%",
-                  height: "auto"
-                }} />
-            </div>
-          );
-        })}
+        {isOffer ? (
+          <div className="mt-6 max-w-xl border-t-2 border-accent p-6 bg-secondary-light shadow-sm">
+            <p className="text-h3 text-accent-deep">
+              {project.beschikbaarheid}
+            </p>
+            {project.prijs && (
+              <p className="mt-2 text-h2 text-primary-dark">{project.prijs}</p>
+            )}
+            <Link
+              href={`/contact?project=${encodeURIComponent(project.naam || "")}`}
+              className="mt-6 inline-block text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
+            >
+              Vraag een bezichtiging aan
+            </Link>
+          </div>
+        ) : (
+          project.beschikbaarheid && (
+            <p className="text-meta text-accent-deep mb-7">
+              {project.beschikbaarheid}
+            </p>
+          )
+        )}
       </div>
 
       {/* Info */}
-      <div className="block sm:flex gap-0 sm:gap-10 mt-2 sm:mt-14">
+      <div className="flex flex-col sm:flex-row gap-10 lg:gap-16 mt-12 sm:mt-16">
         <div className="w-full sm:w-1/3 text-left">
           {/* Single project client details */}
           <div className="mb-7">
-            <p className="font-general-medium text-2xl sm:text-3xl  text-primary-dark dark:text-primary-light mb-2">
-              Over Project
-            </p>
-            <ul className="leading-loose">
-              <li
-                className="font-general-regular text-ternary-dark dark:text-ternary-light"
-                key={props.project.attributes.naam}
-              >
-                <div className="flex">
-                  <span className="font-general-medium mr-1">Adres: </span>
-                  <a
-                    href={
-                      "http://maps.google.com/?q=" +
-                      props.project.attributes.adres
-                    }
-                    className={
-                      "flex hover:underline hover:text-indigo-500 dark:hover:text-indigo-400 cursor-pointer duration-300"
-                    }
-                    aria-label="Project Website and Phone"
-                  >
-                    {props.project.attributes.adres}
-                    <FaExternalLinkAlt className="mt-2 ml-2" />
-                  </a>
+            <h2 className="text-h2 text-primary-dark mb-2">
+              Over het project
+            </h2>
+            {/* A spec list is a definition list. <dl> gives every label its
+                value in the accessibility tree, which a run of <span>/<br />
+                never did. */}
+            <dl className="text-body text-ternary-dark">
+              {project.adres && (
+                <div className="mb-1">
+                  <dt className="font-strong inline">Adres: </dt>
+                  <dd className="inline">
+                    <a
+                      href={
+                        "https://maps.google.com/?q=" +
+                        encodeURIComponent(project.adres)
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline hover:underline hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm cursor-pointer duration-300"
+                    >
+                      {project.adres}
+                      <FaExternalLinkAlt
+                        className="inline-block ml-2 mb-1"
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">(opent Google Maps)</span>
+                    </a>
+                  </dd>
                 </div>
+              )}
 
-                <span className="font-general-medium">Status: </span>
-                {props.project.attributes.status.data.length > 0
-                ? props.project.attributes.status.data
-                    .map((item) => item.attributes.Type)
-                    .join(", ")
-                : "Geen status beschikbaar"}
+              {specs.map((row) => (
+                <div className="mb-1" key={row.label}>
+                  <dt className="font-strong inline">{row.label}: </dt>
+                  <dd className="inline break-words">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
 
-                <br />
-                <span className="font-general-medium">Jaar: </span>
-                {props.project.attributes.publishedAt
-                  ? props.project.attributes.publishedAt.substring(0, 4)
-                  : "-"}
-                <br />
-                <span className="font-general-medium">Samenwerking: </span>
-                {props.project.attributes.samenwerkings.data.length > 0
-                  ? props.project.attributes.samenwerkings.data
-                      .map((item) => item.attributes.Naam)
-                      .join(", ")
-                  : "Geen samenwerkingen beschikbaar"}
-              </li>
-            </ul>
+            {specs.length === 0 && !project.adres && (
+              <p className="text-body text-ternary-dark">
+                De projectgegevens worden nog aangevuld.
+              </p>
+            )}
           </div>
 
           <div>
-            {props.project.attributes.externe_link ? (
+            {project.externeLink ? (
               <div>
-                <p className="font-general-regular text-2xl sm:text-3xl font-semibold text-primary-dark mt-2">
+                <h2 className="text-h2 text-primary-dark mt-2">
                   Externe link
-                </p>
-                <div className="flex items-center inline whitespace-initial break-all gap-3 mt-5">
+                </h2>
+                <div className="flex items-center whitespace-initial break-all gap-3 mt-5">
                   <Link
-                    key={props.project.id}
-                    href={props.project.attributes.externe_link}
-                    target="__blank"
+                    href={project.externeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     passHref={true}
-                    aria-label="Share Project"
-                    className="bg-ternary-light dark:bg-ternary-dark text-gray-400 hover:text-primary-dark dark:hover:text-primary-light p-2 rounded-lg shadow-sm duration-500"
+                    className="bg-ternary-light text-ternary-dark hover:text-primary p-2 rounded-lg shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 duration-300"
                   >
-                    {props.project.attributes.externe_link}
+                    {project.externeLink}
                   </Link>
-
                 </div>
               </div>
-            ) : (
-              <div></div>
-            )}
+            ) : null}
           </div>
         </div>
 
         {/*  Single project right section details */}
-        <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0 sm:text-justify">
-          <p className="text-primary-dark dark:text-primary-light text-2xl sm:text-3xl font-general-medium mb-2">
+        <div className="w-full sm:w-2/3 text-left">
+          <h2 className="text-primary-dark text-h2 mb-2">
             Beschrijving
-          </p>
-          <section id="markdown" className="font-general-regular">
-              <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>{props.project.attributes.beschrijving}</Markdown>
-          </section>          
+          </h2>
+          <section id="markdown" className="text-body">
+            {project.beschrijving ? (
+              <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                {project.beschrijving}
+              </Markdown>
+            ) : (
+              <p className="text-ternary-dark">
+                De beschrijving van dit project volgt binnenkort. Wilt u er nu
+                al meer over weten?{" "}
+                <a
+                  href="tel:+32474042279"
+                  className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+                >
+                  Bel ons op +32 474 04 22 79
+                </a>
+                .
+              </p>
+            )}
+          </section>
         </div>
       </div>
 
-      {/* <div className="mt-10 sm:mt-20">
-			<p className="font-general-medium text-2xl sm:text-3xl  text-left text-primary-dark dark:text-primary-light">
-				Samenwerkingen
-			</p>
-			<div className="grid grid-cols-2 sm:grid-cols-4 mt-10 sm:mt-14 gap-2">
-				{props.project.attributes.samenwerkings.data.map((samenwerking) => (
-					<AboutClientSingle
-						title={samenwerking.naam}
-						image={samenwerking.img}
-						key={samenwerking.id}
-					/>
-				))}
-			</div>
-		</div> */}
+      {/* Gallery */}
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 lg:gap-10 mt-16 sm:mt-24">
+        {project.afbeeldingen.map((beeld, index) => (
+          <div className="mb-6 lg:mb-10 overflow-hidden" key={beeld.id ?? index}>
+            <Image
+              src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
+              className="sm:hover:scale-[1.06] transition-transform ease-in-out duration-300 shadow-lg"
+              alt={beeld.alt || project.naam}
+              width={beeld.width || 1000}
+              height={beeld.height || 750}
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              // A gallery can run to twenty-odd photographs; only the first is
+              // ever above the fold.
+              priority={index === 0}
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+            />
+          </div>
+        ))}
+      </div>
 
-      {/* <RelatedProjects props={props.related} /> */}
+      {/* Without this a visitor who landed here from a search result has no
+          route deeper into the site than the browser's back button. */}
+      <div className="mt-16 sm:mt-24 mb-24 sm:mb-32">
+        <Link
+          href="/projects"
+          className="text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+        >
+          ← Alle realisaties
+        </Link>
+      </div>
+
       <UseScroll/>
     </div>
   );
 }
 
-function removeObjectWithId(arr, id) {
-  // Making a copy with the Array from() method
-  const arrCopy = Array.from(arr);
-  const objWithIdIndex = arrCopy.findIndex((obj) => obj.id == id);
-  arrCopy.splice(objWithIdIndex, 1);
-  return arrCopy;
-}
-
 export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=*`
+  // Use the shared fetcher so the response is auth'd (STRAPI_TOKEN) and
+  // normalized to the v4 shape this code reads (post.attributes.slug).
+  const posts = await fetcher(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?fields[0]=slug`
   );
-  const posts = await res.json();
 
-  // Get the paths we want to pre-render based on posts
-  const paths = posts.data.map((post) => ({
-    params: { slug: post.attributes.slug },
-  }));
+  // A CMS outage at build time must not fail the build: with fallback
+  // "blocking", an empty path list just means every page renders on demand.
+  const paths = (posts?.data ?? [])
+    .filter((post) => post?.attributes?.slug)
+    .map((post) => ({
+      params: { slug: post.attributes.slug },
+    }));
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
@@ -190,23 +226,30 @@ export async function getStaticProps(context) {
   const { params } = context;
   const slug = params.slug;
 
+  // Ask the CMS for the one project instead of pulling every project with
+  // every image and filtering in memory, once per page, at build time.
   const projectsResponse = await fetcher(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=*`
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?filters[slug][$eq]=${encodeURIComponent(
+      slug
+    )}&populate=*`
   );
 
-  console.log(projectsResponse);
+  const projectFilter = projectsResponse?.data?.[0];
 
-  const projectFilter = projectsResponse.data.filter(
-    (project) => project.attributes.slug === slug
-  )[0];
+  // fallback: "blocking" means any slug reaches this function. Returning
+  // `project: undefined` used to throw a serialization error and serve a blank
+  // 500 — a stale link from a search result, an email or a printed QR code
+  // dead-ended there. Hand those to the designed 404 instead.
+  if (!projectFilter) {
+    return { notFound: true, revalidate: 60 };
+  }
 
-  const negprojectFilter = removeObjectWithId(projectsResponse.data, slug);
-
+  // `related` used to ship a fully-populated copy of every OTHER project into
+  // this page for a RelatedProjects component that no longer exists.
   return {
     revalidate: 1,
     props: {
-      project: projectFilter,
-      related: negprojectFilter,
+      project: toProjectDetail(projectFilter),
     },
   };
 }

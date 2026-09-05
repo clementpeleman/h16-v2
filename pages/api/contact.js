@@ -1,51 +1,96 @@
-// const sgMail = require("@sendgrid/mail");
-
-// const { NEXT_PUBLIC_SG_API_KEY, NEXT_PUBLIC_FROM_EMAIL, NEXT_PUBLIC_TO_EMAIL } = process.env;
-// sgMail.setApiKey(NEXT_PUBLIC_SG_API_KEY);
-
-// export default async function handler(req, res) {
-//   const { name, email, subject, message } = req.body;
-//   const msg = {
-//     to: NEXT_PUBLIC_TO_EMAIL, // Change to your recipient
-//     from: NEXT_PUBLIC_FROM_EMAIL, // Change to your verified sender
-//     subject: "H16 Contact Formulier",
-//     html: `<p><strong>Naam: </strong>${name}</p>
-//     <p><strong>Email: </strong>${email}</p>
-//     <p><strong>Onderwerp: </strong>${subject}</p>
-//     <p>${message}</p>`,
-//   };
-//   await sgMail.send(msg);
-//   console.log("email sent");
-//   res.status(200).json({ success: true });
-//   if (error) {
-//     console.log(error);
-//     } else {
-//     res.send(`<script>alert("Email Sent Successfully.")</script>`);
-//     console.log("email sent: " + info);
-// }
-// }
-
 import sgMail from "@sendgrid/mail";
+
 sgMail.setApiKey(process.env.NEXT_PUBLIC_SG_API_KEY);
+
 const TO_EMAIL = process.env.NEXT_PUBLIC_TO_EMAIL ?? "default@gmail.com";
 const FROM_EMAIL = process.env.NEXT_PUBLIC_FROM_EMAIL ?? "default@gmail.com";
 
-export default async (req, res) => {
-  const { name, email, subject, message } = req.body;
+const LIMITS = { name: 100, email: 254, phone: 30, subject: 150, message: 5000 };
+
+// Everything below is visitor-supplied and ends up inside an HTML email.
+// Escaping is not optional here: without it, a message containing markup is
+// injected straight into the mail we send ourselves.
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// A newline in a header lets a sender inject extra headers. Subjects are the
+// usual way in, so collapse all whitespace before it reaches SendGrid.
+function sanitizeHeader(value) {
+  return String(value ?? "").replace(/[\r\n]+/g, " ").trim();
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({
+      success: false,
+      message: "Deze aanvraag wordt niet ondersteund.",
+    });
+  }
+
+  const body = typeof req.body === "object" && req.body !== null ? req.body : {};
+  const name = String(body.name ?? "").trim();
+  const email = String(body.email ?? "").trim();
+  const phone = String(body.phone ?? "").trim();
+  const subject = String(body.subject ?? "").trim();
+  const message = String(body.message ?? "").trim();
+
+  // The client validates too, but the client is not the only caller.
+  if (!name || !email || !message) {
+    return res.status(400).json({
+      success: false,
+      message: "Niet alle velden zijn ingevuld. Vul ze aan en verstuur opnieuw.",
+    });
+  }
+  if (!EMAIL_RE.test(email)) {
+    return res.status(400).json({
+      success: false,
+      message: "Dit e-mailadres lijkt niet te kloppen. Controleer het en probeer opnieuw.",
+    });
+  }
+  if (
+    name.length > LIMITS.name ||
+    email.length > LIMITS.email ||
+    phone.length > LIMITS.phone ||
+    subject.length > LIMITS.subject ||
+    message.length > LIMITS.message
+  ) {
+    return res.status(400).json({
+      success: false,
+      message: "Uw bericht is te lang. Kort het in en probeer opnieuw.",
+    });
+  }
+
   const msg = {
     to: TO_EMAIL,
     from: FROM_EMAIL,
-    subject: subject,
-    html: `<p><strong>Naam: </strong>${name}</p>
-             <p><strong>Email: </strong>${email}</p>   
-             <p><strong>Onderwerp: </strong>${subject}</p>    
-             <p>${message}</p>`,
+    replyTo: email,
+    subject: `H16 contactformulier — ${sanitizeHeader(subject || name)}`,
+    text: `Naam: ${name}\nEmail: ${email}\nTelefoon: ${phone || "-"}\nOnderwerp: ${subject || "-"}\n\n${message}`,
+    html: `<p><strong>Naam: </strong>${escapeHtml(name)}</p>
+             <p><strong>Email: </strong>${escapeHtml(email)}</p>
+             <p><strong>Telefoon: </strong>${escapeHtml(phone || "-")}</p>
+             <p><strong>Onderwerp: </strong>${escapeHtml(subject || "-")}</p>
+             <p>${escapeHtml(message).replace(/\n/g, "<br />")}</p>`,
   };
+
   try {
     await sgMail.send(msg);
-    res.status(200).json({ success: true });
+    return res.status(200).json({ success: true });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false });
+    console.error("contact form send failed", error);
+    return res.status(500).json({
+      success: false,
+      message:
+        "We konden uw bericht nu niet versturen. Probeer het opnieuw, of bel ons op +32 474 04 22 79.",
+    });
   }
-};
+}

@@ -1,57 +1,73 @@
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-const imageStyle = { maxWidth: "100%", height: "auto" };
+// Takes a projected card (toProjectCard in lib/api), not a raw Strapi entry:
+// the page used to serialise every field of every project into the HTML just
+// to render this handful of values.
+const ProjectSingle = ({
+  slug,
+  naam,
+  korteBeschrijving,
+  beschikbaarheid,
+  thumbnail,
+  priority = false,
+  // /projects renders these directly under its h1, so an h3 there skips a
+  // level; the homepage nests them under a section h2, where h3 is correct.
+  headingLevel = 3,
+}) => {
+  if (!slug) return null;
 
-const ProjectSingle = (props) => {
+  const Heading = `h${headingLevel}`;
+
+  // An entry without a thumbnail would otherwise build a src of
+  // "<asset-url>" + "" and render a broken image with no explanation.
+  const imageSrc = thumbnail
+    ? process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + thumbnail.url
+    : null;
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, delay: 1 }}
-      transition={{
-        ease: "easeInOut",
-        duration: 0.7,
-        delay: 0.15,
-      }}
-    >
+    <div className="enter-fade">
       <Link
-        href={{
-          pathname: "/projects/[slug]",
-          query: { slug: props.attributes.slug },
-        }}
-        as={"/projects/" + props.attributes.slug}
-        aria-label="Single Project"
-        passHref
+        href={`/projects/${slug}`}
+        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-4 rounded-sm"
       >
-        <div className="  cursor-pointer mb-10 sm:mb-0 dark:bg-ternary-dark">
-          <div>
-            <Image
-              src={
-                process.env.NEXT_PUBLIC_STRAPI_ASSET_URL +
-                `${props.attributes.thumbnail.data.attributes.url}`
-              }
-              className=" border-none"
-              alt="Single Project"
-              width={100}
-              height={90}
-              sizes="100vw"
-              style={{
-                width: "100%",
-                height: "auto"
-              }} />
+        <div className="cursor-pointer">
+          {/* A fixed ratio, matching the missing-image placeholder below. The
+              photographs are portrait and landscape at different heights, so
+              intrinsic sizing pushed the titles in one grid row to three
+              different baselines — measured at an 85px spread. */}
+          <div className="relative aspect-[4/3] w-full overflow-hidden bg-ternary-light">
+            {imageSrc ? (
+              <Image
+                src={imageSrc}
+                className="object-cover"
+                alt={naam || ""}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                // The first card is the LCP candidate on /projects; the rest
+                // stay lazy so a phone does not fetch five photographs up front.
+                priority={priority}
+              />
+            ) : null}
           </div>
-          <div className="text-left pb-3 pt-2">
-            <p className="font-general-medium text-lg md:text-xl text-ternary-dark dark:text-ternary-light ">
-              {props.attributes.naam}
-            </p>
-            <span className="text-lg text-ternary-dark dark:text-ternary-light">
-              {props.attributes.korte_beschrijving}
-            </span>
+          <div className="text-left pt-4">
+            <Heading className="text-h3 text-ternary-dark [text-wrap:balance]">
+              {naam}
+            </Heading>
+            {/* Availability is what a buyer scans a grid for. It only renders
+                when the CMS actually has it. */}
+            {beschikbaarheid && (
+              <p className="text-meta text-accent-deep mt-2">
+                {beschikbaarheid}
+              </p>
+            )}
+            {korteBeschrijving && (
+              <p className="text-body text-ternary-dark mt-2">{korteBeschrijving}</p>
+            )}
           </div>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 };
 

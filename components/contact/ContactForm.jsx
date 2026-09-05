@@ -1,209 +1,366 @@
-import { useState } from "react";
-import Button from "../reusable/Button";
-import FormInput from "../reusable/FormInput";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
+const EMPTY = { name: "", email: "", phone: "", subject: "", message: "" };
+
+// Fields share one set of classes so a hardened input and a hardened textarea
+// can never drift apart. text-base (16px) is deliberate: iOS Safari force-zooms
+// a focused input under 16px, which breaks the layout mid-form.
+const fieldClasses =
+  "w-full px-5 py-3 rounded-md text-base " +
+  "bg-secondary-light text-primary-dark placeholder:text-gray-500 " +
+  "border border-gray-400 shadow-sm " +
+  "focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 " +
+  "aria-[invalid=true]:border-accent-deep aria-[invalid=true]:ring-accent-deep/25 " +
+  "duration-200";
+
+const labelClasses = "block text-ui text-primary-dark mb-1";
+
+// A small, consistent marker beats an asterisk nobody has a legend for.
+function Required() {
+  return (
+    <span className="text-accent-deep" aria-hidden="true">
+      {" "}
+      *
+    </span>
+  );
+}
 
 function ContactForm() {
-  const [values, setValues] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const { name, email, subject, message } = values;
-
+  const router = useRouter();
+  const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
+  // idle | submitting | success | error — one source of truth, so the button,
+  // the live region and the panel can never disagree about what happened.
+  const [status, setStatus] = useState("idle");
+  const [serverError, setServerError] = useState("");
 
-  const [buttonText, setButtonText] = useState("Verzenden");
+  const { name, email, phone, subject, message } = values;
 
-  const [buttonValid, setButtonValid] = useState(false);
+  // Arriving from a for-sale listing's "Vraag een bezichtiging aan" button.
+  // Naming the property back to the visitor is the whole point: the enquiry
+  // reaches H16 already identified, so nobody needs the owner's own address
+  // published on the page to make contact happen.
+  useEffect(() => {
+    if (!router.isReady) return;
+    const project = router.query.project;
+    if (typeof project !== "string" || !project.trim()) return;
+    setValues((prev) =>
+      prev.subject
+        ? prev
+        : { ...prev, subject: `Bezichtiging: ${project.trim()}` }
+    );
+  }, [router.isReady, router.query.project]);
 
-  const handleValidation = () => {
-    let tempErrors = {};
-    let isValid = true;
+  const validate = () => {
+    const found = {};
 
-    if (name.length <= 0) {
-      tempErrors["name"] = true;
-      isValid = false;
+    if (!name.trim()) {
+      found.name = "Vul uw naam in.";
     }
-    if (email.length <= 0) {
-      tempErrors["email"] = true;
-      isValid = false;
+    if (!email.trim()) {
+      found.email = "Vul uw e-mailadres in.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
+      found.email = "Dit e-mailadres lijkt niet te kloppen. Controleer of er een @ en een punt in staan.";
     }
-    if (subject.length <= 0) {
-      tempErrors["subject"] = true;
-      isValid = false;
-    }
-    if (message.length <= 0) {
-      tempErrors["message"] = true;
-      isValid = false;
+    if (!message.trim()) {
+      found.message = "Vul uw bericht in, zodat we u gericht kunnen antwoorden.";
     }
 
-    setErrors({ ...tempErrors });
-    console.log("errors", errors);
-    return isValid;
+    setErrors(found);
+    return found;
   };
 
-  const handleChange = (e) =>
-    setValues({ ...values, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name: field, value } = e.target;
+    setValues((prev) => ({ ...prev, [field]: value }));
+    // Clear a field's error the moment the visitor starts fixing it, rather
+    // than making them submit again to find out whether they got it right.
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (status === "submitting") return; // guard against double-submit
 
-    let isValidForm = handleValidation();
+    setServerError("");
 
-    if (isValidForm) {
-      setButtonText("Versturen...");
+    const found = validate();
+    const firstInvalid = ["name", "email", "message"].find(
+      (field) => found[field]
+    );
+
+    if (firstInvalid) {
+      setStatus("idle");
+      // Move the visitor to the first problem instead of leaving them to hunt.
+      // Read the field off the validation result, not off the DOM: the
+      // aria-invalid attributes do not exist until React has re-rendered.
+      document.getElementById(firstInvalid)?.focus();
+      return;
+    }
+
+    setStatus("submitting");
+
+    try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
 
-      const { error } = await res.json();
-      if (error) {
-        console.log(error);
-        setButtonValid(true);
-        setButtonText("Error");
+      // A 500 from a crashed handler can return HTML, not JSON — parsing it
+      // blind would throw and look identical to being offline.
+      let payload = {};
+      try {
+        payload = await res.json();
+      } catch {
+        payload = {};
+      }
+
+      if (!res.ok || payload.success !== true) {
+        setStatus("error");
+        setServerError(
+          payload.message ||
+            "We konden uw bericht nu niet versturen. Probeer het opnieuw, of bel ons op +32 474 04 22 79."
+        );
         return;
       }
-      setButtonValid(true);
-      setButtonText("Verzonden");
+
+      setStatus("success");
+      setValues(EMPTY);
+    } catch {
+      setStatus("error");
+      setServerError(
+        "We konden de server niet bereiken. Controleer uw internetverbinding en probeer opnieuw, of bel ons op +32 474 04 22 79."
+      );
     }
   };
 
+  const describedBy = (field) => (errors[field] ? `${field}-error` : undefined);
+
+  if (status === "success") {
+    return (
+      <div className="w-full lg:w-1/2">
+        <div>
+          <div
+            className="max-w-xl p-6 sm:p-8 bg-secondary-light shadow-sm text-left border-t-2 border-primary"
+            role="status"
+            aria-live="polite"
+          >
+            <h2 className="text-h2 mb-4 text-primary-dark">
+              Bedankt, uw bericht is verzonden.
+            </h2>
+            <p className="text-body text-ternary-dark mb-6">
+              Gilles of Elena neemt binnen twee werkdagen persoonlijk contact
+              met u op. Heeft u het liever meteen? Bel ons gerust.
+            </p>
+            <ul className="text-body mb-8">
+              <li className="mb-2">
+                <a
+                  className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+                  href="tel:+32474042279"
+                >
+                  +32 474 04 22 79
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm break-all duration-200"
+                  href="mailto:info@h16.be"
+                >
+                  info@h16.be
+                </a>
+              </li>
+            </ul>
+            <button
+              type="button"
+              onClick={() => setStatus("idle")}
+              className="text-ui px-7 py-4 text-primary border border-primary text-center tracking-wider rounded-lg hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
+            >
+              Nog een bericht sturen
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full lg:w-1/2 ">
-      <div className="leading-loose mt-8 sm:mt-0 mx-4 sm:mx-0">
+    <div className="w-full lg:w-1/2">
+      <div>
         <form
           onSubmit={handleSubmit}
-          className="max-w-xl  p-6 sm:p-10 bg-secondary-light dark:bg-secondary-dark  shadow-sm text-left"
+          noValidate
+          className="max-w-xl p-6 sm:p-8 bg-secondary-light shadow-sm text-left"
         >
-          <p className="font-general-medium text-2xl mb-8">Contact Formulier</p>
+          <h2 className="text-h2 mb-2">Stuur ons uw vraag</h2>
+          <p className="mb-8 text-meta text-ternary-dark">
+            Velden met <span className="text-accent-deep">*</span> zijn
+            verplicht. We antwoorden binnen twee werkdagen.
+          </p>
 
-          {/* <FormInput
-						inputLabel="Naam"
-						labelFor="name"
-						inputType="text"
-						inputId="name"
-						value={name}
-						inputName="name"
-						onChange={handleChange}
-						placeholderText="Your Name"
-						ariaLabelName="Name"
-					/> */}
-          <div className="font-general-regular mb-4">
-            <label
-              className="block text-lg text-primary-dark dark:text-primary-light mb-1"
-              htmlFor="name"
+          {status === "error" && (
+            <div
+              role="alert"
+              className="mb-6 border-t-2 border-accent-deep bg-ternary-light px-5 py-4 text-body text-accent-deep"
             >
+              {serverError}
+            </div>
+          )}
+
+          <div className="mb-6">
+            <label className={labelClasses} htmlFor="name">
               Naam
+              <Required />
             </label>
             <input
-              className="w-full px-5 py-2 border border-gray-300 dark:border-primary-dark border-opacity-50 text-primary-dark dark:text-secondary-light bg-ternary-light dark:bg-ternary-dark rounded-md shadow-sm text-md"
-              type="inputType"
+              className={fieldClasses}
+              type="text"
               id="name"
               name="name"
-              placeholder="Naam"
-              aria-label="Name"
+              required
+              aria-required="true"
+              autoComplete="name"
+              maxLength={100}
               value={name}
               onChange={handleChange}
-              required
+              aria-invalid={errors.name ? "true" : undefined}
+              aria-describedby={describedBy("name")}
             />
+            {errors.name && (
+              <p
+                id="name-error"
+                className="mt-1 text-meta text-accent-deep"
+              >
+                {errors.name}
+              </p>
+            )}
           </div>
-          {/* <FormInput
-						inputLabel="Email"
-						labelFor="email"
-						inputType="email"
-						inputId="email"
-						inputName="email"
-						value={email}
-						onChange={handleChange}
-						placeholderText="Your email"
-						ariaLabelName="Email"
-					/> */}
-          <div className="font-general-regular mb-4">
-            <label
-              className="block text-lg text-primary-dark dark:text-primary-light mb-1"
-              htmlFor="email"
-            >
+
+          <div className="mb-6">
+            <label className={labelClasses} htmlFor="email">
               Email
+              <Required />
             </label>
             <input
-              className="w-full px-5 py-2 border border-gray-300 dark:border-primary-dark border-opacity-50 text-primary-dark dark:text-secondary-light bg-ternary-light dark:bg-ternary-dark rounded-md shadow-sm text-md"
+              className={fieldClasses}
               type="email"
               id="email"
               name="email"
-              placeholder="Email"
-              aria-label="Email"
+              required
+              aria-required="true"
+              autoComplete="email"
+              inputMode="email"
+              maxLength={254}
               value={email}
               onChange={handleChange}
-              required
+              aria-invalid={errors.email ? "true" : undefined}
+              aria-describedby={describedBy("email")}
             />
+            {errors.email && (
+              <p
+                id="email-error"
+                className="mt-1 text-meta text-accent-deep"
+              >
+                {errors.email}
+              </p>
+            )}
           </div>
 
-          {/* <FormInput
-						inputLabel="Onderwerp"
-						labelFor="subject"
-						inputType="text"
-						inputId="subject"
-						inputName="subject"
-						value={subject}
-						onChange={handleChange}
-						placeholderText="Onderwerp"
-						ariaLabelName="Subject"
-					/> */}
-          <div className="font-general-regular mb-4">
-            <label
-              className="block text-lg text-primary-dark dark:text-primary-light mb-1"
-              htmlFor="subject"
-            >
-              Onderwerp
+          <div className="mb-6">
+            <label className={labelClasses} htmlFor="phone">
+              Telefoon <span className="text-gray-600">(optioneel)</span>
             </label>
             <input
-              className="w-full px-5 py-2 border border-gray-300 dark:border-primary-dark border-opacity-50 text-primary-dark dark:text-secondary-light bg-ternary-light dark:bg-ternary-dark rounded-md shadow-sm text-md"
+              className={fieldClasses}
+              type="tel"
+              id="phone"
+              name="phone"
+              autoComplete="tel"
+              inputMode="tel"
+              maxLength={30}
+              value={phone}
+              onChange={handleChange}
+            />
+            <p className="mt-1 text-meta text-ternary-dark">
+              Liever gebeld worden? Laat uw nummer achter.
+            </p>
+          </div>
+
+          <div className="mb-6">
+            <label className={labelClasses} htmlFor="subject">
+              Onderwerp <span className="text-gray-600">(optioneel)</span>
+            </label>
+            <input
+              className={fieldClasses}
               type="text"
               id="subject"
               name="subject"
-              placeholder="Onderwerp"
-              aria-label="Subject"
+              placeholder="Bijvoorbeeld: renovatie woning Oosterzele"
+              maxLength={150}
               value={subject}
               onChange={handleChange}
-              required
+              aria-invalid={errors.subject ? "true" : undefined}
+              aria-describedby={describedBy("subject")}
             />
+            {errors.subject && (
+              <p
+                id="subject-error"
+                className="mt-1 text-meta text-accent-deep"
+              >
+                {errors.subject}
+              </p>
+            )}
           </div>
 
-          <div className="mt-6">
-            <label
-              className="block text-lg text-primary-dark dark:text-primary-light mb-2"
-              htmlFor="message"
-            >
+          <div className="mb-6">
+            <label className={labelClasses} htmlFor="message">
               Bericht
+              <Required />
             </label>
             <textarea
-              className="w-full px-5 py-2 border border-gray-300 dark:border-primary-dark border-opacity-50 text-primary-dark dark:text-secondary-light bg-ternary-light dark:bg-ternary-dark rounded-md shadow-sm text-md"
+              className={fieldClasses}
               id="message"
               name="message"
-              cols="14"
+              required
+              aria-required="true"
               rows="6"
-              aria-label="Message"
+              maxLength={5000}
               value={message}
               onChange={handleChange}
+              aria-invalid={errors.message ? "true" : undefined}
+              aria-describedby={describedBy("message")}
             ></textarea>
+            {errors.message && (
+              <p
+                id="message-error"
+                className="mt-1 text-meta text-accent-deep"
+              >
+                {errors.message}
+              </p>
+            )}
           </div>
 
           <div className="mt-6">
-            <span className="font-general-medium  px-7 py-4 text-white text-center font-medium tracking-wider bg-primary hover:bg-indigo-600 focus:ring-1 focus:ring-indigo-900 rounded-lg mt-6 duration-500">
-              <Button
-                title={buttonText}
-                type="submit"
-                isDisabled={buttonValid}
-                aria-label={buttonText}
-              />
-            </span>
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              aria-busy={status === "submitting"}
+              className="text-ui px-7 py-4 text-white text-center tracking-wider bg-primary rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-wait duration-300"
+            >
+              {status === "submitting" ? "Versturen…" : "Verzenden"}
+            </button>
           </div>
+
+          <p className="mt-5 text-meta text-ternary-dark">
+            Vrijblijvend en gratis. We gebruiken uw gegevens uitsluitend om uw
+            vraag te beantwoorden en delen ze met niemand.
+          </p>
         </form>
       </div>
     </div>

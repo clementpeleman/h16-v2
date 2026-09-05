@@ -1,44 +1,31 @@
-import { motion } from "framer-motion";
-import AboutClients from "../components/about/AboutClients";
 import AboutCounter from "../components/about/AboutCounter";
 import AboutMeBio from "../components/about/AboutMeBio";
 import PagesMetaHead from "../components/PagesMetaHead";
-import { fetcher } from "../lib/api";
 import AboutCTA from "../components/about/AboutCTA";
 import UseScrollToTop from "../hooks/useScrollToTop";
 
-function about(samenwerkingen) {
+function about() {
   return (
     <div>
-      <PagesMetaHead title="Over ons" />
+      <PagesMetaHead
+        title="Over ons"
+        description="H16 is een jong familiebedrijf met wortels in het vastgoed. Maak kennis met Gilles en Elena en met onze manier van werken."
+      />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, delay: 1 }}
-        exit={{ opacity: 0 }}
-        className="container mx-auto"
-      >
+      <div
+      className="enter-fade container mx-auto"
+    >
         <AboutMeBio />
-      </motion.div>
+      </div>
 
       {/** Counter without paddings */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, delay: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <div
+      className="enter-fade"
+    >
         <AboutCounter />
         <AboutCTA />
-      </motion.div>
+      </div>
 
-      {/* <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, delay: 1 }}
-        exit={{ opacity: 0 }}
-        className="container mx-auto"
-      >
-        <AboutClients samenwerkings={samenwerkingen} />
-      </motion.div> */}
 
       <UseScrollToTop />
     </div>
@@ -46,15 +33,3 @@ function about(samenwerkingen) {
 }
 
 export default about;
-
-export async function getStaticProps() {
-  const samenwerkingResponse = await fetcher(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/samenwerkingen?populate=*`
-  );
-  return {
-    revalidate: 1,
-    props: {
-      samenwerkingen: samenwerkingResponse,
-    },
-  };
-}
