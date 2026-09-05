@@ -9,14 +9,36 @@ import remarkBreaks from "remark-breaks";
 import UseScrollToTop from "../../hooks/useScrollToTop";
 
 function Project({ project }) {
-  // The facts about a property are a sentence, not a form. Aard, fase and
-  // jaar used to sit in a labelled <dl> ("Aard: Nieuwbouw / Fase: Opgeleverd /
-  // Jaar: 2024") — correct, and dry. They read as one metaline now, the way a
-  // listing or an architecture magazine would set them.
-  const plaats = (project.adres || "").split(",").pop()?.trim().replace(/^\d{4}\s*/, "") || "";
-  const meta = [project.aard, project.fase, project.jaar, plaats].filter(
-    (v) => v && String(v).trim()
-  );
+  // The facts about a property are a sentence, not a form. Aard, fase, jaar
+  // and plaats used to be a labelled list ("Aard: Nieuwbouw / Fase:
+  // Opgeleverd / Jaar: 2024"), then a dot-separated strip — both read as data.
+  // This composes them the way the rest of the site talks:
+  //   "Nieuwbouw in Gent, opgeleverd in 2024."
+  // Last comma-part of the address, postcode stripped, first letter capitalised
+  // (one CMS entry has "gent" in lowercase).
+  const rawPlaats =
+    (project.adres || "").split(",").pop()?.trim().replace(/^\d{4}\s*/, "") ||
+    "";
+  const plaats = rawPlaats
+    ? rawPlaats.charAt(0).toUpperCase() + rawPlaats.slice(1)
+    : "";
+  // With an aard: "Nieuwbouw in Gent". Without one, the place leads on its
+  // own — "Gent, opgeleverd in 2023" — rather than a subjectless "In Gent, …".
+  const wat = project.aard
+    ? [project.aard, plaats && `in ${plaats}`].filter(Boolean).join(" ")
+    : plaats;
+  const fase = (project.fase || "").trim();
+  const wanneer = /opgeleverd/i.test(fase)
+    ? project.jaar
+      ? `opgeleverd in ${project.jaar}`
+      : "opgeleverd"
+    : fase && project.jaar
+    ? `${fase.toLowerCase()} sinds ${project.jaar}`
+    : fase
+    ? fase.toLowerCase()
+    : project.jaar || "";
+  const zin = [wat, wanneer].filter(Boolean).join(", ");
+  const metaZin = zin ? zin.charAt(0).toUpperCase() + zin.slice(1) + "." : "";
 
   // A property that is for sale or for rent is an offer, not a portfolio
   // entry. The price and the way to enquire used to live as the last line of a
@@ -39,24 +61,17 @@ function Project({ project }) {
           {project.naam}
         </h1>
 
-        {(meta.length > 0 || project.beschikbaarheid) && (
-          <p className="mt-5 text-ui text-ternary-dark flex flex-wrap items-center gap-x-3 gap-y-1">
-            {project.beschikbaarheid && (
-              <span className={isOffer ? "text-accent-deep" : ""}>
-                {project.beschikbaarheid}
-              </span>
-            )}
-            {meta.map((item, i) => (
-              <span key={item} className="flex items-center gap-x-3">
-                {(i > 0 || project.beschikbaarheid) && (
-                  <span aria-hidden="true" className="text-gray-400">
-                    ·
-                  </span>
-                )}
-                {item}
-              </span>
-            ))}
+        {project.beschikbaarheid && (
+          <p
+            className={`mt-5 text-ui ${
+              isOffer ? "text-accent-deep" : "text-ternary-dark"
+            }`}
+          >
+            {project.beschikbaarheid}
           </p>
+        )}
+        {metaZin && (
+          <p className="mt-3 text-lead text-gray-700 max-w-[46ch]">{metaZin}</p>
         )}
       </header>
 
