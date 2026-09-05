@@ -75,8 +75,7 @@ a {
  * styles overrode it. They are real <button>s now, so the geometry lives here,
  * and `hidden` handles visibility rather than an inline `display`.
  */
-.scrollToTop,
-.moreInfoButton {
+.scrollToTop {
   position: fixed;
   right: 20px;
   /* Clear the home indicator on iOS rather than sitting under it. */
@@ -93,8 +92,7 @@ a {
 }
 
 @media (min-width: 769px) {
-  .scrollToTop,
-  .moreInfoButton {
+  .scrollToTop {
     right: 50px;
     bottom: 45px;
   }
@@ -108,27 +106,18 @@ a {
   border-radius: 999px;
 }
 
-.moreInfoButton {
-  @apply bg-primary text-white text-ui;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 5px;
-}
 
 /* A `display` declaration on the class beats the UA's `[hidden] { display:
    none }`, so the attribute has to be re-asserted at higher specificity. */
-.scrollToTop[hidden],
-.moreInfoButton[hidden] {
+.scrollToTop[hidden] {
   display: none;
 }
 
-.scrollToTop:hover,
-.moreInfoButton:hover {
+.scrollToTop:hover {
   opacity: 0.85;
 }
 
-.scrollToTop:focus-visible,
-.moreInfoButton:focus-visible {
+.scrollToTop:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(14, 70, 140, 0.4);
 }
@@ -138,24 +127,10 @@ a {
   height: 100%;
 }
 
-.moreInfoButton svg {
-  width: 22px;
-  height: 22px;
-}
 
-@media (max-width: 419px) {
-  .moreInfoButton {
-    /* The label ran to 60% of a 320px viewport across the photographs. */
-    font-size: 0;
-    gap: 0;
-    padding: 12px;
-    border-radius: 999px;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .scrollToTop,
-  .moreInfoButton {
+  .scrollToTop {
     animation: none;
   }
 }

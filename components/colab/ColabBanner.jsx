@@ -8,7 +8,7 @@ import { FiArrowRight, FiArrowDown } from "react-icons/fi";
 // 16 / 16 / 32 — the last one faked with per-child margins instead of a grid
 // gap, which left the outer edges inset by 16 while the inner gutter was 32.
 const cardClasses =
-  "p-6 sm:p-8 bg-secondary-light shadow-sm transform transition-transform duration-200 hover:scale-[1.02]";
+  "p-8 sm:p-10 bg-secondary-light shadow-sm transform transition-transform duration-200 hover:scale-[1.02]";
 
 // Two peer offers are a comparison, not a list. Gutter (24/40) is now larger
 // than the card's own padding (24/32), so the boundary between two cards is
@@ -54,12 +54,12 @@ export class ColabBanner extends Component {
   render() {
     const proof = this.props.proof ?? [];
     return (
-      <section className="mt-16 sm:mt-24">
+      <section className="mt-24 sm:mt-32 lg:mt-40">
         <h1 className="font-display text-h1 text-black [text-wrap:balance]">
           Samenwerken
         </h1>
 
-        <h2 className="mt-4 text-h2 text-black">Wat kan H16 voor u betekenen?</h2>
+        <h2 className="mt-8 sm:mt-10 text-h2 text-black">Wat kan H16 voor u betekenen?</h2>
 
         {/* The jump link used to sit inside the card row, where `justify-between`
             parked it at the far edge and left 196px of nothing beside the
@@ -68,16 +68,16 @@ export class ColabBanner extends Component {
             width, and it names its destination. */}
         <a
           href="#voordeel"
-          className="mt-4 inline-flex items-center gap-2 text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+          className="mt-6 inline-flex items-center gap-2 text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
         >
           <FiArrowDown aria-hidden="true" className="h-5 w-5 shrink-0" />
           Uw voordeel
         </a>
 
-        <ul className={`${gridClasses} mt-12 sm:mt-16`}>
+        <ul className={`${gridClasses} mt-14 sm:mt-20`}>
           <li className={cardClasses}>
             <h3 className="text-h3">Bouwcoördinatie en Adviesverlening</h3>
-            <p className="mt-4 text-black text-body">
+            <p className="mt-6 text-black text-body">
               Staat u voor een bouwproject maar loopt u verloren? Op zoek naar
               zeer concrete hulp bij de effectieve uitvoering? Wij analyseren
               graag samen uw specifieke vastgoedsituatie of vragen, en
@@ -87,23 +87,23 @@ export class ColabBanner extends Component {
 
           <li className={cardClasses}>
             <h3 className="text-h3">Projectontwikkeling</h3>
-            <p className="mt-4 text-black text-body">
+            <p className="mt-6 text-black text-body">
               Bent u eigenaar en wilt u liever een grond of pand verkopen? Wij
               zijn ervaren en geïnteresseerd.
             </p>
           </li>
         </ul>
 
-        <div className="my-16 sm:my-24 mx-auto max-w-2xl border-t-2 border-slate-200"></div>
+        <div className="my-24 sm:my-32 mx-auto max-w-2xl border-t-2 border-slate-200"></div>
 
         {/* This group addresses professional peers rather than clients, which
             is why its copy stays informal. The heading makes that deliberate. */}
         <h2 className="text-h2 text-black">Voor architecten en aannemers</h2>
 
-        <ul className={`${gridClasses} mt-12 sm:mt-16`}>
+        <ul className={`${gridClasses} mt-14 sm:mt-20`}>
           <li className={cardClasses}>
             <h3 className="text-h3">Ben je architect?</h3>
-            <p className="mt-4 text-black text-body">
+            <p className="mt-6 text-black text-body">
               Een bouwproces is intensief en tijdrovend. Wil je je als architect
               focussen op ontwerp? Dan nemen wij graag een deel van het
               uitvoerend werk uit handen.
@@ -111,7 +111,7 @@ export class ColabBanner extends Component {
           </li>
           <li className={cardClasses}>
             <h3 className="text-h3">Ben je aannemer?</h3>
-            <p className="mt-4 text-black text-body">
+            <p className="mt-6 text-black text-body">
               We slaan graag de handen in elkaar met kwalitatieve aannemers voor
               een duurzame relatie waarbij klantgerichtheid en kwaliteit
               centraal staan.
@@ -123,7 +123,7 @@ export class ColabBanner extends Component {
             margin collapsing with its child heading's — two 96px margins held
             apart by a 1px hack, for a 217px gap nobody chose. The heading no
             longer carries its own margin, so the section owns the gap. */}
-        <div id="voordeel" className="mt-16 sm:mt-24 scroll-mt-8">
+        <div id="voordeel" className="mt-24 sm:mt-32 lg:mt-40 scroll-mt-8">
           <h2 className="flex items-center text-h2 text-black">
             <FiArrowRight
               aria-hidden="true"
@@ -132,7 +132,7 @@ export class ColabBanner extends Component {
             Uw voordeel?
           </h2>
 
-          <p className="mt-4 text-black text-body max-w-[65ch]">
+          <p className="mt-6 text-black text-body max-w-[65ch]">
             Elke dag van het bouwproces brengt nieuwe uitdagingen met zich mee.
             Het opvolgen ervan vraagt de juiste kennis, expertise en
             betrokkenheid. Voor velen is het realiseren van een bouwproject geen
@@ -144,7 +144,7 @@ export class ColabBanner extends Component {
             enkele belangrijke voordelen op:
           </p>
 
-          <div className={`${gridClasses} mt-12 sm:mt-16`}>
+          <div className={`${gridClasses} mt-14 sm:mt-20`}>
             {VOORDELEN.map((v, i) => {
               const project = proof[i];
               return (

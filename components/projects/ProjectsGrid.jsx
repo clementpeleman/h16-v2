@@ -11,7 +11,7 @@ function ProjectsGrid({ projects }) {
   if (recent.length === 0) return null;
 
   return (
-    <section className="mt-16 sm:mt-24">
+    <section className="mt-24 sm:mt-32 lg:mt-40">
       {/* The heading and "Alles bekijken" used to be two block elements with
           the link pulled up by a fixed `-mb-8` to fake a shared row. It only
           lined up by accident and collapsed the moment the heading wrapped —

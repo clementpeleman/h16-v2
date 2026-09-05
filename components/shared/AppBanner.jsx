@@ -16,7 +16,7 @@ function AppBanner() {
   return (
     <section
       style={{ "--enter-delay": "0.2s" }}
-      className="enter-fade flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 mt-12 sm:mt-16 mb-24 sm:mb-32"
+      className="enter-fade flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 mt-16 sm:mt-24 lg:mt-28 mb-32 sm:mb-40 lg:mb-48"
     >
       <div className="w-full lg:w-3/5">
         {/* The h1 used to be two links to /colab, which spent the hero's entire
@@ -49,7 +49,7 @@ function AppBanner() {
 
         <p
           style={{ "--enter-delay": "0.4s" }}
-          className="enter-fade mt-6 max-w-[46ch] text-lead text-gray-700 text-center lg:text-left"
+          className="enter-fade mt-8 max-w-[46ch] text-lead text-gray-700 text-center lg:text-left"
         >
           Een klein familiebedrijf uit Oosterzele. Wij nemen uw bouwproject
           van begin tot eind onder onze vleugels.
@@ -57,7 +57,7 @@ function AppBanner() {
 
         <div
           style={{ "--enter-delay": "0.5s" }}
-          className="enter-fade mt-8 flex flex-wrap gap-4 justify-center lg:justify-start"
+          className="enter-fade mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 justify-center lg:justify-start"
         >
           <Link
             href="/contact"
@@ -67,7 +67,7 @@ function AppBanner() {
           </Link>
           <Link
             href="/projects"
-            className="text-ui px-7 py-4 text-primary border-2 border-primary text-center tracking-wider rounded-lg hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
+            className="inline-flex items-center self-center text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
           >
             Bekijk onze realisaties
           </Link>

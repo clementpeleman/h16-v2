@@ -19,9 +19,9 @@ function AppSecondary() {
   return (
       <div>
         <div>
-          <div className="mt-16 sm:mt-24 border-t-2 border-gray-200"></div>
+          <div className="mt-24 sm:mt-32 lg:mt-40 border-t-2 border-gray-200"></div>
 
-          <div className="mt-16 sm:mt-24 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+          <div className="mt-24 sm:mt-32 lg:mt-40 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
             <h2 className="text-h2 text-black">
               Jouw <span className="text-accent">bouwproject</span> onder onze
               vleugels?
@@ -29,7 +29,7 @@ function AppSecondary() {
 
             <Link
               href="/colab"
-              className="text-ui shrink-0 self-start sm:self-auto inline-block text-center border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-sm rounded-sm px-6 py-3 duration-300"
+              className="text-ui shrink-0 self-start sm:self-auto text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
             >
               Bekijk onze werkwijze
             </Link>
@@ -71,9 +71,9 @@ function AppSecondary() {
             </div>
           </div>
 
-          <div className="mt-16 sm:mt-24 border-t-2 border-gray-200"></div>
+          <div className="mt-24 sm:mt-32 lg:mt-40 border-t-2 border-gray-200"></div>
 
-          <div className="mt-16 sm:mt-24">
+          <div className="mt-24 sm:mt-32 lg:mt-40">
             <h2 className="text-h2 mb-8 text-black text-left">
               De kolibrie als symbool van H16
             </h2>

@@ -46,7 +46,7 @@ function AppHeader() {
 
   return (
     <nav id="nav" className="enter-fade container mx-auto">
-      <div className="z-10 block lg:flex lg:items-center py-6">
+      <div className="z-10 block lg:flex lg:items-center py-8">
         {/* Logo and small-screen menu toggle */}
         <div className="flex justify-between items-center">
           <Link

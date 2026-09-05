@@ -22,7 +22,7 @@ const socialLinks = [
 function AppFooter() {
   return (
     <div className="container mx-auto">
-      <div className="pt-16 sm:pt-24 pb-12 mt-24 sm:mt-32 border-t-2 border-gray-200">
+      <div className="pt-20 sm:pt-28 pb-14 mt-32 sm:mt-40 lg:mt-48 border-t-2 border-gray-200">
         {/* Footer social links */}
         <div className="flex flex-col justify-center items-center">
           <h2 className="text-h3 text-primary-dark mb-5">

@@ -2,10 +2,10 @@ import { FiArrowRight } from "react-icons/fi";
 
 function AboutCounter() {
   return (
-    <div className="mt-16 sm:mt-24 py-16 sm:py-24 bg-primary-light shadow-sm">
+    <div className="mt-24 sm:mt-32 lg:mt-40 py-16 sm:py-24 bg-primary-light shadow-sm">
       <div className="container mx-auto">
         <div className="max-w-[60ch]">
-          <h2 className="text-h2 mb-4 text-left text-black">
+          <h2 className="text-h2 mb-5 text-left text-black">
             Wie is wie?
           </h2>
 
@@ -18,7 +18,7 @@ function AboutCounter() {
           </p>
         </div>
       </div>
-      <div className="container mx-auto mt-12 sm:mt-16 grid gap-10 sm:grid-cols-2">
+      <div className="container mx-auto mt-14 sm:mt-20 grid gap-10 sm:grid-cols-2">
         <div>
           <h3 className="text-h3 text-black">Gilles</h3>
           <p className="text-ui text-primary mt-1">Construction manager</p>

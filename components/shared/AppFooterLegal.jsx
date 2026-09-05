@@ -14,7 +14,7 @@ const linkClasses =
 
 function AppFooterLegal() {
   return (
-    <div className="mt-16 pt-10 border-t border-gray-200 grid gap-8 sm:grid-cols-3 text-meta text-ternary-dark text-left">
+    <div className="mt-20 pt-12 border-t border-gray-200 grid gap-10 sm:grid-cols-3 text-meta text-ternary-dark text-left">
       <address className="not-italic">
         <span className="block font-strong">{company.legalName}</span>
         {company.registeredSeat}

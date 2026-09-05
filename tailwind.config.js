@@ -30,6 +30,11 @@ module.exports = {
       // for the job, not the value, and each carries its own leading and
       // tracking so a heading can never inherit body leading by accident.
       //
+      // Weights: headings sit at 500, not 600. The client read 600 as a heavier
+      // voice than the Balerno h1 (400) and the light body — a different system.
+      // Size carries the hierarchy; weight only needs to separate heading from
+      // prose, and 500 does that without shouting.
+      //
       // Ratio is roughly a major third (1.25) through the text roles, opening
       // to ~1.6 at the display end: on a Persuade surface the hero has to be
       // categorically different, not one notch up. Every adjacent pair differs
@@ -39,7 +44,7 @@ module.exports = {
       // `display` and `h1` carry no weight: Balerno has a single weight, and
       // asking for 600 would make the browser synthesise a fake bold. `h1` also
       // sits a step larger than a pure ratio wants, because it is set in
-      // Balerno at 400 against an h2 in GeneralSans at 600 — the serif needs
+      // Balerno at 400 against an h2 in GeneralSans at 500 — the serif needs
       // the extra size to out-rank a heavier sans directly beneath it.
       fontSize: {
         display: [
@@ -52,15 +57,15 @@ module.exports = {
         ],
         h2: [
           "clamp(1.75rem, 1.5rem + 0.7vw, 2rem)",
-          { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" },
+          { lineHeight: "1.25", letterSpacing: "0", fontWeight: "500" },
         ],
         h3: [
           "clamp(1.375rem, 1.25rem + 0.35vw, 1.5rem)",
-          { lineHeight: "1.3", fontWeight: "600" },
+          { lineHeight: "1.35", fontWeight: "500" },
         ],
         lead: [
           "clamp(1.25rem, 1.125rem + 0.35vw, 1.375rem)",
-          { lineHeight: "1.55" },
+          { lineHeight: "1.6" },
         ],
         // 1.65 leading, not Tailwind's 1.5: Dutch prose is full of long
         // compounds, and the extra leading is what keeps a wrapped
@@ -76,7 +81,7 @@ module.exports = {
       },
       fontWeight: {
         // A real axis value for inline emphasis, replacing the family swap.
-        strong: "550",
+        strong: "500",
       },
       colors: {
         primary: "#0E468C",

@@ -148,7 +148,7 @@ function ContactForm() {
       <div className="w-full lg:w-1/2">
         <div>
           <div
-            className="max-w-xl p-6 sm:p-8 bg-secondary-light shadow-sm text-left border-t-2 border-primary"
+            className="max-w-xl p-8 sm:p-10 bg-secondary-light shadow-sm text-left border-t-2 border-primary"
             role="status"
             aria-live="polite"
           >
@@ -196,9 +196,9 @@ function ContactForm() {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="max-w-xl p-6 sm:p-8 bg-secondary-light shadow-sm text-left"
+          className="max-w-xl p-8 sm:p-10 bg-secondary-light shadow-sm text-left"
         >
-          <h2 className="text-h2 mb-2">Stuur ons uw vraag</h2>
+          <h2 className="text-h2 mb-3">Stuur ons uw vraag</h2>
           <p className="mb-8 text-meta text-ternary-dark">
             Velden met <span className="text-accent-deep">*</span> zijn
             verplicht. We antwoorden binnen twee werkdagen.

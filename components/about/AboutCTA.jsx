@@ -8,7 +8,7 @@ export class AboutCTA extends Component {
     // flush to the window at x=0 and centred its own contents inside — which
     // put the primary CTA 110px off the page's content grid on two pages.
     return (
-      <div className="container mx-auto mt-16 sm:mt-24">
+      <div className="container mx-auto mt-24 sm:mt-32 lg:mt-40">
         <h2 className="text-h2 text-black [text-wrap:balance]">
           Vraag <span className="text-accent">vrijblijvend</span> meer informatie
         </h2>
