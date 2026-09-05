@@ -249,7 +249,7 @@ export async function getStaticProps(context) {
   // `related` used to ship a fully-populated copy of every OTHER project into
   // this page for a RelatedProjects component that no longer exists.
   return {
-    revalidate: 1,
+    revalidate: 60,
     props: {
       project: toProjectDetail(projectFilter),
     },

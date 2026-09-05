@@ -6,3 +6,10 @@ node_modules
 npm-debug.log
 README.md
 .impeccable
+# Working files that must not enter the build context (dumps, critique
+# snapshots, brand sources incl. a licensed font). They are also gitignored,
+# but Coolify builds from a checkout where .backup may exist locally.
+.backup
+.impeccable
+assets
+Dockerfile

@@ -40,7 +40,7 @@ export async function getStaticProps() {
     .slice(0, 4)
     .map(toProjectCard);
   return {
-    revalidate: 1,
+    revalidate: 60,
     props: { proof },
   };
 }

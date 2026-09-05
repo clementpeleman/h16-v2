@@ -39,7 +39,7 @@ export async function getStaticProps() {
     .slice(0, 3)
     .map(toProjectCard);
   return {
-    revalidate: 1,
+    revalidate: 60,
     props: { projecten },
   };
 }

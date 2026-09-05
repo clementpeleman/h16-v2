@@ -73,7 +73,7 @@ export async function getStaticProps() {
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=thumbnail`
   );
   return {
-    revalidate: 1,
+    revalidate: 60,
     props: {
       // A CMS outage should render the empty state, not fail the build.
       projects: [...(projectsResponse?.data ?? [])].reverse().map(toProjectCard),
