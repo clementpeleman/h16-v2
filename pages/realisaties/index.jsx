@@ -9,14 +9,14 @@ function index({ projects }) {
   return (
     <div className="container mx-auto">
       <PagesMetaHead
-        title="Realisaties"
-        description="De projecten die H16 Vastgoedontwikkeling realiseerde en begeleidde."
+        title="Realisaties: renovatie en nieuwbouw in Gent"
+        description="Nieuwbouw, totaalrenovatie en herbestemming in Gent en Oost-Vlaanderen. Vijf realisaties van H16, van ontwerp tot oplevering."
       />
 
       <section className="mt-section">
         <div className="text-left">
           <h1 className="font-display text-h1 mb-group text-black [text-wrap:balance]">
-            Onze realisaties
+            Onze realisaties in Gent en omgeving
           </h1>
         </div>
 

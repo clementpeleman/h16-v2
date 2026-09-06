@@ -11,7 +11,7 @@ const ProjectSingle = ({
   beschikbaarheid,
   thumbnail,
   priority = false,
-  // /projects renders these directly under its h1, so an h3 there skips a
+  // /realisaties renders these directly under its h1, so an h3 there skips a
   // level; the homepage nests them under a section h2, where h3 is correct.
   headingLevel = 3,
 }) => {
@@ -28,7 +28,7 @@ const ProjectSingle = ({
   return (
     <div className="enter-fade">
       <Link
-        href={`/projects/${slug}`}
+        href={`/realisaties/${slug}`}
         className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-4 rounded-sm"
       >
         <div className="cursor-pointer">
@@ -44,7 +44,7 @@ const ProjectSingle = ({
                 alt={naam || ""}
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                // The first card is the LCP candidate on /projects; the rest
+                // The first card is the LCP candidate on /realisaties; the rest
                 // stay lazy so a phone does not fetch five photographs up front.
                 priority={priority}
               />

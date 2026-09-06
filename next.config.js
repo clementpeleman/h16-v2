@@ -4,6 +4,11 @@ module.exports = {
 
   async redirects() {
     return [
+      // 2026-09 rename to Dutch paths. The old site on www.h16.be used the
+      // English ones, so these carry its indexed URLs over. Permanent.
+      { source: "/projects", destination: "/realisaties", permanent: true },
+      { source: "/projects/:slug", destination: "/realisaties/:slug", permanent: true },
+      { source: "/colab", destination: "/samenwerken", permanent: true },
       {
         source: "/login",
         destination: "https://h16.strapi.peleman.io/admin",

@@ -43,7 +43,7 @@ function ColabBenefits({ proof = [] }) {
             <figure key={v.naam}>
               {project?.thumbnail && (
                 <Link
-                  href={`/projects/${project.slug}`}
+                  href={`/realisaties/${project.slug}`}
                   className="block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-4 rounded-sm"
                 >
                   <span className="block relative aspect-[4/3] w-full overflow-hidden bg-ternary-light">

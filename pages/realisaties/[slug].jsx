@@ -4,13 +4,15 @@ import Lightbox from "../../components/projects/Lightbox";
 import GalleryJump from "../../components/projects/GalleryJump";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import PagesMetaHead from "../../components/PagesMetaHead";
-import { fetcher, toProjectDetail } from "../../lib/api";
+import { fetcher, toProjectDetail, toProjectCard } from "../../lib/api";
+import ProjectSingle from "../../components/projects/ProjectSingle";
+import { breadcrumbJsonLd, realEstateListingJsonLd, assetUrl } from "../../lib/seo";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 
-function Project({ project }) {
+function Project({ project, related = [] }) {
   // The facts about a property are a sentence, not a form. Aard, fase, jaar
   // and plaats used to be a labelled list ("Aard: Nieuwbouw / Fase:
   // Opgeleverd / Jaar: 2024"), then a dot-separated strip — both read as data.
@@ -49,6 +51,27 @@ function Project({ project }) {
   // sits once, after the description, where a reader has decided.
   const isOffer = /te koop|te huur/i.test(project.beschikbaarheid || "");
   const [hero, ...rest] = project.afbeeldingen;
+  const pagePath = `/realisaties/${project.slug}`;
+
+  // Two projects share a street name (Nieuwland 28 and Nieuwland 28-40), so a
+  // bare address as <title> made them compete for the same query. The aard
+  // and the availability tell them apart and carry the search terms a
+  // comparing homeowner types: "Nieuwland 28 – Nieuwbouw te koop".
+  const seoTitle = [
+    project.naam,
+    [project.aard, isOffer ? project.beschikbaarheid.toLowerCase() : ""]
+      .filter(Boolean)
+      .join(" "),
+  ]
+    .filter(Boolean)
+    .join(" – ");
+  // Strapi's korte_beschrijving is 50-70 characters; the metaline brings it
+  // to the length a SERP snippet shows, and stands in when it is empty.
+  const kort = (project.korteBeschrijving || "").trim();
+  const seoDescription =
+    kort && kort.length >= 110
+      ? kort
+      : [kort, metaZin].filter(Boolean).join(" ") || undefined;
   // Index into project.afbeeldingen of the photo open full-screen; null = closed.
   const [open, setOpen] = useState(null);
   const zoomBtn =
@@ -57,14 +80,23 @@ function Project({ project }) {
   return (
     <div className="container mx-auto">
       <PagesMetaHead
-        title={project.naam}
-        description={project.korteBeschrijving || undefined}
+        title={seoTitle}
+        description={seoDescription}
+        image={hero ? assetUrl(hero.url) : undefined}
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Realisaties", path: "/realisaties" },
+            { name: project.naam, path: pagePath },
+          ]),
+          isOffer && realEstateListingJsonLd(project, pagePath),
+        ]}
       />
 
       {/* Title + metaline */}
       <header className="mt-section max-w-4xl">
         <Link
-          href="/projects"
+          href="/realisaties"
           className="inline-block mb-8 text-meta text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
         >
           ← Alle realisaties
@@ -116,7 +148,8 @@ function Project({ project }) {
 
       {/* Description: one prose column, not two competing ones. */}
       <div className="mt-section max-w-[70ch]">
-        <section id="markdown" className="text-body text-ternary-dark">
+        <h2 className="text-h2 text-black">Over het project</h2>
+        <section id="markdown" className="mt-8 text-body text-ternary-dark">
           {project.beschrijving ? (
             <Markdown remarkPlugins={[remarkGfm, remarkBreaks]}>
               {project.beschrijving}
@@ -198,7 +231,8 @@ function Project({ project }) {
           request. Photographs on cream need neither shadow nor a hover zoom. */}
       {rest.length > 0 && (
         <div id="fotos" className="mt-section scroll-mt-8">
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6">
+          <h2 className="text-h2 text-black">Foto&apos;s</h2>
+          <div className="mt-8 columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6">
             {rest.slice(0, 9).map((beeld, index) => (
               <div className="mb-4 lg:mb-6" key={beeld.id ?? index}>
                 <button type="button" onClick={() => setOpen(index + 1)} className={zoomBtn} aria-label="Foto vergroten">
@@ -255,6 +289,20 @@ function Project({ project }) {
         </div>
       )}
 
+      {/* Every project page used to be a dead end: the only way onward was
+          the back link at the top. Three other realisations keep a reader on
+          the work and give Google a path between the five project pages. */}
+      {related.length > 0 && (
+        <section className="mt-chapter border-t border-gray-200 pt-12 lg:pt-16">
+          <h2 className="text-h2 text-black">Andere realisaties</h2>
+          <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((p) => (
+              <ProjectSingle key={p.id ?? p.slug} {...p} headingLevel={3} />
+            ))}
+          </div>
+        </section>
+      )}
+
       {rest.length > 0 && <GalleryJump targetId="fotos" />}
       <Lightbox
         images={project.afbeeldingen}
@@ -300,6 +348,14 @@ export async function getStaticProps(context) {
 
   const projectFilter = projectsResponse?.data?.[0];
 
+  // Three other projects for the "Andere realisaties" block: card fields
+  // only, newest first, the current one excluded server-side.
+  const relatedResponse = await fetcher(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?filters[slug][$ne]=${encodeURIComponent(
+      slug
+    )}&populate=thumbnail&sort=createdAt:desc&pagination[limit]=3`
+  );
+
   // fallback: "blocking" means any slug reaches this function. Returning
   // `project: undefined` used to throw a serialization error and serve a blank
   // 500 — a stale link from a search result, an email or a printed QR code
@@ -314,6 +370,7 @@ export async function getStaticProps(context) {
     revalidate: 60,
     props: {
       project: toProjectDetail(projectFilter),
+      related: (relatedResponse?.data ?? []).map(toProjectCard),
     },
   };
 }

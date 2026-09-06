@@ -7,7 +7,7 @@ function contact() {
   return (
     <div>
       <PagesMetaHead
-        title="Contact"
+        title="Contact: bouwadvies in Oosterzele en Gent"
         description="Contacteer H16 Vastgoedontwikkeling voor uw bouwproject. We antwoorden binnen twee werkdagen."
       />
 

@@ -10,7 +10,7 @@ function colab({ proof }) {
   return (
     <div>
       <PagesMetaHead
-        title="Samenwerken"
+        title="Samenwerken met H16: advies, coördinatie, ontwikkeling"
         description="Bouwcoördinatie, adviesverlening en projectontwikkeling. Ook voor architecten en aannemers die werk uit handen willen geven."
       />
 
@@ -30,7 +30,7 @@ function colab({ proof }) {
 export default colab;
 
 export async function getStaticProps() {
-  // /colab is the page the homepage links to most, and it was the only page on
+  // /samenwerken is the page the homepage links to most, and it was the only page on
   // the site with no photograph on it — eight identical white cards arguing in
   // the abstract. Each "voordeel" now carries proof from a real job.
   const projectsResponse = await fetcher(

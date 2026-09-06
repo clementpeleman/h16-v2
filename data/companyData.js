@@ -25,6 +25,12 @@ export const company = {
   // Moved from Dorp 28 bus 0002 in September 2026; verify against the KBO
   // once the seat transfer is published.
   registeredSeat: "Hoek ter Hulst 25, 9860 Oosterzele",
+  // Public profiles. The footer links them and the Organization JSON-LD lists
+  // them as sameAs, which is how Google ties the site to the Business Profile.
+  socials: {
+    facebook: "https://www.facebook.com/H16.be/",
+    instagram: "https://www.instagram.com/h16.be/",
+  },
 };
 
 export default company;

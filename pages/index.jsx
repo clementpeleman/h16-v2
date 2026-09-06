@@ -9,7 +9,8 @@ export default function Home({ projecten }) {
   return (
     <div className="container mx-auto">
       <PagesMetaHead
-        title="H16 Vastgoedontwikkeling"
+        title="H16 | Bouwcoördinatie en projectontwikkeling in Gent"
+        titleTemplate={false}
         description="Bouwcoördinatie en projectontwikkeling door een klein familiebedrijf uit Oosterzele. Uw bouwproject van begin tot eind opgevolgd."
       />
 
@@ -25,7 +26,7 @@ export async function getStaticProps() {
   const projectsResponse = await fetcher(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate=thumbnail`
   );
-  // Newest first, then three — the same ordering /projects uses. Only the
+  // Newest first, then three — the same ordering /realisaties uses. Only the
   // three that render are serialised into the page.
   const projecten = [...(projectsResponse?.data ?? [])]
     .reverse()

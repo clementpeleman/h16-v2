@@ -34,7 +34,7 @@ function AppSecondary() {
         </p>
         <p className="mt-8">
           <Link
-            href="/colab"
+            href="/samenwerken"
             className="text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
           >
             Bekijk onze werkwijze

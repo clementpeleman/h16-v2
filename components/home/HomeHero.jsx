@@ -25,13 +25,13 @@ function HomeHero() {
         >
           <span lang="nl" className="block break-words hyphens-auto text-display">
             Bouwcoördinatie
-          </span>
+          </span>{" "}
           <span
             aria-hidden="true"
             className="block text-[clamp(1.5rem,4vw,2.25rem)] text-primary my-1 lg:my-2"
           >
             &amp;
-          </span>
+          </span>{" "}
           <span lang="nl" className="block break-words hyphens-auto text-display">
             Projectontwikkeling
           </span>
@@ -56,7 +56,7 @@ function HomeHero() {
             Vraag vrijblijvend advies
           </Link>
           <Link
-            href="/projects"
+            href="/realisaties"
             className="text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
           >
             Bekijk onze realisaties

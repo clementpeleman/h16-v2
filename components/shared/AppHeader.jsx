@@ -5,12 +5,7 @@ import { useRouter } from "next/router";
 import { FiX, FiMenu } from "react-icons/fi";
 import logo from "../../public/images/logo.png";
 
-const NAV_ITEMS = [
-  { href: "/projects", label: "Projecten" },
-  { href: "/about", label: "Over ons" },
-  { href: "/colab", label: "Samenwerken" },
-  { href: "/contact", label: "Contact" },
-];
+import NAV_ITEMS from "../../data/navigation";
 
 function AppHeader() {
   const [showMenu, setShowMenu] = useState(false);

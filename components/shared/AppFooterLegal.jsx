@@ -35,12 +35,12 @@ function AppFooterLegal() {
 
       <ul className="flex gap-4">
         <li>
-          <a href="https://www.facebook.com/H16.be/" target="_blank" rel="noopener noreferrer" aria-label="H16 op Facebook" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
+          <a href={company.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label="H16 op Facebook" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
             <FiFacebook className="h-6 w-6" aria-hidden="true" />
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/h16.be/" target="_blank" rel="noopener noreferrer" aria-label="H16 op Instagram" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
+          <a href={company.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="H16 op Instagram" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
             <FiInstagram className="h-6 w-6" aria-hidden="true" />
           </a>
         </li>

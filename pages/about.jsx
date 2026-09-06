@@ -9,7 +9,7 @@ function about() {
   return (
     <div>
       <PagesMetaHead
-        title="Over ons"
+        title="Over ons: Gilles De Brabander en Elena Versyp"
         description="H16 is een jong familiebedrijf met wortels in het vastgoed. Maak kennis met Gilles en Elena en met onze manier van werken."
       />
 

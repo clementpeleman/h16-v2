@@ -2,7 +2,7 @@ import ProjectSingle from "./ProjectSingle";
 import Link from "next/link";
 
 function ProjectsGrid({ projects }) {
-  // Newest first, then take three — the same ordering /projects uses.
+  // Newest first, then take three — the same ordering /realisaties uses.
   const recent = (projects ?? []).slice(0, 3);
 
   // If there is nothing to show, show nothing: a heading promising "onze
@@ -20,7 +20,7 @@ function ProjectsGrid({ projects }) {
       <div className="flex flex-wrap items-baseline justify-between gap-4 mb-8">
         <h2 className="text-h2 text-black">Onze recentste realisaties</h2>
         <Link
-          href="/projects"
+          href="/realisaties"
           className="text-ui py-1 text-secondary-dark hover:text-primary underline underline-offset-4 decoration-1 hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm cursor-pointer duration-200"
         >
           Alles bekijken
