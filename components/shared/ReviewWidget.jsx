@@ -10,7 +10,7 @@ import Script from "next/script";
 // read nor write pins.
 const REVIEW_HOSTS = ["h16.peleman.io", "localhost"];
 const TACK_HOST = "https://tack.peleman.io";
-const TACK_PROJECT = "pk_e8b37f9ef53dfe5d33ad7c033d3f9909";
+const TACK_PROJECT = "pk_517eced0ed4b6bcc7235ad66f8d99965";
 
 function ReviewWidget() {
   const [enabled, setEnabled] = useState(false);
