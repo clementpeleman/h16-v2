@@ -68,10 +68,13 @@ function Project({ project, related = [] }) {
   // Strapi's korte_beschrijving is 50-70 characters; the metaline brings it
   // to the length a SERP snippet shows, and stands in when it is empty.
   const kort = (project.korteBeschrijving || "").trim();
+  // CMS text does not always end in punctuation; without it the two
+  // sentences run together ("...kantoorruimte Gent, opgeleverd in 2023").
+  const kortZin = kort && !/[.!?]$/.test(kort) ? `${kort}.` : kort;
   const seoDescription =
     kort && kort.length >= 110
       ? kort
-      : [kort, metaZin].filter(Boolean).join(" ") || undefined;
+      : [kortZin, metaZin].filter(Boolean).join(" ") || undefined;
   // Index into project.afbeeldingen of the photo open full-screen; null = closed.
   const [open, setOpen] = useState(null);
   const zoomBtn =

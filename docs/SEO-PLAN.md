@@ -226,3 +226,24 @@ werkboom weerspiegelt. h16.peleman.io draait nog de vorige commit.
 **Onveranderd sinds 5 september**: fase 0 (verhuis), fase 1 (techniek), fase 3
 (lokaal), fase 5 (meten). Het actieplan blijft geldig; punt A komt erbij als
 voorwaarde voor fase 3.
+
+---
+
+## Status 6 september 2026, na implementatie
+
+**Gedaan in code** (commit "changed domain" + werkboom):
+
+- URL's hernoemd: `/projects` → `/realisaties`, `/colab` → `/samenwerken`, permanente redirects in `next.config.js`. Header en footer lezen dezelfde lijst uit `data/navigation.js`; de footer heeft nu een navigatie.
+- `components/PagesMetaHead.jsx`: titel-template `… | H16 Vastgoedontwikkeling`, og:image (`public/images/og-default.jpg`, 1200×630) + twitter:image, meta keywords weg, één JSON-LD-script per pagina (Organization altijd; projectpagina's + BreadcrumbList; te koop/te huur + RealEstateListing). Helpers in `lib/seo.js`.
+- `pages/sitemap.xml.js` en `pages/robots.txt.js`: dynamisch, gestuurd door `NEXT_PUBLIC_ALLOW_INDEXING` en `NEXT_PUBLIC_SITE_URL`. Statische `public/robots.txt` verwijderd.
+- Titels en descriptions per pagina (fase 2). Project-title = naam – aard + beschikbaarheid ("Nieuwland 28 – Nieuwbouw te koop"), description = korte beschrijving + metazin.
+- Projectpagina: h2's "Over het project", "Foto's", "Andere realisaties" (drie kaarten, nieuwste eerst, huidige uitgesloten).
+- Hero-h1 leest nu "Bouwcoördinatie & Projectontwikkeling" met spaties.
+- `sharp` toegevoegd (de standalone-container logde "sharp is required … for image optimization").
+- `kolibri.png` (690 KB, ongebruikt) verwijderd.
+
+**Gezien op Coolify (6 sep, 14:35 UTC):** de h16-app heeft FQDN `h16.be, www.h16.be, h16.peleman.io`; env `NEXT_PUBLIC_SITE_URL=https://h16.be`, `NEXT_PUBLIC_ALLOW_INDEXING=true`, Strapi op `h16.strapi.peleman.io`. `https://h16.be` serveert de nieuwe code maar **nog met `noindex` en `Disallow: /`**: de laatste deploy dateert van vóór de env-wijziging. Een redeploy neemt de vlag mee.
+
+**Open beslissing:** canonical is nu de apex (`https://h16.be`), niet `www` zoals afgesproken. `www.h16.be` wijst naar Coolify maar heeft nog geen TLS-certificaat. Kies: (a) apex houden en `www` → apex laten redirecten in Traefik, of (b) `NEXT_PUBLIC_SITE_URL=https://www.h16.be` zetten zodra het certificaat er is. Eén van beide, niet allebei bereikbaar zonder redirect.
+
+**Nog te doen, geen code:** Search Console domein-property + sitemap indienen na de redeploy; Business Profile pas na de KBO-adreswijziging (Hoek ter Hulst 25); alt-teksten en aard/fase/jaar in Strapi; `prijs`-veld in Strapi voor het te-koop-project.
