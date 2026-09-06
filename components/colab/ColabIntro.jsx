@@ -6,8 +6,7 @@ function ColabIntro() {
           Samenwerken
         </h1>
         <p className="mt-8 max-w-[46ch] text-lead text-gray-700">
-          Wat kan H16 voor u betekenen? Twee manieren om samen te werken, en
-          vier redenen waarom dat loont.
+          Wat kan H16 voor u betekenen?
         </p>
       </div>
     </section>

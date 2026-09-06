@@ -29,7 +29,7 @@ const VOORDELEN = [
 
 function ColabBenefits({ proof = [] }) {
   return (
-    <HomeSection flip label="Uw voordeel" title="Vier redenen waarom dat loont">
+    <HomeSection flip label="Waarom H16" title="Uw voordeel">
       <p className="text-lead text-gray-700 max-w-[52ch]">
         Elke dag van het bouwproces brengt nieuwe uitdagingen met zich mee. Het
         opvolgen ervan vraagt de juiste kennis, expertise en betrokkenheid.

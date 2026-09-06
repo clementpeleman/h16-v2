@@ -190,3 +190,39 @@ meer aanraken. Beslissing voor de klant.
 | 9 | Casestudy-blokken en kennisartikelen | H16, tempo 1 per 2 maanden | doorlopend |
 
 Punten 1 tot 3 en 6 kan ik meteen uitvoeren in de codebase.
+
+---
+
+## Herscan 6 september 2026 (na de layout-herbouw, ongecommit)
+
+Gescand op de lokale productiebuild van 11:50 (poort 3100), die de huidige
+werkboom weerspiegelt. h16.peleman.io draait nog de vorige commit.
+
+**Wat verbeterd is**
+
+- /about en /colab hebben nu een echte kopstructuur (h1 › h2 › h3) in plaats
+  van losse h3's; "Twee manieren om samen te werken" en "Vier redenen waarom
+  dat loont" zijn bruikbare h2's.
+- Homepage: elke sectie is een h2, geen verweesde koppen meer; drie
+  projectkaarten als h3 onder de sectie-h2.
+- Alle afbeeldingen hebben een alt-attribuut; decoratieve emblemen alt="".
+- Interne links: de homepage linkt nu 4× naar /contact en 4× naar /projects;
+  /colab linkt naar vier projectpagina's.
+- Adres in `companyData` is Hoek ter Hulst 25 (verhuisd van Dorp 28).
+
+**Nieuwe aandachtspunten**
+
+| # | Bevinding | Impact | Fix |
+|---|---|---|---|
+| A | **NAP-conflict**: de site zegt Hoek ter Hulst 25, de KBO zegt (nog) Dorp 28 bus 0002. Google Business Profile, JSON-LD en KBO moeten hetzelfde adres dragen. | Hoog voor lokale SEO | Zetelverplaatsing laten publiceren in het Belgisch Staatsblad vóór het Business Profile wordt aangemaakt; tot dan géén citations aanmaken. `registeredSeat` heeft al een verify-commentaar. |
+| B | Homepage h1 rendert als tekst `Bouwcoördinatie&Projectontwikkeling` zonder spaties (de `&` is aria-hidden, maar Google leest de tekstnode). | Laag-middel | `{" "}` rond het ampersand-span, of `&` als `aria-hidden` mét spaties. |
+| C | Projectpagina's hebben **geen enkele h2**: na de h1 volgt platte markdown en een fotosectie zonder kop. | Middel | Vaste h2's "Over het project", "Details", "Foto's" (die laatste als zichtbare kop op `#fotos`). Casestudy-blokken uit fase 4 vullen ze. |
+| D | Twee projecten op dezelfde straat: `/projects/te-koop-nieuwland-28` (title "Nieuwland 28") en `/projects/nieuwland-28-40-gent`. Kannibalisatie voor "Nieuwland 28 Gent". | Middel | Titles onderscheiden via beschikbaarheid + aard: "Nieuwland 28 Gent – Nieuwbouwwoning te koop" vs "Nieuwland 28-40 Gent – Projectontwikkeling". Fix 1.8/2 dekt dit. |
+| E | Project-descriptions komen rechtstreeks uit `korte_beschrijving` en zijn 50-70 tekens ("Luxueuze high-end nieuwbouw woning in hartje Gent!"). | Laag | In Strapi 120-155 tekens schrijven, of de metazin (aard, plaats, jaar) eraan plakken in code. |
+| F | /projects description is 68 tekens en zegt niets over plaats of type. | Laag | "Nieuwbouw, totaalrenovatie en herbestemming in Gent en Oost-Vlaanderen. Vijf realisaties van H16, van ontwerp tot oplevering." |
+| G | Nog steeds geen sitemap (404), geen JSON-LD, geen og:image, titels zonder merk. | Hoog | Fase 1 ongewijzigd; niets ervan is door de herbouw al gedaan. |
+| H | `public/images/kolibri.png` (690 KB) wordt nergens meer gebruikt. | Geen (niet geladen) | Verwijderen, houdt het Docker-image klein. |
+
+**Onveranderd sinds 5 september**: fase 0 (verhuis), fase 1 (techniek), fase 3
+(lokaal), fase 5 (meten). Het actieplan blijft geldig; punt A komt erbij als
+voorwaarde voor fase 3.
