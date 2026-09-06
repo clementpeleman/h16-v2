@@ -1,3 +1,4 @@
+import { trackEvent } from "../shared/Analytics";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -132,6 +133,7 @@ function ContactForm() {
       }
 
       setStatus("success");
+      trackEvent("contact");
       setValues(EMPTY);
     } catch {
       setStatus("error");
