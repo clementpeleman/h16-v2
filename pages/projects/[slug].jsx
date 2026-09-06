@@ -1,4 +1,7 @@
+import { useState } from "react";
 import Image from "next/image";
+import Lightbox from "../../components/projects/Lightbox";
+import GalleryJump from "../../components/projects/GalleryJump";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import PagesMetaHead from "../../components/PagesMetaHead";
 import { fetcher, toProjectDetail } from "../../lib/api";
@@ -46,6 +49,10 @@ function Project({ project }) {
   // sits once, after the description, where a reader has decided.
   const isOffer = /te koop|te huur/i.test(project.beschikbaarheid || "");
   const [hero, ...rest] = project.afbeeldingen;
+  // Index into project.afbeeldingen of the photo open full-screen; null = closed.
+  const [open, setOpen] = useState(null);
+  const zoomBtn =
+    "block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-4 rounded-sm cursor-zoom-in";
 
   return (
     <div className="container mx-auto">
@@ -83,15 +90,27 @@ function Project({ project }) {
       {/* The building leads. The gallery used to sit after the text; a
           property page that opens on a spec list has its priorities inverted. */}
       {hero && (
-        <div className="relative mt-group aspect-[16/10] w-full overflow-hidden bg-ternary-light">
-          <Image
-            src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + hero.url}
-            alt={hero.alt || project.naam}
-            fill
-            sizes="(min-width: 1536px) 1408px, (min-width: 1024px) calc(100vw - 5rem), 100vw"
-            priority
-            className="object-cover"
-          />
+        // Shown at its own proportions, not cropped to a fixed 16:10 — a
+        // cover crop took the roofline off every façade. Capped in width so
+        // it reads as the opening photograph, not a billboard; portrait
+        // photographs narrower still.
+        <div
+          className={`mt-group ${
+            hero.height > hero.width ? "max-w-lg" : "max-w-4xl"
+          }`}
+        >
+          <button type="button" onClick={() => setOpen(0)} className={zoomBtn} aria-label="Foto vergroten">
+            <Image
+              src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + hero.url}
+              alt={hero.alt || project.naam}
+              width={hero.width || 1600}
+              height={hero.height || 1000}
+              sizes="(min-width: 1536px) 1408px, (min-width: 1024px) calc(100vw - 5rem), 100vw"
+              priority
+              style={{ width: "100%", height: "auto" }}
+              className="bg-ternary-light"
+            />
+          </button>
         </div>
       )}
 
@@ -178,18 +197,20 @@ function Project({ project }) {
           8.7k px on a phone; the first nine show inline, the rest open on
           request. Photographs on cream need neither shadow nor a hover zoom. */}
       {rest.length > 0 && (
-        <div className="mt-section">
+        <div id="fotos" className="mt-section scroll-mt-8">
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6">
             {rest.slice(0, 9).map((beeld, index) => (
               <div className="mb-4 lg:mb-6" key={beeld.id ?? index}>
-                <Image
-                  src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
-                  alt={beeld.alt || project.naam}
-                  width={beeld.width || 1000}
-                  height={beeld.height || 750}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  style={{ width: "100%", height: "auto" }}
-                />
+                <button type="button" onClick={() => setOpen(index + 1)} className={zoomBtn} aria-label="Foto vergroten">
+                  <Image
+                    src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
+                    alt={beeld.alt || project.naam}
+                    width={beeld.width || 1000}
+                    height={beeld.height || 750}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </button>
               </div>
             ))}
           </div>
@@ -202,14 +223,16 @@ function Project({ project }) {
               <div className="mt-6 columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6">
                 {rest.slice(9).map((beeld, index) => (
                   <div className="mb-4 lg:mb-6" key={beeld.id ?? `x${index}`}>
-                    <Image
-                      src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
-                      alt={beeld.alt || project.naam}
-                      width={beeld.width || 1000}
-                      height={beeld.height || 750}
-                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      style={{ width: "100%", height: "auto" }}
-                    />
+                    <button type="button" onClick={() => setOpen(index + 10)} className={zoomBtn} aria-label="Foto vergroten">
+                      <Image
+                        src={process.env.NEXT_PUBLIC_STRAPI_ASSET_URL + beeld.url}
+                        alt={beeld.alt || project.naam}
+                        width={beeld.width || 1000}
+                        height={beeld.height || 750}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        style={{ width: "100%", height: "auto" }}
+                      />
+                    </button>
                   </div>
                 ))}
               </div>
@@ -232,7 +255,13 @@ function Project({ project }) {
         </div>
       )}
 
-
+      {rest.length > 0 && <GalleryJump targetId="fotos" />}
+      <Lightbox
+        images={project.afbeeldingen}
+        index={open}
+        onClose={() => setOpen(null)}
+        onChange={setOpen}
+      />
     </div>
   );
 }

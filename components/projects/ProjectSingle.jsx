@@ -51,7 +51,7 @@ const ProjectSingle = ({
             ) : null}
           </div>
           <div className="text-left pt-4">
-            <Heading className="text-h3 text-ternary-dark [text-wrap:balance]">
+            <Heading className="text-h3 text-black [text-wrap:balance]">
               {naam}
             </Heading>
             {/* Availability is what a buyer scans a grid for. It only renders

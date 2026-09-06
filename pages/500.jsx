@@ -10,7 +10,7 @@ function ServerError() {
       />
       <ErrorPage
         title="Er ging iets mis aan onze kant."
-        body="Dit ligt niet aan u. Probeer het over enkele minuten opnieuw — of neem gewoon rechtstreeks contact op, dan helpen we u meteen verder."
+        body="Dit ligt niet aan u. Probeer het over enkele minuten opnieuw, of bel ons gewoon even. Dan helpen we u meteen verder."
       />
     </>
   );

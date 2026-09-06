@@ -37,7 +37,7 @@ function index({ projects }) {
           <div className="max-w-xl py-16 sm:py-24">
             <p className="text-lead text-ternary-dark mb-8">
               Onze realisaties zijn op dit moment niet beschikbaar. Bel of mail
-              ons gerust — we vertellen u met plezier waar we mee bezig zijn.
+              ons gerust, dan vertellen we u waar we mee bezig zijn.
             </p>
             <p className="text-body text-ternary-dark">
               <a

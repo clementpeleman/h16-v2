@@ -1,8 +1,9 @@
-import AboutCounter from "../components/about/AboutCounter";
-import AboutMeBio from "../components/about/AboutMeBio";
 import PagesMetaHead from "../components/PagesMetaHead";
-import AboutCTA from "../components/about/AboutCTA";
+import AboutIntro from "../components/about/AboutIntro";
+import AboutValue from "../components/about/AboutValue";
+import AboutPeople from "../components/about/AboutPeople";
 import AboutEmblem from "../components/about/AboutEmblem";
+import HomeContact from "../components/home/HomeContact";
 
 function about() {
   return (
@@ -13,10 +14,11 @@ function about() {
       />
 
       <div className="enter-fade container mx-auto">
-        <AboutMeBio />
-        <AboutCounter />
+        <AboutIntro />
+        <AboutValue />
+        <AboutPeople />
         <AboutEmblem />
-        <AboutCTA />
+        <HomeContact />
       </div>
     </div>
   );

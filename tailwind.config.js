@@ -83,6 +83,16 @@ module.exports = {
         // A real axis value for inline emphasis, replacing the family swap.
         strong: "500",
       },
+      keyframes: {
+        nudge: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(3px)" },
+        },
+      },
+      animation: {
+        // A slow, small bob on the arrow of the "Naar de foto's" button.
+        nudge: "nudge 1.8s ease-in-out infinite",
+      },
       spacing: {
         // Two cadence values instead of the mt-24 sm:mt-32 lg:mt-40 /
         // mt-14 sm:mt-20 triplets repeated in every file. Always applied as a
@@ -90,6 +100,8 @@ module.exports = {
         // earlier one — seams used to stack two owners into 258-354px voids.
         section: "clamp(6rem, 5rem + 4vw, 10rem)",
         group: "clamp(3.5rem, 3rem + 2vw, 5rem)",
+        // Homepage chapters: one step wider than `section`.
+        chapter: "clamp(8rem, 6rem + 6vw, 14rem)",
       },
       colors: {
         primary: "#0E468C",
@@ -108,7 +120,9 @@ module.exports = {
         // Dark colors
         "primary-dark": "#0D2438",
         "secondary-dark": "#102D44",
-        "ternary-dark": "#1E3851",
+        // Body text. Was a navy (#1E3851) that read as a third brand colour
+        // next to the blue headings; body copy is neutral now.
+        "ternary-dark": "#262626",
 
         // Extended v3 color
         gray: colors.neutral,

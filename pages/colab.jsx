@@ -1,6 +1,9 @@
 import PagesMetaHead from "../components/PagesMetaHead";
-import ColabBanner from "../components/colab/ColabBanner";
-import AboutCTA from "../components/about/AboutCTA";
+import ColabIntro from "../components/colab/ColabIntro";
+import ColabServices from "../components/colab/ColabServices";
+import ColabBenefits from "../components/colab/ColabBenefits";
+import ColabPeers from "../components/colab/ColabPeers";
+import HomeContact from "../components/home/HomeContact";
 import { fetcher, toProjectCard } from "../lib/api";
 
 function colab({ proof }) {
@@ -8,12 +11,15 @@ function colab({ proof }) {
     <div>
       <PagesMetaHead
         title="Samenwerken"
-        description="Bouwcoördinatie, adviesverlening en projectontwikkeling — en samenwerking met architecten en aannemers."
+        description="Bouwcoördinatie, adviesverlening en projectontwikkeling. Ook voor architecten en aannemers die werk uit handen willen geven."
       />
 
       <div className="enter-fade container mx-auto">
-        <ColabBanner proof={proof} />
-        <AboutCTA />
+        <ColabIntro />
+        <ColabServices />
+        <ColabBenefits proof={proof} />
+        <ColabPeers />
+        <HomeContact />
       </div>
 
 

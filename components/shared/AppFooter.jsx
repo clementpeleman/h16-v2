@@ -8,7 +8,7 @@ import AppFooterLegal from "./AppFooterLegal";
 function AppFooter() {
   return (
     <footer className="container mx-auto">
-      <div className="mt-section pt-12 sm:pt-16 pb-10 border-t border-gray-200">
+      <div className="mt-section pt-14 sm:pt-20 pb-12 border-t border-gray-200">
         <AppFooterLegal />
         <div className="mt-8">
           <AppFooterCopyright />

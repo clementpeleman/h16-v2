@@ -1,41 +1,59 @@
 import Image from "next/image";
+import HomeSection from "../home/HomeSection";
 
-// The emblem story used to hang under the "Meerwaarde" copy as a 112px icon
-// beside one 120-word paragraph — an appendix to the bio. It is the firm's
-// symbol, so it closes the page: after the two people, before the invitation,
-// with the emblem given real size and the copy broken at its natural turns.
+// Closes /about, after the founders. Used to be one 120-word paragraph with three phrases
+// picked out in blue. Those three phrases are the story; they become the
+// structure — set in the display face, the way the hero sets the firm's
+// name — each with the one sentence that explains it.
+const TRAITS = [
+  {
+    naam: "Liefde en vreugde",
+    tekst:
+      "In vele culturen werd de kolibrie steeds gezien als de boodschapper van liefde en vreugde.",
+  },
+  {
+    naam: "In alle richtingen",
+    tekst:
+      "Hij vliegt in alle richtingen, ook ter plaatse en achterwaarts. Zo vlot verandert hij van perspectief.",
+  },
+  {
+    naam: "Ongeziene frequenties",
+    tekst:
+      "Hij is razendsnel en reageert meteen. Met het flapperen van zijn vleugels bereikt hij ongeziene frequenties.",
+  },
+];
+
 function AboutEmblem() {
   return (
-    <section className="mt-section grid gap-10 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:items-start lg:gap-16">
-      <div className="w-36 sm:w-full sm:max-w-[240px]">
-        <Image
-          src="/images/H16_EMBLEEM_BLAUW.png"
-          width={240}
-          height={240}
-          alt=""
-          style={{ width: "100%", height: "auto" }}
-        />
-      </div>
-      <div className="max-w-[60ch]">
-        <h2 className="text-h2 text-black">De kolibrie als symbool van H16</h2>
-        <p className="mt-6 text-lead text-gray-700">
-          Er bestaat een eeuwenoude symboliek rond dit bijzondere vogeltje: in
-          vele culturen werd hij gezien als de boodschapper van liefde en
-          vreugde.
-        </p>
-        <p className="mt-5 text-body text-ternary-dark">
-          De kolibrie heeft unieke gaven en weet zijn talenten te gebruiken om
-          zijn doelen te bereiken. Door zijn compact formaat en priemvormige
-          snavel onderscheidt hij zich van de rest. Zijn vliegvermogen is uniek:
-          hij vliegt in alle richtingen, ter plaatse én achterwaarts.
-        </p>
-        <p className="mt-5 text-body text-ternary-dark">
-          Hij is razendsnel en heeft een bijzonder reactievermogen. Met het
-          flapperen van zijn vleugels bereikt hij ongeziene frequenties. Net
-          als H16.
-        </p>
-      </div>
-    </section>
+    <HomeSection
+      label="Het symbool"
+
+      title="De kolibrie als symbool van H16"
+      aside={
+        <div className="hidden lg:block w-40">
+          <Image
+            src="/images/H16_EMBLEEM_BLAUW.png"
+            width={160}
+            height={160}
+            alt=""
+            style={{ width: "100%", height: "auto" }}
+          />
+        </div>
+      }
+    >
+      <p className="text-lead text-gray-700 max-w-[46ch]">
+        Een klein vogeltje met unieke gaven, dat zijn talenten gebruikt om zijn
+        doel te bereiken. Net als H16.
+      </p>
+      <ul className="mt-14 grid gap-10 sm:grid-cols-3 sm:gap-10">
+        {TRAITS.map((t) => (
+          <li key={t.naam} className="border-t border-gray-200 pt-6">
+            <h3 className="font-display text-h3 text-primary">{t.naam}</h3>
+            <p className="mt-4 text-body text-ternary-dark">{t.tekst}</p>
+          </li>
+        ))}
+      </ul>
+    </HomeSection>
   );
 }
 

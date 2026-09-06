@@ -1,10 +1,9 @@
-import Link from "next/link";
 import PagesMetaHead from "../components/PagesMetaHead";
-import ProjectsGrid from "../components/projects/ProjectsGrid";
-import AppBanner from "../components/shared/AppBanner";
+import HomeHero from "../components/home/HomeHero";
+import HomeApproach from "../components/home/HomeApproach";
+import HomeWork from "../components/home/HomeWork";
+import HomeContact from "../components/home/HomeContact";
 import { fetcher, toProjectCard } from "../lib/api";
-import AppSecondary from "../components/shared/AppSecondary";
-import AboutCTA from "../components/about/AboutCTA";
 
 export default function Home({ projecten }) {
   return (
@@ -14,14 +13,10 @@ export default function Home({ projecten }) {
         description="Bouwcoördinatie en projectontwikkeling door een klein familiebedrijf uit Oosterzele. Uw bouwproject van begin tot eind opgevolgd."
       />
 
-      <AppBanner />
-
-      <AppSecondary />
-
-      <ProjectsGrid projects={projecten} />
-
-      <AboutCTA />
-
+      <HomeHero />
+      <HomeApproach />
+      <HomeWork projects={projecten} />
+      <HomeContact />
     </div>
   );
 }
