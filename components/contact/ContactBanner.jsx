@@ -12,7 +12,7 @@ export class ContactBanner extends Component {
             response promise 200-776px below the submit button. This puts the
             reassurance — and the faster channel — before the ask. */}
         <p className="mt-6 max-w-[52ch] text-lead text-gray-700">
-          Gilles of Elena antwoordt u binnen twee werkdagen persoonlijk. Liever
+          Gilles of Elena antwoordt u zo snel mogelijk. Liever
           meteen iemand aan de lijn?{" "}
           <a
             href={company.phoneHref}
