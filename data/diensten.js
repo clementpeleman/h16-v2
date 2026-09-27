@@ -42,67 +42,64 @@ export const DIENSTEN = {
       "Staat u voor een bouwproject maar loopt u verloren? Wij analyseren graag samen uw specifieke vastgoedsituatie of vragen, en coördineren uw vastgoedproject met de grootste zorg.",
     secties: [
       {
-        label: "Wat we doen",
+        label: "Uw voordeel",
         titel: "Wat H16 voor u doet",
         // [site] the four benefits from /samenwerken.
         voordelen: true,
       },
       {
         label: "Voor wie",
-        titel: "Voor wie",
+        titel: "Uw bouwproject onder onze vleugels",
         tekst: [
-          // [site] ColabServices + ColabBenefits
-          "Voor wie een bouwproject wil realiseren en zeer concrete hulp zoekt bij de effectieve uitvoering. Het realiseren van een droomhuis of het neerzetten van een rendabele vastgoedinvestering: twee aparte werelden, en voor beide zet H16 van bij het begin de focus juist.",
+          // [site] ColabBenefits, verbatim
+          "Elke dag van het bouwproces brengt nieuwe uitdagingen met zich mee. Het opvolgen ervan vraagt de juiste kennis, expertise en betrokkenheid. Voor velen is het realiseren van een bouwproject geen dagelijkse kost, voor H16 is het dat wel.",
+          // [2023] Bouwcoördinatie, verbatim (je -> u)
+          "Op zoek naar een zeer concrete hulp bij de effectieve uitvoering? Wij coördineren uw vastgoedproject met de grootste zorg:",
         ],
-        // [2023] "Wij coördineren uw vastgoedproject met de grootste zorg:"
-        // (interieuradvies, also on that list, is left out: it was dropped
-        // from the site in 2024).
+        // [2023] the list that followed (interieuradvies left out: it was
+        // dropped from the site in 2024).
         punten: [
           "Nieuwbouw en renovatie",
-          "Kleine en grote projecten",
-          "Residentiële en commerciële projecten",
-          "Zowel met als zonder architect",
-          "Van A tot Z, of van A naar B",
+          "Klein en groot",
+          "Van A tot Z of van A naar B",
+          "Zowel residentiële als commerciële projecten",
+          "Zowel werken met als zonder architect",
         ],
       },
       {
         label: "Werkwijze",
-        titel: "Zo werken we",
+        // The homepage already links "Bekijk onze werkwijze".
+        titel: "Onze werkwijze",
         tekst: [
-          // [site] AboutPeople + AboutValue
-          "Gilles De Brabander (construction manager) en Elena Versyp (office manager) volgen uw project persoonlijk op, met een betrokkenheid op élke dag van het bouwproces. U heeft één duidelijk aanspreekpunt.",
+          // [site] AboutPeople + AboutValue, verbatim
+          "Met een betrokkenheid op élke dag van het bouwproces zorgen we voor kwaliteit in uitvoering, controle van het budget en de uitvoeringstermijn. De kleinschaligheid van H16 doet ruimte ontstaan voor maatwerk, focus, reactiviteit en feilloze communicatie met één duidelijk aanspreekpunt.",
         ],
-        // The order is the natural one; every activity is named in the copy.
+        // The order is the natural one; the step texts are the [2023]
+        // benefit texts, verbatim, which name every activity.
         stappen: [
           {
-            titel: "Analyse en doelstelling",
-            // [site] ColabServices + ColabBenefits
+            titel: "Bepalen juiste doelstelling",
+            // [2023]
             tekst:
-              "We analyseren samen uw vastgoedsituatie en uw vragen, en bepalen de juiste doelstelling.",
+              "Het realiseren van een droomhuis of het neerzetten van een rendabele vastgoedinvestering? Twee aparte werelden! Door vanaf het begin de focus juist te zetten, kan het gewenste doel bereikt worden.",
           },
           {
             titel: "Voorbereiding en planning",
             // [2023] Snelheid
             tekst:
-              "Door degelijk voorbereidingswerk en een accurate planning volgen de werken elkaar mooi en in een logische volgorde op.",
-          },
-          {
-            titel: "Aannemers en prijzen",
-            // [site] Budgetcontrole, AboutValue; [2023] Budgetcontrole
-            tekst:
-              "H16 werkt uitsluitend met betrouwbare vakmannen en onderhandelt met de aannemers een goede prijs.",
+              "Door degelijk voorbereidingswerk, een accurate opvolging van de planning en consequente communicatie wordt het bouwproces gestroomlijnd. Werken volgen elkaar mooi en in een logische volgorde op.",
           },
           {
             titel: "Opvolging op de werf",
-            // [2023] Kwaliteit; [site] Kwaliteit
+            // [2023] Kwaliteit
             tekst:
-              "Dagelijkse opvolging en controle op de site zelf zijn onmisbaar. Met een doenersmentaliteit zorgt H16 ervoor dat alles gedaan wordt, en op een degelijke manier.",
+              "Met een doenersmentaliteit zorgt H16 ervoor dat alles gedaan wordt én dat dit ook op een degelijke manier gebeurt. Dagelijkse opvolging en controle op de site zelf zijn onmisbaar.",
           },
           {
-            titel: "Budget tot de oplevering",
-            // [site] Budgetcontrole + HomeHero ("van begin tot eind")
+            titel: "Budgetcontrole",
+            // [2023] Budgetcontrole
             tekst:
-              "Élke factuur wordt gecontroleerd en het budget wordt constant opgevolgd, van begin tot eind.",
+              "Controle van élke factuur en constante opvolging van het budget zorgen voor het bereiken van de gewenste doelstelling.",
           },
         ],
       },
@@ -122,15 +119,15 @@ export const DIENSTEN = {
     faq: [
       {
         vraag: "Wat kost bouwcoördinatie?",
-        // [2023] Budgetcontrole (both versions)
+        // [2023] Budgetcontrole (both versions), near-verbatim
         antwoord:
-          "De coördinatiekost van H16 wordt geïntegreerd over het volledige project. Daar staat een besparing tegenover: H16 onderhandelt met de aannemers een goede prijs, en omdat H16 de coördinatie op zich neemt, wordt de opdracht voor de aannemer eenvoudiger en daalt zijn eigen coördinatiekost. Vraag vrijblijvend meer informatie over uw project.",
+          "De coördinatiekost van H16 is geïntegreerd over het volledige project. Succesvolle samenwerkingen met aannemers herhalen zich onder de vleugels van H16, wat onderhandelingsmarge over prijzen met zich meebrengt. Bovendien is de coördinatie van H16 aangenaam voor de aannemer die uitvoert op de site zelf, waardoor zijn coördinatiekost daalt. Zo levert de expertise van H16 de klant financieel voordeel op.",
       },
       {
-        vraag: "Wat is het verschil tussen een bouwcoördinator, een architect en een aannemer?",
-        // [site] ColabPeers, VOORDELEN; [2023] "Zowel werken met als zonder architect"
+        vraag: "Werkt H16 met of zonder architect?",
+        // [2023] "Zowel werken met als zonder architect"; [site] ColabPeers
         antwoord:
-          "De architect ontwerpt, de aannemers voeren de werken uit, en H16 coördineert: voorbereiding, planning, prijsonderhandeling, opvolging op de werf en controle van het budget. H16 werkt zowel met als zonder architect. Wil een architect zich op het ontwerp focussen, dan nemen wij graag een deel van het uitvoerend werk uit handen.",
+          "Allebei. Een bouwproces is intensief en tijdrovend. Wil de architect zich focussen op ontwerp? Dan nemen wij graag een deel van het uitvoerend werk uit handen. Met kwalitatieve aannemers slaan we graag de handen in elkaar, voor een duurzame relatie waarbij klantgerichtheid en kwaliteit centraal staan.",
       },
       {
         vraag: "In welke regio werkt H16?",
@@ -165,12 +162,11 @@ export const DIENSTEN = {
         label: "Wat we doen",
         titel: "Een nieuwe invulling voor huizen en gronden",
         tekst: [
-          // [2023] old hero "Wij geven een nieuwe invulling aan huizen en gronden."
-          // + [site] AboutIntro
-          "H16 geeft een nieuwe invulling aan huizen en gronden. Het is een jong bedrijf met familiale wortels, ontstaan uit passie voor vastgoed; een passie die van generatie op generatie is doorgegeven.",
-          // [cms] the realisatie texts — framed as experience with the
-          // building types, not as H16's own developments.
-          "Die ervaring komt uit heel verschillende panden: twee statige herenwoningen in de Belfortstraat werden vijf appartementen en een wijnbar, een 18e-eeuwse leerlooierij aan het Nieuwland werd zeven woonentiteiten, en een oude schrijnwerkerij aan de Voorhoutkaai werd een kantoorruimte.",
+          // [2023] old hero + [site] AboutIntro, verbatim
+          "Wij geven een nieuwe invulling aan huizen en gronden. H16 is een jong bedrijf met familiale wortels dat ontstaan is uit passie voor vastgoed. Deze passie, doorgegeven van generatie op generatie, is binnen H16 de drijvende kracht van élke dag.",
+          // [cms] wording from the realisatie texts — framed as experience,
+          // not as H16's own developments.
+          "Twee statige herenwoningen in de Belfortstraat werden vijf high-end appartementen en een prachtige wijnbar. Een 18e-eeuwse leerlooierij aan het Nieuwland transformeerde tot zeven splinternieuwe woonentiteiten. Een oude schrijnwerkerij aan de Voorhoutkaai werd een nieuwe prachtige werkplek.",
         ],
       },
       {
@@ -186,8 +182,8 @@ export const DIENSTEN = {
         label: "Aanpak",
         titel: "Small is beautiful",
         tekst: [
-          // [site] AboutValue + AboutPeople
-          "De kleinschaligheid van H16 doet ruimte ontstaan voor maatwerk, focus, reactiviteit en feilloze communicatie met één duidelijk aanspreekpunt. Gilles De Brabander en Elena Versyp leiden het bedrijf zelf en werken zeer persoonlijk en gefocust.",
+          // [site] AboutPeople + AboutValue, verbatim
+          "H16 wordt geleid door Gilles De Brabander en Elena Versyp. Door onze complementaire capaciteiten in ons klein bedrijf te bundelen, slagen we erin om zeer persoonlijk en gefocust te werken. De kleinschaligheid van H16 doet ruimte ontstaan voor maatwerk, focus, reactiviteit en feilloze communicatie met één duidelijk aanspreekpunt.",
         ],
       },
     ],

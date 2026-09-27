@@ -116,7 +116,7 @@ function ServicePage({ dienst, realisaties }) {
       {/* A realisatie is proof of a service only once H16 has confirmed its
           role on it: a draft asks, a ready page hides an unconfirmed grid. */}
       {(draft || (dienst.realisatiesBevestigd && realisaties.length > 0)) && (
-        <HomeSection label="Realisaties" title="Zo ziet dat eruit" flip={secties.length % 2 === 1}>
+        <HomeSection label="Realisaties" title="Onze realisaties" flip={secties.length % 2 === 1}>
           {draft && !dienst.realisatiesBevestigd && (
             <Todo>{dienst.realisatiesVraag}</Todo>
           )}
@@ -135,7 +135,7 @@ function ServicePage({ dienst, realisaties }) {
       )}
 
       {(answered.length > 0 || openQuestions.length > 0) && (
-        <HomeSection label="Veelgestelde vragen" title="Vragen en antwoorden">
+        <HomeSection label="Vragen" title="Veelgestelde vragen">
           <dl className="max-w-[62ch] space-y-10">
             {answered.map((q) => (
               <div key={q.vraag}>
