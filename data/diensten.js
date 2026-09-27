@@ -104,18 +104,14 @@ export const DIENSTEN = {
         ],
       },
     ],
-    // [cms] Voorhoutkaai: "Naast de coördinatie en planning namen wij het
-    // technisch tekenwerk voor onze rekening." Nieuwland 28-40 was done for
-    // "onze klant", Belfortstraat was "een opdracht" — H16's role there is
-    // not spelled out, hence the question.
+    // H16 did the bouwcoördinatie on all three (Voorhoutkaai says so in the
+    // CMS; Nieuwland 28-40 and Belfortstraat confirmed by Clement 2026-09-27).
     realisaties: [
       "voorhoutkaai-25-gent",
       "nieuwland-28-40-gent",
       "belfortstraat-29-onderstraat-75-a-gent",
     ],
-    realisatiesBevestigd: false,
-    realisatiesVraag:
-      "Voorhoutkaai 25 noemt de coördinatie en planning uitdrukkelijk. Deed H16 ook op Nieuwland 28-40 en Belfortstraat 29 de bouwcoördinatie? Dan mag dit blok zo online.",
+    realisatiesBevestigd: true,
     faq: [
       {
         vraag: "Wat kost bouwcoördinatie?",
@@ -144,6 +140,10 @@ export const DIENSTEN = {
     onderwerp: DIENST_ONDERWERP.bouwcoordinatie,
   },
 
+  // ON HOLD (2026-09-27): H16 buys fewer and fewer properties and is likely
+  // phasing projectontwikkeling out, so this page is not meant to go live and
+  // SEO effort goes to /bouwcoordinatie. Kept as a draft in case that changes;
+  // delete it (with pages/projectontwikkeling.jsx) once H16 decides.
   projectontwikkeling: {
     slug: "projectontwikkeling",
     ready: false,
