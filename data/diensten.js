@@ -140,10 +140,6 @@ export const DIENSTEN = {
     onderwerp: DIENST_ONDERWERP.bouwcoordinatie,
   },
 
-  // ON HOLD (2026-09-27): H16 buys fewer and fewer properties and is likely
-  // phasing projectontwikkeling out, so this page is not meant to go live and
-  // SEO effort goes to /bouwcoordinatie. Kept as a draft in case that changes;
-  // delete it (with pages/projectontwikkeling.jsx) once H16 decides.
   projectontwikkeling: {
     slug: "projectontwikkeling",
     ready: false,
@@ -206,8 +202,9 @@ export const DIENSTEN = {
       },
       {
         vraag: "Koopt H16 ook panden die gerenoveerd moeten worden?",
-        antwoord: null,
-        notitie: "Ja/nee, en welke staat is nog interessant?",
+        // Confirmed by H16 via Clement, 2026-09-27.
+        antwoord:
+          "Ja. Wij geven graag een nieuwe invulling aan huizen en gronden, ook wanneer er een grondige renovatie nodig is.",
       },
     ],
     onderwerp: DIENST_ONDERWERP.projectontwikkeling,
