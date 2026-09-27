@@ -1,9 +1,15 @@
-import ServicePage from "../components/services/ServicePage";
-import { loadServicePage } from "../lib/servicePage";
+import ServicePage from "../components/redesign/service/ServicePage";
+import { loadService } from "../components/redesign/service/loadService";
 
-// Copy lives in data/diensten.js; a draft 404s on h16.be until it is ready.
-export default ServicePage;
+// /projectontwikkeling ("Monografie" redesign). Copy from data/diensten.js (read at
+// build/regeneration time), template shared with the other service page.
+function Page(props) {
+  return <ServicePage {...props} />;
+}
 
-export function getServerSideProps(ctx) {
-  return loadServicePage("projectontwikkeling", ctx);
+Page.ownLayout = true;
+export default Page;
+
+export async function getStaticProps() {
+  return loadService("projectontwikkeling");
 }

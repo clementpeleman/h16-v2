@@ -1,14 +1,12 @@
-import { toHomeProject } from "../../../lib/api";
+import { fetcher, toHomeProject } from "../../../lib/api";
 import { assetUrl } from "../../../lib/seo";
-import { isProductionHost, v2fetch } from "../../../lib/staging";
 import { SHOW_PRICE } from "../../../data/homeCuration";
 import { SERVICE_CURATION } from "./serviceCuration";
 
-// Server-side loader for the redesigned service pages (staging only).
+// Build-time loader (getStaticProps) for the service pages.
 //
-// Unlike lib/servicePage.js this never looks at `ready`: the whole redesign
-// is a 404 on the production host, and on staging a draft renders with only
-// what is filled in — no "Tekst volgt" boxes. Every field in data/diensten.js
+// An unpublished service (`ready` false in data/dienstMeta.js) is a 404; a
+// published one renders only what is filled in. Every field in data/diensten.js
 // may be null, so everything below is read defensively. Only the strings the
 // page shows become props; the notes and questions for H16 stay here.
 
@@ -82,8 +80,7 @@ function resolveImage(curated, p, used) {
   return plateImage(pick);
 }
 
-export async function loadService(slug, { req, res }) {
-  if (isProductionHost(req)) return { notFound: true };
+export async function loadService(slug) {
 
   // Server-only imports: the service copy (drafts and notes included) and
   // the four benefits never ship to the client as modules.
@@ -92,12 +89,8 @@ export async function loadService(slug, { req, res }) {
     import("../../colab/ColabBenefits"),
   ]);
   const dienst = DIENSTEN[slug];
-  if (!dienst) return { notFound: true };
-
-  res?.setHeader?.(
-    "Cache-Control",
-    "public, s-maxage=60, stale-while-revalidate=600",
-  );
+  // An unpublished service does not exist on the site.
+  if (!dienst || !dienst.ready) return { notFound: true };
 
   const curation = SERVICE_CURATION[slug] || {};
   const naam = str(dienst.naam);
@@ -165,7 +158,7 @@ export async function loadService(slug, { req, res }) {
     .map((s, i) => `filters[slug][$in][${i}]=${encodeURIComponent(s)}`)
     .join("&");
   const response = filters
-    ? await v2fetch(
+    ? await fetcher(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?${filters}&populate[0]=thumbnail&populate[1]=afbeeldingen&pagination[limit]=100`,
       )
     : { data: [] };
@@ -216,6 +209,7 @@ export async function loadService(slug, { req, res }) {
   const h1 = str(dienst.h1) || naam;
 
   return {
+    revalidate: 60,
     props: {
       dienst: {
         slug,

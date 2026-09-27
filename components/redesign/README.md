@@ -7,21 +7,19 @@ captions, reading text is near-black on a warm near-white paper, the brand
 guide's pale aqua is used for one calm band, and every page ends on a solid
 blue "back cover". No text ever sits on a photograph.
 
-It is a **staging preview**: `next.config.js` rewrites each public path to
-`pages/v2/*` only for the host `h16.peleman.io`; on `h16.be` every v2 page is
-a 404. Production keeps the old pages until the client approves.
+It is live on h16.be (since 2026-09-27). Pages are ISR (`getStaticProps`,
+`revalidate: 60`), like the site before it.
 
-## Page mechanics (every `pages/v2/*` page)
+## Page mechanics (every page)
 
 ```jsx
-import PagesMetaHead from "../../components/PagesMetaHead";
-import V2Page from "../../components/redesign/V2Page";
-import { isProductionHost } from "../../lib/staging";
+import PagesMetaHead from "../components/PagesMetaHead";
+import V2Page from "../components/redesign/V2Page";
 
 function Page(props) {
   return (
     <>
-      <PagesMetaHead title="…" description="…" jsonLd={[…]} />  {/* identical to the current page */}
+      <PagesMetaHead title="…" description="…" jsonLd={[…]} />
       <V2Page>{/* sections */}</V2Page>
     </>
   );
@@ -29,18 +27,17 @@ function Page(props) {
 Page.ownLayout = true;           // _app skips the old DefaultLayout
 export default Page;
 
-export async function getServerSideProps({ req, params }) {
-  if (isProductionHost(req)) return { notFound: true };
-  // …fetch with fetcher() from lib/api, project with toProjectCard / toProjectDetail / toHomeProject
-  return { props: { … } };
+export async function getStaticProps() {
+  // …fetch with fetcher() from lib/api (no timeout: a timed-out ISR
+  // regeneration would replace a good page with an empty one), project with
+  // toProjectCard / toProjectDetail / toHomeProject
+  return { revalidate: 60, props: { … } };
 }
 ```
 
-- Links always use the **public paths** (`/about`, `/realisaties/<slug>`, …), never `/v2/…`.
-- Keep the current page's `<title>`, description, JSON-LD and in-page anchors
-  (`/bouwcoordinatie#werkwijze`, `/samenwerken#professionals`, `/contact?dienst=…`, `/contact?project=…`).
+- Keep in-page anchors and query-param behaviour (`/bouwcoordinatie#werkwijze`, `/samenwerken#professionals`, `/contact?dienst=…`, `/contact?project=…`).
 - `V2Page` renders the skip link, `SiteHeader`, `<main id="inhoud">`, `SiteFooter` and runs the plate reveal.
-- Never import `data/diensten.js` into client code (it holds draft notes); read it in `getServerSideProps` and pass strings as props.
+- Never import `data/diensten.js` into client code (it holds draft notes); read it in `getStaticProps` and pass strings as props.
 
 ## Tokens (Tailwind)
 

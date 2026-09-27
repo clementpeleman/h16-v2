@@ -1,54 +1,43 @@
-import Link from "next/link";
+import V2Page from "../redesign/V2Page";
+import { ArrowLink, ButtonLink, TextLink } from "../redesign/ui";
+import { company } from "../../data/companyData";
 
-// Shared body for 404 and 500. Both render inside DefaultLayout, so the header
-// and footer come along and the visitor is never stranded on a bare page.
-// Every route out is on this screen: the work, the offer, and the phone.
+// Shared body for 404 and 500, in the site's frame (header, footer), so the
+// visitor is never stranded on a bare page. Every route out is on this
+// screen: the work, the start page, and the phone.
 function ErrorPage({ title, body }) {
   return (
-    <div className="container mx-auto">
-      <section className="py-16 sm:py-24 max-w-2xl text-left">
-        <h1 className="font-display text-display text-black [text-wrap:balance] mb-8">
-          {title}
-        </h1>
-
-        <p className="text-lead text-ternary-dark mb-12">
-          {body}
-        </p>
-
-        <div className="flex flex-wrap gap-4 mb-16">
-          <Link
-            href="/realisaties"
-            className="text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
+    <V2Page>
+      <section
+        aria-labelledby="fout-titel"
+        className="container mx-auto pb-group pt-6 md:pt-10 lg:pt-14"
+      >
+        <div className="max-w-[46rem]">
+          <h1
+            id="fout-titel"
+            className="font-display text-display font-normal text-primary [text-wrap:balance]"
           >
-            Bekijk onze realisaties
-          </Link>
-          <Link
-            href="/"
-            className="text-ui px-7 py-4 text-primary border border-primary text-center tracking-wider rounded-lg hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
-          >
-            Naar de startpagina
-          </Link>
+            {title}
+          </h1>
+          <p className="mt-8 max-w-[46ch] text-lead text-ink">{body}</p>
+          <div className="mt-10 flex flex-col gap-2 md:flex-row md:items-center md:gap-x-8">
+            <ButtonLink href="/realisaties">Bekijk onze realisaties</ButtonLink>
+            <ArrowLink href="/" size="ui">
+              Naar de startpagina
+            </ArrowLink>
+          </div>
+          <p className="mt-12 text-body text-ink">
+            Zoekt u iets bepaalds? Bel ons op{" "}
+            <TextLink href={company.phoneHref}>{company.phone}</TextLink> of
+            mail naar{" "}
+            <TextLink href={company.emailHref} className="break-all">
+              {company.email}
+            </TextLink>
+            .
+          </p>
         </div>
-
-        <p className="text-body text-ternary-dark">
-          Zoekt u iets bepaalds? Bel ons op{" "}
-          <a
-            href="tel:+32474042279"
-            className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
-          >
-            +32 474 04 22 79
-          </a>{" "}
-          of mail naar{" "}
-          <a
-            href="mailto:info@h16.be"
-            className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm break-all duration-200"
-          >
-            info@h16.be
-          </a>
-          .
-        </p>
       </section>
-    </div>
+    </V2Page>
   );
 }
 

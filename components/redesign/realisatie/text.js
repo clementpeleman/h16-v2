@@ -1,5 +1,5 @@
 // The sentences and SEO strings of a project page. The logic is copied as is
-// from pages/realisaties/[slug].jsx (production), so the staging page carries
+// from the previous pages/realisaties/[slug].jsx, so the page carries
 // the same <title>, description and meta sentence.
 
 export const isOfferProject = (project) =>

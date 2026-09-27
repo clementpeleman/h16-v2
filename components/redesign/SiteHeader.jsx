@@ -19,8 +19,8 @@ export default function SiteHeader() {
   const toggleRef = useRef(null);
   const firstLinkRef = useRef(null);
 
-  // asPath, not pathname: on staging the v2 pages are rewrites, so pathname
-  // is "/v2/about" while the visitor is on "/about".
+  // asPath (the visible URL), so a nested page such as /realisaties/<slug>
+  // still marks Realisaties.
   const path = (router.asPath || "/").split(/[?#]/)[0];
   const isCurrent = (href) => path === href || path.startsWith(`${href}/`);
 

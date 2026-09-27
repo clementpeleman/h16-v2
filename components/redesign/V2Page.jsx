@@ -2,7 +2,7 @@ import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import useReveal from "../../hooks/useReveal";
 
-// The frame every redesigned (staging) page shares: paper ground, skip link,
+// The frame every page shares: paper ground, skip link,
 // sticky header, <main id="inhoud">, blue footer, plate reveal. Pages render
 // their own <PagesMetaHead> and set `Page.ownLayout = true` so _app does not
 // wrap them in the old DefaultLayout.

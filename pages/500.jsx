@@ -16,4 +16,5 @@ function ServerError() {
   );
 }
 
+ServerError.ownLayout = true;
 export default ServerError;

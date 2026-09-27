@@ -1,4 +1,4 @@
-// Server-side shaping for the project page (used in getServerSideProps only).
+// Server-side shaping for the project page (used in getStaticProps only).
 // data/diensten.js is passed in by the page, which imports it dynamically, so
 // its drafts and notes never reach the client bundle.
 import {

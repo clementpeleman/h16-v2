@@ -13,7 +13,7 @@ import { PLATES, SPREAD } from "../../../data/homeCuration";
 // `maxW` caps the box in CSS px where the source is small (1200 and 1800 px
 // wide originals), so it is never enlarged past what it holds at 2× DPR.
 //
-// Read by getServerSideProps only; the page checks each path against the
+// Read by getStaticProps only; the page checks each path against the
 // project's gallery at request time and falls back to the CMS thumbnail.
 
 const curated = Object.fromEntries(

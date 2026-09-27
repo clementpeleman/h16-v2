@@ -1,4 +1,4 @@
-// The one plate on /contact (redesign). Read by getServerSideProps only: the
+// The one plate on /contact (redesign). Read by getStaticProps only: the
 // page checks that the path is still in the project's CMS gallery and drops
 // the plate otherwise, so a removed photo can never break the contact page.
 //

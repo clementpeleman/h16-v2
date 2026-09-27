@@ -16,4 +16,5 @@ function NotFound() {
   );
 }
 
+NotFound.ownLayout = true;
 export default NotFound;

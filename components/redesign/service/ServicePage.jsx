@@ -9,8 +9,8 @@ import ServiceRealisaties from "./ServiceRealisaties";
 import ServiceVragen from "./ServiceVragen";
 import { BOX, WIDTHS, coverSizes } from "./plateSizes";
 
-// The redesigned service page (/bouwcoordinatie, /projectontwikkeling),
-// STAGING ONLY — see components/redesign/README.md. One template for both:
+// The service page (/bouwcoordinatie, /projectontwikkeling) — see
+// components/redesign/README.md. One template for both:
 // a title page with its plate, the service's sections in data order with the
 // realisaties before the werkwijze (proof before process, as on the
 // homepage), the questions, a door for professionals, the blue back cover.
