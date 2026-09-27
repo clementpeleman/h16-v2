@@ -167,15 +167,9 @@ export const DIENSTEN = {
           "Twee statige herenwoningen in de Belfortstraat werden vijf high-end appartementen en een prachtige wijnbar. Een 18e-eeuwse leerlooierij aan het Nieuwland transformeerde tot zeven splinternieuwe woonentiteiten. Een oude schrijnwerkerij aan de Voorhoutkaai werd een nieuwe prachtige werkplek.",
         ],
       },
-      {
-        label: "Werkwijze",
-        titel: "Hoe een verkoop aan H16 verloopt",
-        // Nothing on the site or in the CMS says this; stays a question and
-        // is left out of the published page if unanswered.
-        tekst: null,
-        vraag:
-          "Wat gebeurt er nadat een eigenaar contact opneemt: bezoek, bod, termijn? Welke gronden en panden zoekt H16, en vanaf welke omvang?",
-      },
+      // A "Werkwijze" section (how a sale to H16 goes: visit, offer, term)
+      // was taken out for now at Clement's request, 2026-09-27; add it back
+      // here once H16 describes the process.
       {
         label: "Aanpak",
         titel: "Small is beautiful",
@@ -185,12 +179,10 @@ export const DIENSTEN = {
         ],
       },
     ],
-    // None yet: every realisatie text in Strapi describes work for a client or
-    // an investor, not a property H16 bought and developed itself.
-    realisaties: [],
-    realisatiesBevestigd: false,
-    realisatiesVraag:
-      "Welke realisaties heeft H16 zelf aangekocht en ontwikkeld? Volgens de projectteksten waren Voorhoutkaai 25 en Nieuwland 28-40 opdrachten voor een investeerder of klant. Tot dit bevestigd is, toont deze pagina geen realisaties.",
+    // Annonciadenstraat is H16's own development (confirmed by Clement,
+    // 2026-09-27).
+    realisaties: ["annonciadenstraat-21-stoppelstraat-6"],
+    realisatiesBevestigd: true,
     faq: [
       {
         vraag: "In welke regio zoekt H16 gronden en panden?",
