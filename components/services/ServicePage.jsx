@@ -16,15 +16,49 @@ function Todo({ children }) {
   );
 }
 
-function Paragraphs({ tekst }) {
+// A section's own copy: paragraphs, then an optional bullet list (punten)
+// or numbered steps (stappen, each with a short title).
+function SectionBody(props) {
+  // Data uses null for "not written yet", which a default parameter ignores.
+  const tekst = props.tekst || [];
+  const punten = props.punten || [];
+  const stappen = props.stappen || [];
   return (
-    <div className="max-w-[62ch] text-body text-ternary-dark space-y-5">
-      {tekst.map((p) => (
-        <p key={p}>{p}</p>
-      ))}
+    <div className="max-w-[62ch] text-body text-ternary-dark">
+      {tekst.length > 0 && (
+        <div className="space-y-5">
+          {tekst.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
+      )}
+      {punten.length > 0 && (
+        <ul className={`${tekst.length ? "mt-6" : ""} list-disc pl-5 space-y-2 marker:text-accent`}>
+          {punten.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
+        </ul>
+      )}
+      {stappen.length > 0 && (
+        <ol className={`${tekst.length || punten.length ? "mt-10" : ""} space-y-8`}>
+          {stappen.map((stap, i) => (
+            <li key={stap.titel} className="grid grid-cols-[2.5rem_1fr] gap-x-4">
+              <span aria-hidden="true" className="font-display text-h3 text-accent leading-none">
+                {i + 1}
+              </span>
+              <div>
+                <h3 className="font-display text-h3 text-black">{stap.titel}</h3>
+                <p className="mt-3">{stap.tekst}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 }
+
+const hasBody = (s) => Boolean(s.tekst?.length || s.punten?.length || s.stappen?.length);
 
 // One page per service, on the same frame as /samenwerken: an intro, then
 // alternating HomeSection blocks, proof from real realisaties, the answered
@@ -34,7 +68,7 @@ function ServicePage({ dienst, realisaties }) {
   const path = `/${dienst.slug}`;
   const answered = dienst.faq.filter((q) => q.antwoord);
   const openQuestions = draft ? dienst.faq.filter((q) => !q.antwoord) : [];
-  const secties = dienst.secties.filter((s) => s.voordelen || s.tekst || draft);
+  const secties = dienst.secties.filter((s) => s.voordelen || hasBody(s) || draft);
 
   return (
     <div className="enter-fade container mx-auto">
@@ -71,8 +105,8 @@ function ServicePage({ dienst, realisaties }) {
                 </li>
               ))}
             </ul>
-          ) : s.tekst ? (
-            <Paragraphs tekst={s.tekst} />
+          ) : hasBody(s) ? (
+            <SectionBody tekst={s.tekst} punten={s.punten} stappen={s.stappen} />
           ) : (
             <Todo>{s.vraag}</Todo>
           )}
