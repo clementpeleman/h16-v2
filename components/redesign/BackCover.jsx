@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { company } from "../../data/companyData";
-import { PEERS } from "../../data/peers";
 
 const onBlueLink =
   "text-white underline decoration-aqua-light decoration-1 hover:decoration-2 focus-ring-inverse";
 
-// The blue "back cover": contact, then the professionals, then the footer —
-// one uninterrupted ground to the end of the page. No photo here; the phone
+// The blue "back cover": the contact band, then the footer — one
+// uninterrupted ground to the end of the page. No photo here; the phone
 // number is the first contact fact, set large.
 export default function BackCover({ werkgebied }) {
   const rows = [
@@ -93,51 +92,6 @@ export default function BackCover({ werkgebied }) {
               </div>
             ))}
           </dl>
-        </div>
-      </section>
-
-      <section aria-labelledby="pro-titel" className="bg-primary">
-        <div className="container mx-auto">
-          <div className="border-t border-rule-blue pb-group pt-group lg:grid lg:grid-cols-12 lg:gap-x-6">
-            <div className="lg:col-span-4">
-              <h2
-                id="pro-titel"
-                className="font-display text-h2 font-normal text-white"
-              >
-                Voor architecten en aannemers
-              </h2>
-              <p className="mt-6">
-                <Link
-                  href="/samenwerken#professionals"
-                  data-track="home-professionals"
-                  className={`${onBlueLink} group/link inline-block py-3 text-ui underline-offset-4 md:py-0`}
-                >
-                  Zo werken wij samen{"\u00A0"}
-                  <span
-                    aria-hidden="true"
-                    className="relative left-0 motion-safe:transition-[left] motion-safe:duration-150 group-hover/link:left-[3px]"
-                  >
-                    →
-                  </span>
-                </Link>
-              </p>
-            </div>
-            {PEERS.map((p, i) => (
-              <div
-                key={p.naam}
-                className={`lg:col-span-4 lg:mt-0 lg:border-0 lg:pt-0 ${
-                  i === 0 ? "mt-8" : "mt-6 border-t border-rule-blue pt-6"
-                }`}
-              >
-                <h3 className="font-display text-h3 font-normal text-white">
-                  {p.naam}
-                </h3>
-                <p className="mt-3 max-w-[46ch] text-body text-aqua-pale">
-                  {p.tekst}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </>

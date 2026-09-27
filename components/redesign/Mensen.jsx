@@ -3,7 +3,8 @@ import Link from "next/link";
 import { PEOPLE } from "../../data/people";
 import { HAS_PORTRAIT } from "../contact/FoundersPortrait";
 
-// "Small is beautiful": the two people, with the kolibrie as their figure
+// "Small is beautiful": the two people, with the minimal H16 emblem (the
+// kolibrie abstracted, as on /about) as their figure
 // until a portrait exists (drop public/images/founders.jpg and flip
 // HAS_PORTRAIT in FoundersPortrait.jsx — this section follows).
 export default function Mensen({ body }) {
@@ -15,10 +16,10 @@ export default function Mensen({ body }) {
       <div className="lg:col-span-7 lg:row-start-1 xl:col-span-6">
         {HAS_PORTRAIT && (
           <Image
-            src="/images/H16_VOGELTJE.png"
+            src="/images/H16_EMBLEEM_BLAUW.png"
             alt=""
-            width={1181}
-            height={720}
+            width={1152}
+            height={850}
             className="mb-4 h-auto w-14"
           />
         )}
@@ -51,10 +52,10 @@ export default function Mensen({ body }) {
         ) : (
           <>
             <Image
-              src="/images/H16_VOGELTJE.png"
+              src="/images/H16_EMBLEEM_BLAUW.png"
               alt=""
-              width={1181}
-              height={720}
+              width={1152}
+              height={850}
               sizes="(min-width:1280px) 368px, (min-width:1024px) 299px, 60vw"
               className="h-auto w-full"
             />

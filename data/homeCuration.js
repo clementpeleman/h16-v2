@@ -72,15 +72,6 @@ export const PLATES = [
   },
 ];
 
-// The list of works under the plates: all five projects, in this order.
-export const WORKS_ORDER = [
-  "belfortstraat-29-onderstraat-75-a-gent",
-  "annonciadenstraat-21-stoppelstraat-6",
-  "voorhoutkaai-25-gent",
-  "nieuwland-28-40-gent",
-  "te-koop-nieuwland-28",
-];
-
 // Full-bleed plate between the werkwijze and the people (768px and up only).
 export const INTERLUDE = {
   slug: "nieuwland-28-40-gent",

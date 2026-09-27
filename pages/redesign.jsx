@@ -5,23 +5,25 @@ import Realisaties from "../components/redesign/Realisaties";
 import Werkwijze from "../components/redesign/Werkwijze";
 import Interlude from "../components/redesign/Interlude";
 import Mensen from "../components/redesign/Mensen";
+import Professionals from "../components/redesign/Professionals";
 import BackCover from "../components/redesign/BackCover";
 import SiteFooter from "../components/redesign/SiteFooter";
 import useReveal from "../hooks/useReveal";
 import { fetcher, toHomeProject } from "../lib/api";
 import { assetUrl, isCanonicalHost } from "../lib/seo";
-import {
-  INTERLUDE,
-  PLATES,
-  SHOW_PRICE,
-  SPREAD,
-  WORKS_ORDER,
-} from "../data/homeCuration";
+import { INTERLUDE, PLATES, SHOW_PRICE, SPREAD } from "../data/homeCuration";
 
 // Homepage redesign, STAGING ONLY. next.config.js rewrites "/" to this page on
 // h16.peleman.io; on h16.be it is a 404, so production keeps pages/index.jsx
 // until the client approves. It brings its own header and footer.
-function Redesign({ spread, plates, works, interlude, werkwijze, mensen, werkgebied }) {
+function Redesign({
+  spread,
+  plates,
+  interlude,
+  werkwijze,
+  mensen,
+  werkgebied,
+}) {
   useReveal();
   const firstPlateN = 3;
   const interludeN = firstPlateN + plates.length;
@@ -55,10 +57,11 @@ function Redesign({ spread, plates, works, interlude, werkwijze, mensen, werkgeb
 
       <main id="inhoud" tabIndex={-1} className="text-ink outline-none">
         <Spread werkgebied={werkgebied} {...spread} />
-        <Realisaties plates={plates} works={works} firstN={firstPlateN} />
+        <Realisaties plates={plates} firstN={firstPlateN} />
         <Werkwijze {...werkwijze} />
         <Interlude plate={interlude} n={interludeN} />
         <Mensen body={mensen.body} />
+        <Professionals />
         <BackCover werkgebied={werkgebied} />
       </main>
 
@@ -72,7 +75,10 @@ export default Redesign;
 
 export async function getServerSideProps({ req, res }) {
   if (isCanonicalHost(req)) return { notFound: true };
-  res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=600");
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=60, stale-while-revalidate=600",
+  );
 
   // Server-only: the service copy (drafts and notes included) never ships to
   // the client; only the strings used below become props.
@@ -81,10 +87,13 @@ export async function getServerSideProps({ req, res }) {
   const po = DIENSTEN.projectontwikkeling;
 
   const response = await fetcher(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate[0]=thumbnail&populate[1]=afbeeldingen&pagination[limit]=100`
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate[0]=thumbnail&populate[1]=afbeeldingen&pagination[limit]=100`,
   );
   const bySlug = Object.fromEntries(
-    (response?.data ?? []).map(toHomeProject).filter((p) => p.slug).map((p) => [p.slug, p])
+    (response?.data ?? [])
+      .map(toHomeProject)
+      .filter((p) => p.slug)
+      .map((p) => [p.slug, p]),
   );
 
   // H16's confirmed role per realisatie, from the two service pages.
@@ -109,18 +118,27 @@ export async function getServerSideProps({ req, res }) {
   // is its thumbnail); otherwise the thumbnail stands in, centred.
   const resolveImage = (curated, p, { always = false } = {}) => {
     const known =
-      p && (p.galleryPaths.includes(curated.path) || p.thumbnail?.path === curated.path);
+      p &&
+      (p.galleryPaths.includes(curated.path) ||
+        p.thumbnail?.path === curated.path);
     if (known || (always && !p?.thumbnail)) {
       return { src: assetUrl(curated.path), alt: curated.alt, op: curated.op };
     }
     if (p?.thumbnail) {
-      return { src: assetUrl(p.thumbnail.path), alt: p.naam, op: { sm: "50% 50%", md: "50% 50%" } };
+      return {
+        src: assetUrl(p.thumbnail.path),
+        alt: p.naam,
+        op: { sm: "50% 50%", md: "50% 50%" },
+      };
     }
-    return always ? { src: assetUrl(curated.path), alt: curated.alt, op: curated.op } : null;
+    return always
+      ? { src: assetUrl(curated.path), alt: curated.alt, op: curated.op }
+      : null;
   };
 
   const voorWie = bc.secties.find((s) => s.label === "Voor wie")?.punten || [];
-  const renovatie = po.faq.find((q) => /gerenoveerd/.test(q.vraag))?.antwoord || "";
+  const renovatie =
+    po.faq.find((q) => /gerenoveerd/.test(q.vraag))?.antwoord || "";
   const regio = bc.faq.find((q) => /regio/.test(q.vraag))?.antwoord || "";
   const werkwijzeSectie = bc.secties.find((s) => s.id === "werkwijze");
   const aanpak = po.secties.find((s) => s.label === "Aanpak")?.tekst?.[0] || "";
@@ -128,7 +146,10 @@ export async function getServerSideProps({ req, res }) {
   const spreadPlate = (key) => {
     const cur = SPREAD[key];
     const p = bySlug[cur.slug];
-    return { image: resolveImage(cur.image, p, { always: true }), project: publicProject(p) || null };
+    return {
+      image: resolveImage(cur.image, p, { always: true }),
+      project: publicProject(p) || null,
+    };
   };
 
   const plates = PLATES.map((cur) => {
@@ -137,15 +158,9 @@ export async function getServerSideProps({ req, res }) {
     return image ? { size: cur.size, image, project: publicProject(p) } : null;
   }).filter(Boolean);
 
-  const works = WORKS_ORDER.map((s) => bySlug[s])
-    .filter(Boolean)
-    .map((p) => {
-      const pub = publicProject(p);
-      return { slug: pub.slug, naam: pub.naam, rol: pub.rol, jaar: pub.jaar, beschikbaarheid: pub.beschikbaarheid };
-    });
-
   const interludeProject = bySlug[INTERLUDE.slug];
-  const interludeImage = interludeProject && resolveImage(INTERLUDE.image, interludeProject);
+  const interludeImage =
+    interludeProject && resolveImage(INTERLUDE.image, interludeProject);
 
   return {
     props: {
@@ -164,12 +179,13 @@ export async function getServerSideProps({ req, res }) {
         },
       },
       plates,
-      works,
       interlude: interludeImage
         ? { image: interludeImage, project: publicProject(interludeProject) }
         : null,
       werkwijze: {
-        intro: werkwijzeSectie?.tekst?.[0] || "",
+        // Homepage: the first sentence only; the full text is on
+        // /bouwcoordinatie#werkwijze.
+        intro: werkwijzeSectie?.tekst?.[0]?.match(/^[^.]*\./)?.[0] || "",
         stappen: werkwijzeSectie?.stappen || [],
       },
       mensen: {

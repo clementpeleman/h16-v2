@@ -8,8 +8,9 @@ import NAV_ITEMS from "../../data/navigation";
 import { company } from "../../data/companyData";
 
 // Sticky paper bar with a hairline; it never hides, shrinks or recolours on
-// scroll. Contact is a button, so the nav lists the other pages only. Below
-// 1024px: a phone icon and a text "Menu" toggle opening a full-height sheet.
+// scroll. Contact is a button, so the nav lists the other pages only; no phone
+// number on desktop. Below 1024px: a phone icon and a text "Menu" toggle
+// opening a full-height sheet.
 const PAGES = NAV_ITEMS.filter((item) => item.href !== "/contact");
 
 export default function SiteHeader() {
@@ -99,16 +100,10 @@ export default function SiteHeader() {
               ))}
             </ul>
           </nav>
-          <a
-            href={company.phoneHref}
-            className="ml-8 hidden text-ui text-primary-muted hover:text-primary focus-ring xl:inline"
-          >
-            {company.phone}
-          </a>
           <Link
             href="/contact"
             data-track="header-contact"
-            className="ml-6 inline-flex h-10 items-center bg-primary px-4 text-ui text-white underline-offset-4 transition-colors duration-150 hover:bg-primary-deep hover:underline active:translate-y-px focus-ring"
+            className="ml-8 inline-flex h-10 items-center bg-primary px-4 text-ui text-white underline-offset-4 transition-colors duration-150 hover:bg-primary-deep hover:underline active:translate-y-px focus-ring"
           >
             Contact
           </Link>

@@ -83,7 +83,10 @@ export function PlateLine({ n, naam, href, meta = [], className = "" }) {
   return (
     <div className={`mt-3 ${className}`}>
       <p className="text-meta text-primary-muted">
-        <span aria-hidden="true" className="mr-3 whitespace-nowrap tabular-nums">
+        <span
+          aria-hidden="true"
+          className="mr-3 whitespace-nowrap tabular-nums"
+        >
           Afb. {n}
         </span>
         {naam && (

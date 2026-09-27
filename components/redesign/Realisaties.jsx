@@ -44,61 +44,8 @@ function chipFor(project) {
   ) : null;
 }
 
-// ≥768 only: every project as a row — name, dienst, year, and the «Te koop»
-// marker. The whole row is one link (stretched ::after), the only one in it.
-function WorksList({ works }) {
-  return (
-    <div className="mt-group hidden md:block lg:col-span-12">
-      <div
-        aria-hidden="true"
-        className="grid grid-cols-12 gap-x-6 pb-3 text-meta text-primary-muted"
-      >
-        <span className="col-span-6">Project</span>
-        <span className="col-span-3">Dienst</span>
-        <span>Jaar</span>
-      </div>
-      <ul>
-        {works.map((p) => (
-          <li
-            key={p.slug}
-            className="group/row relative grid min-h-[64px] grid-cols-12 items-baseline gap-x-6 border-t border-rule py-4 last:border-b"
-          >
-            <span className="col-span-6 font-display text-h3 font-normal text-primary">
-              <Link
-                href={`/realisaties/${p.slug}`}
-                className="decoration-1 underline-offset-4 after:absolute after:inset-0 group-hover/row:underline focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-primary"
-              >
-                {p.naam}
-              </Link>
-            </span>
-            <span className="col-span-3 text-body text-ink">{p.rol}</span>
-            <span className="text-body tabular-nums text-ink">{p.jaar}</span>
-            <span className="col-span-2 flex items-baseline justify-end gap-3 text-right">
-              {/te koop|te huur/i.test(p.beschikbaarheid) && (
-                <span className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-meta text-primary">
-                  <span
-                    aria-hidden="true"
-                    className="h-2 w-2 rounded-full bg-accent"
-                  />
-                  {p.beschikbaarheid}
-                </span>
-              )}
-              <span
-                aria-hidden="true"
-                className="text-primary motion-safe:transition-transform motion-safe:duration-150 group-hover/row:translate-x-1"
-              >
-                →
-              </span>
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default function Realisaties({ plates, works, firstN }) {
-  if (!plates.length && !works.length) return null;
+export default function Realisaties({ plates, firstN }) {
+  if (!plates.length) return null;
   const [a, b, c] = ["A", "B", "C"].map((size) =>
     plates.find((p) => p.size === size),
   );
@@ -196,8 +143,6 @@ export default function Realisaties({ plates, works, firstN }) {
           )}
         </div>
       )}
-
-      {works.length > 0 && <WorksList works={works} />}
     </section>
   );
 }
