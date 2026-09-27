@@ -1,15 +1,16 @@
 import Link from "next/link";
-import NAV_ITEMS from "../../data/navigation";
+import { FOOTER_ITEMS } from "../../data/navigation";
 
 // The footer had no way onward: only the legal block and a credit line. A
 // second copy of the primary navigation gives every page a crawlable link to
 // the four sections from the bottom of the page as well as the top, and it
-// reads from the same list as the header so the two cannot drift.
+// reads from the same module as the header so the two cannot drift. It also
+// keeps /samenwerken once the header drops it for the service pages.
 function AppFooterNav() {
   return (
     <nav aria-label="Voettekst">
       <ul className="flex flex-wrap gap-x-8 gap-y-3 text-meta text-ternary-dark">
-        {NAV_ITEMS.map((item) => (
+        {FOOTER_ITEMS.map((item) => (
           <li key={item.href}>
             <Link
               href={item.href}

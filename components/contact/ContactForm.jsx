@@ -1,7 +1,7 @@
 import { trackEvent } from "../shared/Analytics";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { DIENST_ONDERWERP } from "../../data/dienstOnderwerpen";
+import { DIENST_META } from "../../data/dienstMeta";
 
 const EMPTY = { name: "", email: "", phone: "", subject: "", message: "" };
 
@@ -60,9 +60,9 @@ function ContactForm() {
   useEffect(() => {
     if (!router.isReady) return;
     const slug = router.query.dienst;
-    if (typeof slug !== "string" || !Object.prototype.hasOwnProperty.call(DIENST_ONDERWERP, slug)) return;
+    if (typeof slug !== "string" || !Object.prototype.hasOwnProperty.call(DIENST_META, slug)) return;
     setValues((prev) =>
-      prev.subject ? prev : { ...prev, subject: DIENST_ONDERWERP[slug] }
+      prev.subject ? prev : { ...prev, subject: DIENST_META[slug].onderwerp }
     );
   }, [router.isReady, router.query.dienst]);
 

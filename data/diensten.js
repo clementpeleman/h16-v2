@@ -5,7 +5,7 @@
 // three services and two audiences over one 324-word page. A page per service,
 // with H16's own realisaties as proof, is the realistic way to rank.
 //
-// DRAFTS. While `ready` is false a page is a 404 on the canonical host
+// DRAFTS. While `ready` (set in data/dienstMeta.js) is false a page is a 404 on the canonical host
 // (h16.be) and only renders on h16.peleman.io and localhost, where every open
 // question shows as a dashed "Tekst volgt" box so H16 can answer it (the Tack
 // widget on staging takes the comments). Flip `ready` once H16 has approved
@@ -25,13 +25,14 @@
 // (`realisatiesBevestigd`). Until then a draft asks, and a ready page hides
 // the grid rather than publish an unconfirmed claim.
 import { company } from "./companyData";
-import { DIENST_ONDERWERP } from "./dienstOnderwerpen";
+import { DIENST_META } from "./dienstMeta";
 
 export const DIENSTEN = {
   bouwcoordinatie: {
     slug: "bouwcoordinatie",
-    ready: false,
-    naam: "Bouwcoördinatie",
+    // Publish switch lives in data/dienstMeta.js.
+    ready: DIENST_META.bouwcoordinatie.ready,
+    naam: DIENST_META.bouwcoordinatie.naam,
     // <title> before the " | H16 Vastgoedontwikkeling" suffix.
     title: "Bouwcoördinatie in Gent en Oost-Vlaanderen",
     description:
@@ -68,7 +69,8 @@ export const DIENSTEN = {
       },
       {
         label: "Werkwijze",
-        // The homepage already links "Bekijk onze werkwijze".
+        // The homepage's "Bekijk onze werkwijze" lands here (#werkwijze).
+        id: "werkwijze",
         titel: "Onze werkwijze",
         tekst: [
           // [site] AboutPeople + AboutValue, verbatim
@@ -137,13 +139,13 @@ export const DIENSTEN = {
       },
     ],
     // Prefills the contact form's subject via /contact?dienst=<slug>.
-    onderwerp: DIENST_ONDERWERP.bouwcoordinatie,
+    onderwerp: DIENST_META.bouwcoordinatie.onderwerp,
   },
 
   projectontwikkeling: {
     slug: "projectontwikkeling",
-    ready: false,
-    naam: "Projectontwikkeling",
+    ready: DIENST_META.projectontwikkeling.ready,
+    naam: DIENST_META.projectontwikkeling.naam,
     // "Gent en Oost-Vlaanderen" is the firm's stated werkgebied (llms.txt,
     // Organization areaServed).
     title: "Projectontwikkeling in Gent en Oost-Vlaanderen",
@@ -207,7 +209,7 @@ export const DIENSTEN = {
           "Ja. Wij geven graag een nieuwe invulling aan huizen en gronden, ook wanneer er een grondige renovatie nodig is.",
       },
     ],
-    onderwerp: DIENST_ONDERWERP.projectontwikkeling,
+    onderwerp: DIENST_META.projectontwikkeling.onderwerp,
   },
 };
 

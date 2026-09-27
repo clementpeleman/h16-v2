@@ -4,11 +4,12 @@ import HomeSection from "./HomeSection";
 
 // `href` lets a service page send the visitor to a form whose subject is
 // already filled in (/contact?dienst=<slug>).
-function HomeContact({ href = "/contact" }) {
+function HomeContact({ href = "/contact", aside }) {
   return (
     <HomeSection
       label="Contact"
       flip
+      aside={aside}
       title={
         <>
           Vraag <span className="text-accent">vrijblijvend</span> meer

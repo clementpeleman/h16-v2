@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TypeAnimation } from "react-type-animation";
+import { DIENST_META } from "../../data/dienstMeta";
 import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
 import HomeSection from "./HomeSection";
 
@@ -54,8 +55,14 @@ function HomeApproach() {
       </div>
 
       <p className="mt-14">
+        {/* Straight to the steps on the service page once it is published;
+            until then the overview on /samenwerken. */}
         <Link
-          href="/samenwerken"
+          href={
+            DIENST_META.bouwcoordinatie.ready
+              ? "/bouwcoordinatie#werkwijze"
+              : "/samenwerken"
+          }
           className="text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
         >
           Bekijk onze werkwijze

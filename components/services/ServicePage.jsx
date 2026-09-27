@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PagesMetaHead from "../PagesMetaHead";
 import HomeSection from "../home/HomeSection";
 import HomeContact from "../home/HomeContact";
@@ -95,7 +96,7 @@ function ServicePage({ dienst, realisaties }) {
       </section>
 
       {secties.map((s, i) => (
-        <HomeSection key={s.titel} label={s.label} title={s.titel} flip={i % 2 === 1}>
+        <HomeSection key={s.titel} id={s.id} label={s.label} title={s.titel} flip={i % 2 === 1}>
           {s.voordelen ? (
             <ul className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
               {VOORDELEN.map((v) => (
@@ -136,26 +137,50 @@ function ServicePage({ dienst, realisaties }) {
 
       {(answered.length > 0 || openQuestions.length > 0) && (
         <HomeSection label="Vragen" title="Veelgestelde vragen">
-          <dl className="max-w-[62ch] space-y-10">
-            {answered.map((q) => (
-              <div key={q.vraag}>
-                <dt className="font-display text-h3 text-black">{q.vraag}</dt>
-                <dd className="mt-4 text-body text-ternary-dark">{q.antwoord}</dd>
-              </div>
+          {/* A closed list of questions; the reader opens what matters to
+              them. Native <details>: no script, keyboard and screen-reader
+              support for free, and the answers stay in the HTML for Google
+              and match the FAQPage JSON-LD. Drafts open their open
+              questions so H16 sees what is missing. */}
+          <div className="max-w-[62ch] border-b border-gray-200">
+            {[...answered, ...openQuestions].map((q) => (
+              <details
+                key={q.vraag}
+                open={!q.antwoord || undefined}
+                className="group border-t border-gray-200"
+              >
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-6 [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm">
+                  <h3 className="font-display text-h3 text-black">{q.vraag}</h3>
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 shrink-0 text-h3 leading-none text-primary duration-200 group-open:rotate-45 motion-reduce:transition-none"
+                  >
+                    +
+                  </span>
+                </summary>
+                <div className="pb-8 text-body text-ternary-dark">
+                  {q.antwoord ? <p>{q.antwoord}</p> : <Todo>{q.notitie}</Todo>}
+                </div>
+              </details>
             ))}
-            {openQuestions.map((q) => (
-              <div key={q.vraag}>
-                <dt className="font-display text-h3 text-black">{q.vraag}</dt>
-                <dd className="mt-4">
-                  <Todo>{q.notitie}</Todo>
-                </dd>
-              </div>
-            ))}
-          </dl>
+          </div>
         </HomeSection>
       )}
 
-      <HomeContact href={`/contact?dienst=${dienst.slug}`} />
+      <HomeContact
+        href={`/contact?dienst=${dienst.slug}`}
+        aside={
+          <p className="text-body text-ternary-dark">
+            Bent u architect of aannemer?{" "}
+            <Link
+              href="/samenwerken"
+              className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+            >
+              Zo werken wij samen
+            </Link>
+          </p>
+        }
+      />
     </div>
   );
 }
