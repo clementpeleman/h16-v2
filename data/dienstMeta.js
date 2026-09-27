@@ -11,12 +11,12 @@
 export const DIENST_META = {
   bouwcoordinatie: {
     naam: "Bouwcoördinatie",
-    ready: false,
+    ready: true,
     onderwerp: "Vraag over bouwcoördinatie",
   },
   projectontwikkeling: {
     naam: "Projectontwikkeling",
-    ready: false,
+    ready: true,
     onderwerp: "Pand of grond te koop aangeboden",
   },
 };
