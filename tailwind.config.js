@@ -84,10 +84,18 @@ module.exports = {
         strong: "500",
       },
       keyframes: {
+        // Mobile menu sheet of the homepage redesign (motion-safe only).
+        sheet: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
         nudge: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(3px)" },
         },
+      },
+      transitionTimingFunction: {
+        plate: "cubic-bezier(.22,1,.36,1)",
       },
       animation: {
         // A slow, small bob on the arrow of the "Naar de foto's" button.
@@ -126,6 +134,20 @@ module.exports = {
 
         // Extended v3 color
         gray: colors.neutral,
+
+        // Homepage redesign (staging). Additive: nothing above changes.
+        // Contrast pairs are listed in the redesign spec; the lowest text pair
+        // is primary-muted on aqua-pale at 5.42:1.
+        paper: "#F6F6F3",
+        ink: "#262626",
+        "primary-deep": "#0A3570",
+        "primary-muted": "#31609B",
+        "aqua-pale": "#E0EFF0",
+        "aqua-light": "#BCE1E3",
+        rule: "#C8D3DE",
+        "rule-aqua": "#B6CDDC",
+        "rule-blue": "#4B7CAA",
+        plate: "#E9EAE6",
       },
       container: {
         // `md` was missing, so 768-1023px inherited sm's 0.5rem and the page ran

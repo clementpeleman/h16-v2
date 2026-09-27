@@ -135,3 +135,41 @@ a {
 #markdown ol {
   list-style-type: decimal;
 }
+
+
+/* ---- Homepage redesign (staging) ---------------------------------------- */
+
+/* Balerno has one weight; never let the browser fake a bold or an italic. */
+.font-display {
+  font-synthesis: none;
+}
+
+@layer components {
+  .focus-ring {
+    @apply focus-visible:rounded-[2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary;
+  }
+  .focus-ring-inverse {
+    @apply focus-visible:rounded-[2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-white;
+  }
+}
+
+/* Plate reveal (hooks/useReveal.js). Only plates that start below the fold are
+   armed, and opacity never drops, so nothing is ever hidden without JS or
+   under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition: clip-path 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-reveal] img {
+    transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-reveal="armed"] {
+    clip-path: inset(4%);
+  }
+  [data-reveal="armed"] img {
+    transform: scale(1.04);
+  }
+  [data-reveal="in"] {
+    clip-path: inset(0);
+  }
+}

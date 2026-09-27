@@ -1,19 +1,5 @@
 import HomeSection from "../home/HomeSection";
-
-const PEOPLE = [
-  {
-    naam: "Gilles De Brabander",
-    rol: "Construction manager",
-    kleur: "text-primary",
-    eigenschappen: "Technisch, planmatig, constructief.",
-  },
-  {
-    naam: "Elena Versyp",
-    rol: "Office manager",
-    kleur: "text-accent",
-    eigenschappen: "Praktisch, creatief, communicatief.",
-  },
-];
+import { PEOPLE } from "../../data/people";
 
 function AboutPeople() {
   return (

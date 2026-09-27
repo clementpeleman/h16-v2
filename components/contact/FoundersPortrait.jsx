@@ -10,7 +10,7 @@ import Image from "next/image";
 // TO ACTIVATE: drop the photo at public/images/founders.jpg and flip this to
 // true. Nothing else needs to change — the slot already reserves the right box,
 // so adding the image cannot shift the layout.
-const HAS_PORTRAIT = false;
+export const HAS_PORTRAIT = false;
 
 // A fixed ratio and explicit dimensions mean any crop the client supplies drops
 // in without reflow.

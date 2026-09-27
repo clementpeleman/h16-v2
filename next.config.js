@@ -63,6 +63,21 @@ module.exports = {
     ];
   },
 
+  // Staging preview of the homepage redesign: on h16.peleman.io (and only
+  // there) "/" is served by pages/redesign.jsx, which is a 404 on h16.be.
+  // Production keeps the current homepage until the redesign is approved.
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/",
+          has: [{ type: "host", value: hostPattern("h16.peleman.io") }],
+          destination: "/redesign",
+        },
+      ],
+    };
+  },
+
   async headers() {
     if (!CANONICAL_HOST) return [];
     return [
@@ -80,6 +95,10 @@ module.exports = {
 
   reactStrictMode: true,
   images: {
+    // Strapi sends max-age=0, which made the optimizer re-encode the 8000px
+    // originals every 60s. Upload names are content-hashed and every deploy
+    // starts a fresh container (empty cache), so a long TTL is safe.
+    minimumCacheTTL: 31536000,
     // Only the self-hosted Strapi v5. The old EC2 Strapi v4 and the previous
     // strapi.peleman.io hostname are gone (timeout / 503); leaving them
     // allowed let crawlers holding old image URLs tie up the optimizer in

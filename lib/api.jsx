@@ -193,3 +193,29 @@ export function toProjectDetail(entry) {
       .filter((img) => img.url),
   };
 }
+
+// Homepage redesign: the few fields a plate, caption or list row needs.
+// `beschrijving` is read here only to find a price and never leaves the
+// server; gallery paths are returned so the page can check that a curated
+// image still exists, then dropped before props are serialised.
+export function toHomeProject(entry) {
+  const a = entry?.attributes ?? {};
+  const fromText = a.beschrijving?.match(/Vraagprijs:\s*(€\s?[\d.]+)/)?.[1] ?? "";
+  const price = a.prijs || a.vraagprijs || fromText;
+  const thumb = media(a.thumbnail?.data, "large");
+  return {
+    slug: a.slug ?? null,
+    naam: a.naam ?? "",
+    korte: a.korte_beschrijving ?? "",
+    aard: a.aard ?? "",
+    jaar: a.jaar ? String(a.jaar).substring(0, 4) : "",
+    beschikbaarheid: a.beschikbaarheid ?? "",
+    prijs: price ? `Vraagprijs: ${String(price).replace(/^Vraagprijs:\s*/, "")}` : "",
+    galleryPaths: (a.afbeeldingen?.data ?? [])
+      .map((i) => (i?.attributes || i)?.url)
+      .filter(Boolean),
+    thumbnail: thumb.url
+      ? { path: thumb.url, w: thumb.width ?? null, h: thumb.height ?? null }
+      : null,
+  };
+}
