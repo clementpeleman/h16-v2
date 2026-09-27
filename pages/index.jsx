@@ -3,6 +3,7 @@ import HomeHero from "../components/home/HomeHero";
 import HomeApproach from "../components/home/HomeApproach";
 import HomeWork from "../components/home/HomeWork";
 import HomeContact from "../components/home/HomeContact";
+import ColabPeers from "../components/colab/ColabPeers";
 import { fetcher, toProjectCard } from "../lib/api";
 
 export default function Home({ projecten }) {
@@ -17,6 +18,7 @@ export default function Home({ projecten }) {
       <HomeHero />
       <HomeApproach />
       <HomeWork projects={projecten} />
+      <ColabPeers link />
       <HomeContact />
     </div>
   );

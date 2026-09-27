@@ -1,3 +1,4 @@
+import Link from "next/link";
 import HomeSection from "../home/HomeSection";
 
 // Professionals are the minority audience; they read last and in the
@@ -15,9 +16,12 @@ const PEERS = [
   },
 ];
 
-function ColabPeers() {
+// One component for both places the professionals are addressed, so the copy
+// cannot drift: on /samenwerken it is the target (#professionals), on the
+// homepage it is a teaser that links there.
+function ColabPeers({ id, link = false }) {
   return (
-    <HomeSection label="Professionals" title="Voor architecten en aannemers">
+    <HomeSection id={id} label="Professionals" title="Voor architecten en aannemers">
       <ul className="grid gap-10 sm:grid-cols-2 sm:gap-10">
         {PEERS.map((p) => (
           <li key={p.naam} className="border-t border-gray-200 pt-6">
@@ -26,6 +30,16 @@ function ColabPeers() {
           </li>
         ))}
       </ul>
+      {link && (
+        <p className="mt-10">
+          <Link
+            href="/samenwerken#professionals"
+            className="text-ui text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+          >
+            Zo werken wij samen
+          </Link>
+        </p>
+      )}
     </HomeSection>
   );
 }

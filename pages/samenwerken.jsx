@@ -18,7 +18,7 @@ function colab({ proof }) {
         <ColabIntro />
         <ColabServices />
         <ColabBenefits proof={proof} />
-        <ColabPeers />
+        <ColabPeers id="professionals" />
         <HomeContact />
       </div>
 
