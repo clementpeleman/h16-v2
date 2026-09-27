@@ -5,30 +5,115 @@ import { DIENST_META } from "../../data/dienstMeta";
 
 const EMPTY = { name: "", email: "", phone: "", subject: "", message: "" };
 
-// Fields share one set of classes so a hardened input and a hardened textarea
-// can never drift apart. text-base (16px) is deliberate: iOS Safari force-zooms
-// a focused input under 16px, which breaks the layout mid-form.
-const fieldClasses =
-  "w-full px-5 py-3 rounded-md text-base " +
-  "bg-secondary-light text-primary-dark placeholder:text-gray-500 " +
-  "border border-gray-400 " +
-  "focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 " +
-  "aria-[invalid=true]:border-accent-deep aria-[invalid=true]:ring-accent-deep/25 " +
-  "duration-200";
-
-const labelClasses = "block text-ui text-primary-dark mb-1";
+// Two looks, one form. "classic" is the production /contact page and its
+// strings below are exactly what that page has always rendered; "v2" is the
+// staging redesign (components/redesign/README.md): square fields on paper,
+// Balerno heading, blue labels. Only classes (and two optional ids) differ —
+// validation, prefill, submission and analytics are shared code.
+const STYLES = {
+  classic: {
+    // Fields share one set of classes so a hardened input and a hardened
+    // textarea can never drift apart. text-base (16px) is deliberate: iOS
+    // Safari force-zooms a focused input under 16px, which breaks the layout
+    // mid-form.
+    field:
+      "w-full px-5 py-3 rounded-md text-base " +
+      "bg-secondary-light text-primary-dark placeholder:text-gray-500 " +
+      "border border-gray-400 " +
+      "focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 " +
+      "aria-[invalid=true]:border-accent-deep aria-[invalid=true]:ring-accent-deep/25 " +
+      "duration-200",
+    label: "block text-ui text-primary-dark mb-1",
+    required: "text-accent-deep",
+    optional: "text-gray-600",
+    form: "max-w-xl text-left",
+    title: "text-h2 mb-8",
+    alert:
+      "mb-6 border-t-2 border-accent-deep bg-ternary-light px-5 py-4 text-body text-accent-deep",
+    group: "mb-6",
+    error: "mt-1 text-meta text-accent-deep",
+    hint: "mt-1 text-meta text-ternary-dark",
+    submitRow: "mt-6",
+    submit:
+      "text-ui px-7 py-4 text-white text-center tracking-wider bg-primary rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-wait duration-300",
+    privacy: "mt-5 text-meta text-ternary-dark",
+    done: "max-w-xl text-left border-t-2 border-primary pt-8",
+    doneTitle: "text-h2 mb-4 text-primary-dark",
+    doneText: "text-body text-ternary-dark mb-6",
+    doneList: "text-body mb-8",
+    doneItemFirst: "mb-2",
+    doneItemLast: undefined,
+    donePhone:
+      "text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200",
+    doneEmail:
+      "text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm break-all duration-200",
+    doneButton:
+      "text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300",
+  },
+  v2: {
+    // Square, white on paper. The 1px primary-muted edge is 5.9:1 against
+    // paper (a field boundary needs 3:1). Focus adds a 2px primary outline
+    // right on the edge — an outline, not a box-shadow ring, so it survives
+    // forced-colors mode. Invalid gets a 2px accent-deep edge via an inset
+    // shadow, so nothing shifts. accent-deep is the redesign's error colour
+    // only (6.65:1 on paper).
+    field:
+      "mt-2 block w-full rounded-none border border-primary-muted bg-white px-4 py-3 text-base text-ink " +
+      "placeholder:text-primary-muted transition-colors duration-150 " +
+      "focus:border-primary focus:outline focus:outline-2 focus:outline-offset-0 focus:outline-primary focus:ring-0 " +
+      "aria-[invalid=true]:border-accent-deep aria-[invalid=true]:shadow-[inset_0_0_0_1px_#A62710]",
+    label: "block text-ui text-primary",
+    required: "text-primary",
+    optional: "font-normal text-primary-muted",
+    // Spacing by gap, so no child carries a margin seam.
+    form: "flex flex-col gap-6 text-left",
+    title:
+      "pb-2 font-display text-h2 font-normal text-primary [text-wrap:balance]",
+    alert:
+      "border-t-2 border-accent-deep bg-white px-5 py-4 text-body text-ink",
+    group: undefined,
+    error: "mt-2 text-meta text-accent-deep",
+    hint: "mt-2 text-meta text-primary-muted",
+    submitRow: "pt-2",
+    submit:
+      "inline-flex h-[52px] w-full items-center justify-center bg-primary px-7 text-ui text-white underline-offset-4 transition-colors duration-150 hover:bg-primary-deep hover:underline active:translate-y-px focus-ring disabled:cursor-wait disabled:opacity-60 disabled:no-underline md:w-auto",
+    privacy: "max-w-[52ch] text-meta text-primary-muted",
+    done: "border-t border-rule pt-8 text-left",
+    doneTitle:
+      "font-display text-h2 font-normal text-primary [text-wrap:balance]",
+    doneText: "mt-4 max-w-[52ch] text-body text-ink",
+    doneList: "mt-6",
+    doneItemFirst: undefined,
+    doneItemLast: "md:mt-2",
+    donePhone:
+      "inline-flex min-h-[44px] items-center text-ui text-primary underline decoration-1 underline-offset-4 hover:decoration-2 focus-ring md:min-h-0",
+    doneEmail:
+      "inline-flex min-h-[44px] items-center break-all text-ui text-primary underline decoration-1 underline-offset-4 hover:decoration-2 focus-ring md:min-h-0",
+    doneButton:
+      "mt-8 inline-flex h-[52px] w-full items-center justify-center bg-primary px-7 text-ui text-white underline-offset-4 transition-colors duration-150 hover:bg-primary-deep hover:underline active:translate-y-px focus-ring md:w-auto",
+  },
+};
 
 // A small, consistent marker beats an asterisk nobody has a legend for.
-function Required() {
+function Required({ className }) {
   return (
-    <span className="text-accent-deep" aria-hidden="true">
+    <span className={className} aria-hidden="true">
       {" "}
       *
     </span>
   );
 }
 
-function ContactForm() {
+// `variant` picks the look ("classic" is the default and what production
+// renders). `titleId` is an optional id for the form's heading, so a page can
+// label its surrounding <section> with it; the success heading takes the same
+// id, so the label follows the state.
+function ContactForm({ variant = "classic", titleId } = {}) {
+  const s = STYLES[variant] || STYLES.classic;
+  // The phone hint is tied to its field in the redesign only; the classic
+  // markup stays exactly as it was.
+  const phoneHintId = variant === "v2" ? "phone-hint" : undefined;
+
   const router = useRouter();
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
@@ -167,29 +252,29 @@ function ContactForm() {
       <div>
         <div>
           <div
-            className="max-w-xl text-left border-t-2 border-primary pt-8"
+            className={s.done}
             role="status"
             aria-live="polite"
           >
-            <h2 className="text-h2 mb-4 text-primary-dark">
+            <h2 id={titleId} className={s.doneTitle}>
               Bedankt, uw bericht is verzonden.
             </h2>
-            <p className="text-body text-ternary-dark mb-6">
+            <p className={s.doneText}>
               Gilles of Elena neemt binnen twee werkdagen persoonlijk contact
               met u op. Heeft u het liever meteen? Bel ons gerust.
             </p>
-            <ul className="text-body mb-8">
-              <li className="mb-2">
+            <ul className={s.doneList}>
+              <li className={s.doneItemFirst}>
                 <a
-                  className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+                  className={s.donePhone}
                   href="tel:+32474042279"
                 >
                   +32 474 04 22 79
                 </a>
               </li>
-              <li>
+              <li className={s.doneItemLast}>
                 <a
-                  className="text-primary underline underline-offset-4 decoration-1 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm break-all duration-200"
+                  className={s.doneEmail}
                   href="mailto:info@h16.be"
                 >
                   info@h16.be
@@ -199,7 +284,7 @@ function ContactForm() {
             <button
               type="button"
               onClick={() => setStatus("idle")}
-              className="text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
+              className={s.doneButton}
             >
               Nog een bericht sturen
             </button>
@@ -215,26 +300,26 @@ function ContactForm() {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="max-w-xl text-left"
+          className={s.form}
         >
-          <h2 className="text-h2 mb-8">Stuur ons uw vraag</h2>
+          <h2 id={titleId} className={s.title}>Stuur ons uw vraag</h2>
 
           {status === "error" && (
             <div
               role="alert"
-              className="mb-6 border-t-2 border-accent-deep bg-ternary-light px-5 py-4 text-body text-accent-deep"
+              className={s.alert}
             >
               {serverError}
             </div>
           )}
 
-          <div className="mb-6">
-            <label className={labelClasses} htmlFor="name">
+          <div className={s.group}>
+            <label className={s.label} htmlFor="name">
               Naam
-              <Required />
+              <Required className={s.required} />
             </label>
             <input
-              className={fieldClasses}
+              className={s.field}
               type="text"
               id="name"
               name="name"
@@ -250,20 +335,20 @@ function ContactForm() {
             {errors.name && (
               <p
                 id="name-error"
-                className="mt-1 text-meta text-accent-deep"
+                className={s.error}
               >
                 {errors.name}
               </p>
             )}
           </div>
 
-          <div className="mb-6">
-            <label className={labelClasses} htmlFor="email">
+          <div className={s.group}>
+            <label className={s.label} htmlFor="email">
               Email
-              <Required />
+              <Required className={s.required} />
             </label>
             <input
-              className={fieldClasses}
+              className={s.field}
               type="email"
               id="email"
               name="email"
@@ -280,19 +365,19 @@ function ContactForm() {
             {errors.email && (
               <p
                 id="email-error"
-                className="mt-1 text-meta text-accent-deep"
+                className={s.error}
               >
                 {errors.email}
               </p>
             )}
           </div>
 
-          <div className="mb-6">
-            <label className={labelClasses} htmlFor="phone">
-              Telefoon <span className="text-gray-600">(optioneel)</span>
+          <div className={s.group}>
+            <label className={s.label} htmlFor="phone">
+              Telefoon <span className={s.optional}>(optioneel)</span>
             </label>
             <input
-              className={fieldClasses}
+              className={s.field}
               type="tel"
               id="phone"
               name="phone"
@@ -301,18 +386,19 @@ function ContactForm() {
               maxLength={30}
               value={phone}
               onChange={handleChange}
+              aria-describedby={phoneHintId}
             />
-            <p className="mt-1 text-meta text-ternary-dark">
+            <p id={phoneHintId} className={s.hint}>
               Liever gebeld worden? Laat uw nummer achter.
             </p>
           </div>
 
-          <div className="mb-6">
-            <label className={labelClasses} htmlFor="subject">
-              Onderwerp <span className="text-gray-600">(optioneel)</span>
+          <div className={s.group}>
+            <label className={s.label} htmlFor="subject">
+              Onderwerp <span className={s.optional}>(optioneel)</span>
             </label>
             <input
-              className={fieldClasses}
+              className={s.field}
               type="text"
               id="subject"
               name="subject"
@@ -326,20 +412,20 @@ function ContactForm() {
             {errors.subject && (
               <p
                 id="subject-error"
-                className="mt-1 text-meta text-accent-deep"
+                className={s.error}
               >
                 {errors.subject}
               </p>
             )}
           </div>
 
-          <div className="mb-6">
-            <label className={labelClasses} htmlFor="message">
+          <div className={s.group}>
+            <label className={s.label} htmlFor="message">
               Bericht
-              <Required />
+              <Required className={s.required} />
             </label>
             <textarea
-              className={fieldClasses}
+              className={s.field}
               id="message"
               name="message"
               required
@@ -354,26 +440,26 @@ function ContactForm() {
             {errors.message && (
               <p
                 id="message-error"
-                className="mt-1 text-meta text-accent-deep"
+                className={s.error}
               >
                 {errors.message}
               </p>
             )}
           </div>
 
-          <div className="mt-6">
+          <div className={s.submitRow}>
             <button
               type="submit"
               disabled={status === "submitting"}
               aria-busy={status === "submitting"}
-              className="text-ui px-7 py-4 text-white text-center tracking-wider bg-primary rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-wait duration-300"
+              className={s.submit}
             >
               {status === "submitting" ? "Versturen…" : "Verzenden"}
             </button>
           </div>
 
-          <p className="mt-5 text-meta text-ternary-dark">
-            Velden met <span className="text-accent-deep">*</span> zijn
+          <p className={s.privacy}>
+            Velden met <span className={s.required}>*</span> zijn
             verplicht. Vrijblijvend en gratis; we gebruiken uw gegevens
             uitsluitend om uw vraag te beantwoorden.
           </p>

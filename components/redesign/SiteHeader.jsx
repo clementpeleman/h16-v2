@@ -19,8 +19,10 @@ export default function SiteHeader() {
   const toggleRef = useRef(null);
   const firstLinkRef = useRef(null);
 
-  const isCurrent = (href) =>
-    router.pathname === href || router.pathname.startsWith(`${href}/`);
+  // asPath, not pathname: on staging the v2 pages are rewrites, so pathname
+  // is "/v2/about" while the visitor is on "/about".
+  const path = (router.asPath || "/").split(/[?#]/)[0];
+  const isCurrent = (href) => path === href || path.startsWith(`${href}/`);
 
   const close = useCallback((returnFocus = true) => {
     setOpen(false);

@@ -1,21 +1,21 @@
-import PagesMetaHead from "../components/PagesMetaHead";
-import SiteHeader from "../components/redesign/SiteHeader";
-import Spread from "../components/redesign/Spread";
-import Realisaties from "../components/redesign/Realisaties";
-import Werkwijze from "../components/redesign/Werkwijze";
-import Interlude from "../components/redesign/Interlude";
-import Mensen from "../components/redesign/Mensen";
-import Professionals from "../components/redesign/Professionals";
-import BackCover from "../components/redesign/BackCover";
-import SiteFooter from "../components/redesign/SiteFooter";
-import useReveal from "../hooks/useReveal";
-import { fetcher, toHomeProject } from "../lib/api";
-import { assetUrl, isCanonicalHost } from "../lib/seo";
-import { INTERLUDE, PLATES, SHOW_PRICE, SPREAD } from "../data/homeCuration";
+import PagesMetaHead from "../../components/PagesMetaHead";
+import Spread from "../../components/redesign/Spread";
+import Realisaties from "../../components/redesign/Realisaties";
+import Werkwijze from "../../components/redesign/Werkwijze";
+import Interlude from "../../components/redesign/Interlude";
+import Mensen from "../../components/redesign/Mensen";
+import Professionals from "../../components/redesign/Professionals";
+import BackCover from "../../components/redesign/BackCover";
+import V2Page from "../../components/redesign/V2Page";
+import { toHomeProject } from "../../lib/api";
+import { assetUrl } from "../../lib/seo";
+import { isProductionHost, v2fetch } from "../../lib/staging";
+import { INTERLUDE, PLATES, SHOW_PRICE, SPREAD } from "../../data/homeCuration";
 
-// Homepage redesign, STAGING ONLY. next.config.js rewrites "/" to this page on
-// h16.peleman.io; on h16.be it is a 404, so production keeps pages/index.jsx
-// until the client approves. It brings its own header and footer.
+// Homepage redesign, STAGING ONLY. next.config.js rewrites "/" to /v2 on
+// h16.peleman.io; on h16.be every /v2 page is a 404, so production keeps
+// pages/index.jsx until the client approves. V2Page brings the new header
+// and footer.
 function Redesign({
   spread,
   plates,
@@ -24,7 +24,6 @@ function Redesign({
   mensen,
   werkgebied,
 }) {
-  useReveal();
   const firstPlateN = 3;
   const interludeN = firstPlateN + plates.length;
 
@@ -35,27 +34,7 @@ function Redesign({
         titleTemplate={false}
         description="Bouwcoördinatie en projectontwikkeling door een klein familiebedrijf uit Oosterzele. Uw bouwproject van begin tot eind opgevolgd."
       />
-      <style jsx global>{`
-        html,
-        body {
-          background-color: #f6f6f3;
-        }
-        #inhoud :where(a, button, [tabindex], [id]),
-        #site-footer a {
-          scroll-margin-top: 88px;
-        }
-      `}</style>
-
-      <a
-        id="skip-link"
-        href="#inhoud"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-4 focus:py-3 focus:text-ui focus:text-primary focus-ring"
-      >
-        Naar de inhoud
-      </a>
-      <SiteHeader />
-
-      <main id="inhoud" tabIndex={-1} className="text-ink outline-none">
+      <V2Page>
         <Spread werkgebied={werkgebied} {...spread} />
         <Realisaties plates={plates} firstN={firstPlateN} />
         <Werkwijze {...werkwijze} />
@@ -63,9 +42,7 @@ function Redesign({
         <Mensen body={mensen.body} />
         <Professionals />
         <BackCover werkgebied={werkgebied} />
-      </main>
-
-      <SiteFooter />
+      </V2Page>
     </>
   );
 }
@@ -74,7 +51,7 @@ Redesign.ownLayout = true;
 export default Redesign;
 
 export async function getServerSideProps({ req, res }) {
-  if (isCanonicalHost(req)) return { notFound: true };
+  if (isProductionHost(req)) return { notFound: true };
   res.setHeader(
     "Cache-Control",
     "public, s-maxage=60, stale-while-revalidate=600",
@@ -82,11 +59,11 @@ export async function getServerSideProps({ req, res }) {
 
   // Server-only: the service copy (drafts and notes included) never ships to
   // the client; only the strings used below become props.
-  const { DIENSTEN } = await import("../data/diensten");
+  const { DIENSTEN } = await import("../../data/diensten");
   const bc = DIENSTEN.bouwcoordinatie;
   const po = DIENSTEN.projectontwikkeling;
 
-  const response = await fetcher(
+  const response = await v2fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate[0]=thumbnail&populate[1]=afbeeldingen&pagination[limit]=100`,
   );
   const bySlug = Object.fromEntries(

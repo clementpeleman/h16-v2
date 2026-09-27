@@ -18,7 +18,7 @@ function PlateCaption({ n, project, className = "" }) {
       <h3 className="mt-2 font-display text-h3 font-normal text-primary">
         <Link
           href={`/realisaties/${project.slug}`}
-          className="underline-offset-4 decoration-1 hover:underline group-hover/plate:underline focus-ring"
+          className="py-2 underline-offset-4 decoration-1 hover:underline group-hover/plate:underline focus-ring lg:py-0"
         >
           {project.naam}
         </Link>

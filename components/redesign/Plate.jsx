@@ -92,7 +92,7 @@ export function PlateLine({ n, naam, href, meta = [], className = "" }) {
         {naam && (
           <Link
             href={href}
-            className="group/link text-ui text-primary underline-offset-4 decoration-1 hover:underline focus-ring"
+            className="group/link py-3 text-ui text-primary underline-offset-4 decoration-1 hover:underline focus-ring lg:py-0"
           >
             {naam}
             {"\u00A0"}
@@ -106,7 +106,17 @@ export function PlateLine({ n, naam, href, meta = [], className = "" }) {
         )}
       </p>
       {parts.length > 0 && (
-        <p className="mt-1 text-meta text-primary-muted">{parts.join(" · ")}</p>
+        <p className="mt-1 text-meta text-primary-muted">
+          {parts.map((part, i) => (
+            <span key={part}>
+              {i > 0 && " "}
+              <span className="whitespace-nowrap">
+                {i > 0 && "· "}
+                {part}
+              </span>
+            </span>
+          ))}
+        </p>
       )}
     </div>
   );

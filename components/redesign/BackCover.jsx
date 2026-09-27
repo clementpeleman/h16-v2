@@ -7,7 +7,13 @@ const onBlueLink =
 // The blue "back cover": the contact band, then the footer — one
 // uninterrupted ground to the end of the page. No photo here; the phone
 // number is the first contact fact, set large.
-export default function BackCover({ werkgebied }) {
+// `contactHref` lets a service page pre-fill the form (/contact?dienst=…);
+// `track` names the page in Umami instead of counting every click as home.
+export default function BackCover({
+  werkgebied,
+  contactHref = "/contact",
+  track = "home-contact",
+}) {
   const rows = [
     {
       dt: "Telefoon",
@@ -70,8 +76,8 @@ export default function BackCover({ werkgebied }) {
               wat wij voor u kunnen betekenen.
             </p>
             <Link
-              href="/contact"
-              data-track="home-contact"
+              href={contactHref}
+              data-track={track}
               className="mt-10 inline-flex h-[52px] w-full items-center justify-center border border-paper bg-paper px-7 text-ui text-primary transition-colors duration-150 hover:border-white hover:bg-transparent hover:text-white active:translate-y-px focus-ring-inverse md:w-auto"
             >
               Neem contact op

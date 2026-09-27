@@ -15,11 +15,15 @@ const SOCIALS = [
 
 // Continues the blue back cover. White logo, the footer navigation, contact
 // and socials as words, the legal identity, and the credit row.
-export default function SiteFooter() {
+// `divider={false}` drops the top hairline on pages that do not end with the
+// blue BackCover (it would sit right on the paper→blue edge).
+export default function SiteFooter({ divider = true }) {
   return (
     <footer id="site-footer" className="bg-primary">
       <div className="container mx-auto">
-        <div className="border-t border-rule-blue pb-[max(2rem,env(safe-area-inset-bottom))] pt-group lg:grid lg:grid-cols-12 lg:gap-x-6">
+        <div
+          className={`${divider ? "border-t border-rule-blue" : ""} pb-[max(2rem,env(safe-area-inset-bottom))] pt-group lg:grid lg:grid-cols-12 lg:gap-x-6`}
+        >
           <div className="lg:col-span-3 xl:col-span-4">
             <Link
               href="/"

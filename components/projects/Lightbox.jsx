@@ -1,10 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 // Full-screen viewer for a project's photographs. No library: one overlay,
 // arrow keys and Escape, swipe on touch, the page behind it locked.
-function Lightbox({ images, index, onClose, onChange }) {
+//
+// It is a real modal: rendered in a portal on <body>, with the whole app
+// (#__next) made inert while it is open, so Tab can never reach the page
+// behind it. Focus moves to «Sluiten» only when the viewer OPENS (not on
+// every photo change — that used to send focus back to «Sluiten» after
+// «Volgende foto», so the next Enter closed the viewer) and returns to
+// whatever had focus before when it closes.
+//
+// variant "classic" is the production look; "v2" follows the redesign
+// (square paper buttons on an ink ground, no black, no rounding).
+function Lightbox({ images, index, onClose, onChange, variant = "classic" }) {
   const open = index !== null && index >= 0 && index < images.length;
   const touchStart = useRef(null);
   const closeRef = useRef(null);
@@ -12,33 +23,47 @@ function Lightbox({ images, index, onClose, onChange }) {
 
   const prev = useCallback(
     () => onChange((index - 1 + images.length) % images.length),
-    [index, images.length, onChange]
+    [index, images.length, onChange],
   );
   const next = useCallback(
     () => onChange((index + 1) % images.length),
-    [index, images.length, onChange]
+    [index, images.length, onChange],
   );
 
+  // Open/close only: scroll lock, inert app, focus in and back out.
   useEffect(() => {
-    if (!open) return;
+    if (!open) return undefined;
+    const returnTo = document.activeElement;
+    const app = document.getElementById("__next");
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    app?.setAttribute("inert", "");
+    closeRef.current?.focus({ preventScroll: true });
+    setCounter(true);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      app?.removeAttribute("inert");
+      if (returnTo && typeof returnTo.focus === "function") {
+        returnTo.focus({ preventScroll: true });
+      }
+    };
+  }, [open]);
+
+  // Keys, re-bound when the photo changes; never moves focus.
+  useEffect(() => {
+    if (!open) return undefined;
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
       else if (e.key === "ArrowLeft") prev();
       else if (e.key === "ArrowRight") next();
     };
     document.addEventListener("keydown", onKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-    setCounter(true);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-    };
+    return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose, prev, next]);
 
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
   const beeld = images[index];
+  const v2 = variant === "v2";
 
   const onTouchStart = (e) => {
     touchStart.current = e.touches[0].clientX;
@@ -51,15 +76,16 @@ function Lightbox({ images, index, onClose, onChange }) {
     dx > 0 ? prev() : next();
   };
 
-  const btn =
-    "absolute z-10 flex h-12 w-12 items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 duration-200";
+  const btn = v2
+    ? "absolute z-10 flex h-12 w-12 items-center justify-center bg-paper text-primary hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-white duration-150"
+    : "absolute z-10 flex h-12 w-12 items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 duration-200";
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
       aria-label={`Foto ${index + 1} van ${images.length}`}
-      className="fixed inset-0 z-50 bg-black/95 select-none"
+      className={`fixed inset-0 z-50 select-none ${v2 ? "bg-ink/95" : "bg-black/95"}`}
       onClick={onClose}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
@@ -94,7 +120,10 @@ function Lightbox({ images, index, onClose, onChange }) {
         <>
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); prev(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
             aria-label="Vorige foto"
             className={`${btn} left-3 sm:left-6 top-1/2 -translate-y-1/2`}
           >
@@ -102,20 +131,28 @@ function Lightbox({ images, index, onClose, onChange }) {
           </button>
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); next(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
             aria-label="Volgende foto"
             className={`${btn} right-3 sm:right-6 top-1/2 -translate-y-1/2`}
           >
             <FiChevronRight className="h-6 w-6" aria-hidden="true" />
           </button>
           {counter && (
-            <p className="absolute bottom-4 left-0 right-0 text-center text-meta text-white/70 tabular-nums">
+            <p
+              className={`absolute bottom-4 left-0 right-0 text-center text-meta tabular-nums ${
+                v2 ? "text-aqua-pale" : "text-white/70"
+              }`}
+            >
               {index + 1} / {images.length}
             </p>
           )}
         </>
       )}
-    </div>
+    </div>,
+    document.body,
   );
 }
 

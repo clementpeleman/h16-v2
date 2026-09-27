@@ -41,7 +41,7 @@ export default function Mensen({ body }) {
                 src="/images/founders.jpg"
                 alt="Gilles De Brabander en Elena Versyp"
                 fill
-                sizes="(min-width:1280px) 368px, (min-width:1024px) 299px, 60vw"
+                sizes="(min-width:1536px) 453px, (min-width:1280px) 368px, (min-width:1024px) 299px, 60vw"
                 className="object-cover"
               />
             </div>
@@ -56,7 +56,7 @@ export default function Mensen({ body }) {
               alt=""
               width={1152}
               height={850}
-              sizes="(min-width:1280px) 368px, (min-width:1024px) 299px, 60vw"
+              sizes="(min-width:1536px) 453px, (min-width:1280px) 368px, (min-width:1024px) 299px, 60vw"
               className="h-auto w-full"
             />
             <figcaption className="mt-6">

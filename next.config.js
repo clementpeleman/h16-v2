@@ -63,18 +63,25 @@ module.exports = {
     ];
   },
 
-  // Staging preview of the homepage redesign: on h16.peleman.io (and only
-  // there) "/" is served by pages/redesign.jsx, which is a 404 on h16.be.
-  // Production keeps the current homepage until the redesign is approved.
+  // Staging preview of the site redesign: on h16.peleman.io (and only there)
+  // each public path is served by its counterpart under pages/v2/, which all
+  // 404 on h16.be. Production keeps the current pages until the redesign is
+  // approved. Links inside v2 pages use the public paths, so navigation stays
+  // inside the redesign (the client router evaluates `has: host` too).
   async rewrites() {
+    const has = [{ type: "host", value: hostPattern("h16.peleman.io") }];
+    const V2_ROUTES = [
+      ["/", "/v2"],
+      ["/about", "/v2/about"],
+      ["/samenwerken", "/v2/samenwerken"],
+      ["/contact", "/v2/contact"],
+      ["/realisaties", "/v2/realisaties"],
+      ["/realisaties/:slug", "/v2/realisaties/:slug"],
+      ["/bouwcoordinatie", "/v2/bouwcoordinatie"],
+      ["/projectontwikkeling", "/v2/projectontwikkeling"],
+    ];
     return {
-      beforeFiles: [
-        {
-          source: "/",
-          has: [{ type: "host", value: hostPattern("h16.peleman.io") }],
-          destination: "/redesign",
-        },
-      ],
+      beforeFiles: V2_ROUTES.map(([source, destination]) => ({ source, has, destination })),
     };
   },
 
