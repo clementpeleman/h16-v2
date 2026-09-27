@@ -32,7 +32,7 @@ function colophon(projects) {
   return `${count} · ${span}`;
 }
 
-function RealisatiesIndex({ projects, werkgebied }) {
+function RealisatiesIndex({ projects }) {
   return (
     <>
       <PagesMetaHead
@@ -65,7 +65,7 @@ function RealisatiesIndex({ projects, werkgebied }) {
           )}
         </section>
 
-        <BackCover werkgebied={werkgebied} track="realisaties-contact" />
+        <BackCover track="realisaties-contact" />
       </V2Page>
     </>
   );
@@ -82,14 +82,13 @@ export async function getServerSideProps({ req, res }) {
   );
 
   // Server-only: the service copy (drafts and notes included) never ships to
-  // the client; only H16's role per project and the werkgebied become props.
+  // the client; only H16's role per project becomes props.
   const { DIENSTEN } = await import("../../../data/diensten");
   const bc = DIENSTEN.bouwcoordinatie;
   const po = DIENSTEN.projectontwikkeling;
   const rol = {};
   (bc.realisaties || []).forEach((s) => (rol[s] = "Bouwcoördinatie"));
   (po.realisaties || []).forEach((s) => (rol[s] = "Projectontwikkeling"));
-  const regio = bc.faq.find((q) => /regio/.test(q.vraag))?.antwoord || "";
 
   const response = await v2fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate[0]=thumbnail&populate[1]=afbeeldingen&pagination[limit]=100`,
@@ -156,7 +155,6 @@ export async function getServerSideProps({ req, res }) {
   return {
     props: {
       projects,
-      werkgebied: regio.replace(/^In\s+/, "").replace(/\.$/, ""),
     },
   };
 }

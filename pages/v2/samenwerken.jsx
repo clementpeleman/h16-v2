@@ -21,7 +21,7 @@ import { isProductionHost, v2fetch } from "../../lib/staging";
 // voordelen as numbered plates → the professionals on the pale-aqua band
 // (#professionals, the homepage's link target) → the blue back cover, which
 // takes over HomeContact's «Vraag vrijblijvend meer informatie».
-function Samenwerken({ voordelen, werkgebied }) {
+function Samenwerken({ voordelen }) {
   return (
     <>
       <PagesMetaHead
@@ -33,7 +33,7 @@ function Samenwerken({ voordelen, werkgebied }) {
         <Diensten />
         <Voordelen voordelen={voordelen} />
         <ProfessionalsBand />
-        <BackCover werkgebied={werkgebied} track="samenwerken-contact" />
+        <BackCover track="samenwerken-contact" />
       </V2Page>
     </>
   );
@@ -50,7 +50,7 @@ export async function getServerSideProps({ req, res }) {
   );
 
   // Server-only: the service copy (drafts and notes included) never ships to
-  // the client; only H16's confirmed roles and the werkgebied become props.
+  // the client; only H16's confirmed roles become props.
   const { DIENSTEN } = await import("../../data/diensten");
   const bc = DIENSTEN.bouwcoordinatie;
   const po = DIENSTEN.projectontwikkeling;
@@ -102,8 +102,6 @@ export async function getServerSideProps({ req, res }) {
     };
   };
 
-  const regio = bc.faq.find((q) => /regio/.test(q.vraag))?.antwoord || "";
-
   return {
     props: {
       voordelen: VOORDELEN.map((v) => ({
@@ -111,7 +109,6 @@ export async function getServerSideProps({ req, res }) {
         tekst: v.tekst,
         plate: plateFor(v.naam),
       })),
-      werkgebied: regio.replace(/^In\s+/, "").replace(/\.$/, ""),
     },
   };
 }

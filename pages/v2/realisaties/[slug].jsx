@@ -32,7 +32,7 @@ import { isProductionHost, v2fetch } from "../../../lib/staging";
 // rewrites /realisaties/<slug> here on h16.peleman.io; on h16.be this page is
 // a 404 and pages/realisaties/[slug].jsx stays live. Title, description,
 // JSON-LD, #fotos and /contact?project=<naam> are those of the live page.
-function Realisatie({ project, plates, rol, prijs, related, werkgebied }) {
+function Realisatie({ project, plates, rol, prijs, related }) {
   const isOffer = isOfferProject(project);
   const metaZin = metaZinFor(project);
   const pagePath = `/realisaties/${project.slug}`;
@@ -95,7 +95,7 @@ function Realisatie({ project, plates, rol, prijs, related, werkgebied }) {
           )}
         </Gallery>
         <Andere projects={related} firstN={plates.length + 1} />
-        <BackCover werkgebied={werkgebied} track="realisatie-contact" />
+        <BackCover track="realisatie-contact" />
         {plates.length > 1 && <FotoJump targetId="fotos" />}
         <Lightbox
           images={plates}
@@ -140,12 +140,9 @@ export async function getServerSideProps({ req, res, params }) {
   if (!entry) return { notFound: true };
 
   // Server-only: the service copy (drafts and notes included) never ships to
-  // the client; only the role and the werkgebied become props.
+  // the client; only the role becomes props.
   const { DIENSTEN } = await import("../../../data/diensten");
   const rollen = roleMap(DIENSTEN);
-  const regio =
-    DIENSTEN.bouwcoordinatie.faq.find((q) => /regio/.test(q.vraag))?.antwoord ||
-    "";
 
   const project = toProjectDetail(entry);
 
@@ -158,7 +155,6 @@ export async function getServerSideProps({ req, res, params }) {
       related: (relatedResponse?.data ?? [])
         .map((e) => toRelated(e, rollen))
         .filter((p) => p.slug),
-      werkgebied: regio.replace(/^In\s+/, "").replace(/\.$/, ""),
     },
   };
 }

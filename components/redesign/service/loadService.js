@@ -213,13 +213,6 @@ export async function loadService(slug, { req, res }) {
     .filter((q) => q.vraag && q.antwoord)
     .map((q) => ({ vraag: str(q.vraag), antwoord: str(q.antwoord) }));
 
-  // Werkgebied for the back cover: the «In welke regio …» answer, as on the
-  // homepage (this service's own first, then any other service's).
-  const regio =
-    [dienst, ...Object.values(DIENSTEN)]
-      .flatMap((d) => arr(d.faq))
-      .find((q) => /regio/i.test(str(q.vraag)) && q.antwoord)?.antwoord || "";
-
   const h1 = str(dienst.h1) || naam;
 
   return {
@@ -238,9 +231,6 @@ export async function loadService(slug, { req, res }) {
       opener,
       realisaties,
       faq,
-      werkgebied: str(regio)
-        .replace(/^In\s+/, "")
-        .replace(/\.$/, ""),
     },
   };
 }

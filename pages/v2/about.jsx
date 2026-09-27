@@ -19,7 +19,7 @@ import { isProductionHost, v2fetch } from "../../lib/staging";
 // leads straight into the blue back cover and its «Gilles of Elena antwoordt
 // u zo snel mogelijk». Every piece of the current page's copy is kept; its
 // closing «Vraag vrijblijvend meer informatie» block is the BackCover.
-function About({ plates, werkgebied }) {
+function About({ plates }) {
   // "Afb. n" restarts at 1 on every page, in DOM order; a plate whose photo
   // left the CMS is dropped and the numbering closes up.
   const titelN = plates.titel ? 1 : null;
@@ -36,7 +36,7 @@ function About({ plates, werkgebied }) {
         <Meerwaarde plate={plates.meerwaarde} n={meerwaardeN} />
         <Kolibrie />
         <WieIsWie />
-        <BackCover werkgebied={werkgebied} track="about-contact" />
+        <BackCover track="about-contact" />
       </V2Page>
     </>
   );
@@ -62,8 +62,6 @@ export async function getServerSideProps({ req, res }) {
   const rol = {};
   (bc.realisaties || []).forEach((s) => (rol[s] = "Bouwcoördinatie"));
   (po.realisaties || []).forEach((s) => (rol[s] = "Projectontwikkeling"));
-
-  const regio = bc.faq.find((q) => /regio/.test(q.vraag))?.antwoord || "";
 
   const response = await v2fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/projects?populate[0]=thumbnail&populate[1]=afbeeldingen&pagination[limit]=100`,
@@ -98,7 +96,6 @@ export async function getServerSideProps({ req, res }) {
 
   return {
     props: {
-      werkgebied: regio.replace(/^In\s+/, "").replace(/\.$/, ""),
       plates: {
         titel: plate(ABOUT_PLATES.titel),
         meerwaarde: plate(ABOUT_PLATES.meerwaarde),

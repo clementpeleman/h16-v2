@@ -41,7 +41,7 @@ function Redesign({
         <Interlude plate={interlude} n={interludeN} />
         <Mensen body={mensen.body} />
         <Professionals />
-        <BackCover werkgebied={werkgebied} />
+        <BackCover />
       </V2Page>
     </>
   );

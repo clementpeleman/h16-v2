@@ -125,7 +125,6 @@ export default function ServicePage({
   opener,
   realisaties,
   faq,
-  werkgebied,
 }) {
   const path = `/${dienst.slug}`;
   // Pre-fills the contact form's subject (components/contact/ContactForm.jsx).
@@ -170,7 +169,6 @@ export default function ServicePage({
         />
         <Professionals slug={dienst.slug} />
         <BackCover
-          werkgebied={werkgebied}
           contactHref={contactHref}
           track={`${dienst.slug}-backcover`}
         />

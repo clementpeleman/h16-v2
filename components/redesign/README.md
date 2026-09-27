@@ -86,7 +86,7 @@ Not used in the redesign: the cream `background`, `gray-*`, black. `accent-deep`
 
 - `ui.jsx`: `ArrowLink` (text link + glued arrow; `size="lead"|"ui"`, `tone="light"|"blue"`), `TextLink`, `ButtonLink` (`variant="primary"|"inverse"`), `SectionHead` (eyebrow + heading), `Arrow`.
 - `Plate.jsx`: `Plate` (fixed-ratio photo box via next/image `fill`; `image={{src, alt, op:{sm, md}}}`, `ratio="aspect-[4/5] md:aspect-[3/2]"`, `sizes`, `href` for a clickable photo, `reveal` for the scroll reveal, `as="div"` + `lg:contents` to place box and caption separately), `PlateLine` (two-line "Afb. n + linked name / meta" caption), `SaleChip`.
-- `BackCover.jsx`: the blue contact band («Jouw bouwproject onder onze vleugels?», contact button, phone/email/address/werkgebied). End every page with it, except `/contact` itself.
+- `BackCover.jsx`: the blue contact band («Jouw bouwproject onder onze vleugels?», one line, the contact button; `contactHref`/`track` props). No contact list here — phone, e-mail and address are in the footer. End every page with it, except `/contact` itself.
 - `Professionals.jsx`, `Werkwijze.jsx` (compact), `Mensen.jsx`, `Spread.jsx`, `Realisaties.jsx`, `Interlude.jsx`: homepage sections; reuse where they fit.
 - `realisatie/ZoomPlate.jsx`: a plate that is never cropped (intrinsic width/height from Strapi, `sizes` = rendered width) and opens the Lightbox; use it for galleries (a `<div>` may not sit inside a `<button>`, so `Plate` cannot be used there).
 - Forms (`ContactForm variant="v2"`): white field, 1px `primary-muted` edge, 2px `primary` outline on focus, inset `accent-deep` edge when invalid; labels `text-ui`, visible required markers.
