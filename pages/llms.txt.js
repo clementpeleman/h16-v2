@@ -1,6 +1,7 @@
 import { fetcher } from "../lib/api";
 import { absoluteUrl } from "../lib/seo";
 import { company } from "../data/companyData";
+import { DIENST_LIST } from "../data/diensten";
 
 // llms.txt (llmstxt.org): a plain-text overview for AI assistants such as
 // ChatGPT, Claude and Perplexity. Google ignores it; the others read it.
@@ -20,6 +21,10 @@ export async function getServerSideProps({ res }) {
       return `- [${a.naam}${status}](${absoluteUrl(`/realisaties/${a.slug}`)})${kort}`;
     })
     .join("\n");
+  // Service pages are listed once they are published (ready), never as drafts.
+  const diensten = DIENST_LIST.filter((d) => d.ready)
+    .map((d) => `\n- [${d.naam}](${absoluteUrl(`/${d.slug}`)}): ${d.description}`)
+    .join("");
 
   const body = `# H16 Vastgoedontwikkeling
 
@@ -43,7 +48,7 @@ ${lijst || "- Zie " + absoluteUrl("/realisaties")}
 
 - [Home](${absoluteUrl("/")})
 - [Realisaties](${absoluteUrl("/realisaties")})
-- [Samenwerken](${absoluteUrl("/samenwerken")}): diensten, voordelen, en het aanbod voor architecten en aannemers
+- [Samenwerken](${absoluteUrl("/samenwerken")}): diensten, voordelen, en het aanbod voor architecten en aannemers${diensten}
 - [Over ons](${absoluteUrl("/about")}): het team en de kolibrie als symbool
 - [Contact](${absoluteUrl("/contact")}): antwoord binnen twee werkdagen
 
@@ -55,6 +60,7 @@ ${lijst || "- Zie " + absoluteUrl("/realisaties")}
 - Rechtspersoon: ${company.legalName}, ${company.vat}
 - Facebook: ${company.socials.facebook}
 - Instagram: ${company.socials.instagram}
+- LinkedIn: ${company.socials.linkedin}
 - Werkgebied: Gent, Oosterzele, Merelbeke en de rest van Oost-Vlaanderen
 `;
 

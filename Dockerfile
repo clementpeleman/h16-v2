@@ -21,6 +21,13 @@ COPY . .
 ARG NEXT_PUBLIC_STRAPI_URL
 ARG NEXT_PUBLIC_STRAPI_ASSET_URL
 ARG STRAPI_TOKEN
+# Declared explicitly (Coolify also injects build args, but next.config.js now
+# compiles its www redirects and noindex header from SITE_URL, so the build must
+# not depend on that injection). A build arg is visible to RUN as an env var.
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_ALLOW_INDEXING
+ARG NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ARG NEXT_PUBLIC_UMAMI_SRC
 ENV NEXT_PUBLIC_STRAPI_URL=$NEXT_PUBLIC_STRAPI_URL \
     NEXT_PUBLIC_STRAPI_ASSET_URL=$NEXT_PUBLIC_STRAPI_ASSET_URL \
     STRAPI_TOKEN=$STRAPI_TOKEN \

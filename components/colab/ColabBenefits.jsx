@@ -4,7 +4,7 @@ import HomeSection from "../home/HomeSection";
 
 // Which project illustrates which benefit: defaults in project order. A
 // benefit with no matching project renders without a photograph.
-const VOORDELEN = [
+export const VOORDELEN = [
   {
     naam: "Bepalen juiste doelstelling",
     tekst:

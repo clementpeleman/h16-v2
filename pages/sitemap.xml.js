@@ -1,9 +1,18 @@
 import { fetcher } from "../lib/api";
 import { absoluteUrl } from "../lib/seo";
+import { DIENST_LIST } from "../data/diensten";
 
 // Dynamic sitemap: the fixed pages plus every project slug from Strapi, with
-// lastmod from the CMS. Regenerated at most hourly at the edge.
-const STATIC = ["/", "/realisaties", "/samenwerken", "/about", "/contact"];
+// lastmod from the CMS. Regenerated at most hourly at the edge. A service page
+// joins the list only once it is marked ready (drafts 404 on h16.be).
+const STATIC = [
+  "/",
+  "/realisaties",
+  "/samenwerken",
+  ...DIENST_LIST.filter((d) => d.ready).map((d) => `/${d.slug}`),
+  "/about",
+  "/contact",
+];
 
 function entry(path, lastmod) {
   return (

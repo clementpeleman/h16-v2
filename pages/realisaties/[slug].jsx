@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Image from "next/image";
 import Lightbox from "../../components/projects/Lightbox";
 import GalleryJump from "../../components/projects/GalleryJump";
@@ -179,9 +179,27 @@ function Project({ project, related = [] }) {
             {project.samenwerkingen.length > 0 && (
               <>
                 In samenwerking met{" "}
-                <span className="font-strong text-black">
-                  {project.samenwerkingen.join(" en ")}
-                </span>
+                {/* Linked, and followed: crediting partners is the ask that
+                    comes with requesting a link back from their project
+                    pages. */}
+                {project.samenwerkingen.map((partner, i) => (
+                  <Fragment key={partner.naam}>
+                    {i > 0 && " en "}
+                    {partner.url ? (
+                      <a
+                        href={partner.url}
+                        target="_blank"
+                        rel="noopener"
+                        className="font-strong text-black underline underline-offset-4 decoration-1 decoration-gray-400 hover:text-primary hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200"
+                      >
+                        {partner.naam}
+                        <span className="sr-only"> (opent in een nieuw venster)</span>
+                      </a>
+                    ) : (
+                      <span className="font-strong text-black">{partner.naam}</span>
+                    )}
+                  </Fragment>
+                ))}
                 .{" "}
               </>
             )}
@@ -221,6 +239,7 @@ function Project({ project, related = [] }) {
             )}
             <Link
               href={`/contact?project=${encodeURIComponent(project.naam || "")}`}
+              data-track="bezichtiging"
               className="inline-block text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
             >
               Vraag een bezichtiging aan
@@ -283,6 +302,7 @@ function Project({ project, related = [] }) {
               {project.prijs && <span className="text-h3 text-black">{project.prijs}</span>}
               <Link
                 href={`/contact?project=${encodeURIComponent(project.naam || "")}`}
+                data-track="bezichtiging"
                 className="inline-block text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
               >
                 Vraag een bezichtiging aan

@@ -2,7 +2,9 @@ import Link from "next/link";
 import { company } from "../../data/companyData";
 import HomeSection from "./HomeSection";
 
-function HomeContact() {
+// `href` lets a service page send the visitor to a form whose subject is
+// already filled in (/contact?dienst=<slug>).
+function HomeContact({ href = "/contact" }) {
   return (
     <HomeSection
       label="Contact"
@@ -19,7 +21,7 @@ function HomeContact() {
       </p>
       <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
         <Link
-          href="/contact"
+          href={href}
           className="text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
         >
           Neem contact op

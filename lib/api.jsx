@@ -11,6 +11,8 @@
 // STRAPI_TOKEN is intentionally NOT prefixed with NEXT_PUBLIC_, so it stays
 // server-only and never ships in the client bundle.
 
+import { PARTNER_LINKS } from "../data/partners";
+
 function isPlainObject(v) {
   return v !== null && typeof v === "object" && !Array.isArray(v);
 }
@@ -165,8 +167,17 @@ export function toProjectDetail(entry) {
     // continuing to live as the last line of a markdown paragraph.
     prijs: a.prijs ?? a.vraagprijs ?? "",
     beschrijving: a.beschrijving ?? "",
+    // { naam, url }. A `Website` field in Strapi wins; until one exists the
+    // partner's site comes from data/partners.js.
     samenwerkingen: (a.samenwerkings?.data ?? [])
-      .map((s) => s.attributes?.Naam)
+      .map((s) => {
+        const naam = s.attributes?.Naam;
+        if (!naam) return null;
+        return {
+          naam,
+          url: s.attributes?.Website || s.attributes?.website || PARTNER_LINKS[naam] || null,
+        };
+      })
       .filter(Boolean),
     afbeeldingen: (a.afbeeldingen?.data ?? [])
       .map((img) => {

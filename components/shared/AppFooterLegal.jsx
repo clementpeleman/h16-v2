@@ -1,4 +1,4 @@
-import { FiInstagram, FiFacebook } from "react-icons/fi";
+import { FiInstagram, FiFacebook, FiLinkedin } from "react-icons/fi";
 import { company } from "../../data/companyData";
 
 // The footer carried two social icons and a credit line — 393px tall for 114px
@@ -12,6 +12,12 @@ const linkClasses =
   "underline underline-offset-4 decoration-1 decoration-gray-400 " +
   "hover:text-primary hover:decoration-primary " +
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200";
+
+const SOCIALS = [
+  { href: company.socials.facebook, label: "H16 op Facebook", Icon: FiFacebook },
+  { href: company.socials.instagram, label: "H16 op Instagram", Icon: FiInstagram },
+  { href: company.socials.linkedin, label: "H16 op LinkedIn", Icon: FiLinkedin },
+];
 
 function AppFooterLegal() {
   return (
@@ -34,16 +40,13 @@ function AppFooterLegal() {
       <div>{company.vat}</div>
 
       <ul className="flex gap-4">
-        <li>
-          <a href={company.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label="H16 op Facebook" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
-            <FiFacebook className="h-6 w-6" aria-hidden="true" />
-          </a>
-        </li>
-        <li>
-          <a href={company.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="H16 op Instagram" className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
-            <FiInstagram className="h-6 w-6" aria-hidden="true" />
-          </a>
-        </li>
+        {SOCIALS.map(({ href, label, Icon }) => (
+          <li key={href}>
+            <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="block p-1 -m-1 text-ternary-dark hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm duration-200">
+              <Icon className="h-6 w-6" aria-hidden="true" />
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );

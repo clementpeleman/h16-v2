@@ -10,11 +10,11 @@ const DEFAULT_DESCRIPTION =
 // image behind it.
 const DEFAULT_IMAGE = "/images/og-default.jpg";
 
-// Indexing is opt-in, not opt-out. h16.peleman.io is going up before h16.be,
-// and a staging host that Google indexes will compete with the real domain for
-// the firm's own name — and keep ranking after the move. Only the deployment
-// that sets this to "true" is indexable. pages/robots.txt.js reads the same
-// flag, so meta-robots and robots.txt cannot disagree.
+// Indexing is opt-in, not opt-out: only a build with this set to "true" emits
+// no robots meta. It is a BUILD flag, and h16.be, www.h16.be and h16.peleman.io
+// share one build, so it cannot keep staging out of Google on its own —
+// pages/robots.txt.js and the X-Robots-Tag header in next.config.js also check
+// the request host, and only NEXT_PUBLIC_SITE_URL's host is indexable.
 export const ALLOW_INDEXING = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
 
 // DefaultLayout renders one of these with defaults as a site-wide fallback and

@@ -51,6 +51,7 @@ function HomeHero() {
         >
           <Link
             href="/contact"
+            data-track="hero-advies"
             className="text-ui px-7 py-4 bg-primary text-white text-center tracking-wider rounded-lg hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 duration-300"
           >
             Vraag vrijblijvend advies

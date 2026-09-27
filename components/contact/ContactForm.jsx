@@ -1,6 +1,7 @@
 import { trackEvent } from "../shared/Analytics";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { DIENST_ONDERWERP } from "../../data/dienstOnderwerpen";
 
 const EMPTY = { name: "", email: "", phone: "", subject: "", message: "" };
 
@@ -52,6 +53,18 @@ function ContactForm() {
         : { ...prev, subject: `Bezichtiging: ${project.trim()}` }
     );
   }, [router.isReady, router.query.project]);
+
+  // Arriving from a service page's contact block (/contact?dienst=<slug>).
+  // Only a known slug fills the subject, so the query string cannot put
+  // arbitrary text into the form.
+  useEffect(() => {
+    if (!router.isReady) return;
+    const slug = router.query.dienst;
+    if (typeof slug !== "string" || !Object.prototype.hasOwnProperty.call(DIENST_ONDERWERP, slug)) return;
+    setValues((prev) =>
+      prev.subject ? prev : { ...prev, subject: DIENST_ONDERWERP[slug] }
+    );
+  }, [router.isReady, router.query.dienst]);
 
   const validate = () => {
     const found = {};
@@ -124,6 +137,9 @@ function ContactForm() {
       }
 
       if (!res.ok || payload.success !== true) {
+        // Counted so a broken mail setup shows up in Umami as failures,
+        // not as a silent absence of "contact" events.
+        trackEvent("contact-mislukt", { status: res.status });
         setStatus("error");
         setServerError(
           payload.message ||
@@ -136,6 +152,7 @@ function ContactForm() {
       trackEvent("contact");
       setValues(EMPTY);
     } catch {
+      trackEvent("contact-mislukt", { status: 0 });
       setStatus("error");
       setServerError(
         "We konden de server niet bereiken. Controleer uw internetverbinding en probeer opnieuw, of bel ons op +32 474 04 22 79."
