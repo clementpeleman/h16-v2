@@ -18,7 +18,7 @@ const PEERS = [
 
 // One component for both places the professionals are addressed, so the copy
 // cannot drift: on /samenwerken it is the target (#professionals), on the
-// homepage it is a teaser that links there.
+// homepage it is a teaser (headings only) that links there.
 function ColabPeers({ id, link = false }) {
   return (
     <HomeSection id={id} label="Professionals" title="Voor architecten en aannemers">
@@ -26,7 +26,7 @@ function ColabPeers({ id, link = false }) {
         {PEERS.map((p) => (
           <li key={p.naam} className="border-t border-gray-200 pt-6">
             <h3 className="font-display text-h3 text-black">{p.naam}</h3>
-            <p className="mt-4 text-body text-ternary-dark">{p.tekst}</p>
+            {!link && <p className="mt-4 text-body text-ternary-dark">{p.tekst}</p>}
           </li>
         ))}
       </ul>
