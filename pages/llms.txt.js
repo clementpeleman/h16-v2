@@ -61,7 +61,6 @@ ${lijst || "- Zie " + absoluteUrl("/realisaties")}
 - Facebook: ${company.socials.facebook}
 - Instagram: ${company.socials.instagram}
 - LinkedIn: ${company.socials.linkedin}
-- Werkgebied: Gent, Oosterzele, Merelbeke en de rest van Oost-Vlaanderen
 `;
 
   res.setHeader("Content-Type", "text/plain; charset=utf-8");

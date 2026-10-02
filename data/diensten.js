@@ -128,11 +128,6 @@ export const DIENSTEN = {
           "Allebei. Een bouwproces is intensief en tijdrovend. Wil de architect zich focussen op ontwerp? Dan nemen wij graag een deel van het uitvoerend werk uit handen. Met kwalitatieve aannemers slaan we graag de handen in elkaar, voor een duurzame relatie waarbij klantgerichtheid en kwaliteit centraal staan.",
       },
       {
-        vraag: "In welke regio werkt H16?",
-        // [site] werkgebied (llms.txt, Organization areaServed)
-        antwoord: "In Gent, Oosterzele, Merelbeke en de rest van Oost-Vlaanderen.",
-      },
-      {
         vraag: "Kost het iets om mijn vraag voor te leggen?",
         // [site] ContactForm ("Vrijblijvend en gratis") + ContactBanner
         antwoord: `Nee, dat is vrijblijvend en gratis. Gilles of Elena antwoordt u zo snel mogelijk. Liever meteen iemand aan de lijn? Bel ${company.phone}.`,
@@ -184,11 +179,6 @@ export const DIENSTEN = {
     realisaties: ["annonciadenstraat-21-stoppelstraat-6"],
     realisatiesBevestigd: true,
     faq: [
-      {
-        vraag: "In welke regio zoekt H16 gronden en panden?",
-        // [site] werkgebied
-        antwoord: "In Gent, Oosterzele, Merelbeke en de rest van Oost-Vlaanderen.",
-      },
       {
         vraag: "Kost het iets om mijn pand of grond voor te stellen?",
         // [site] ContactForm ("Vrijblijvend en gratis")
