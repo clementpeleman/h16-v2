@@ -8,10 +8,10 @@ import NAV_ITEMS from "../../data/navigation";
 import { company } from "../../data/companyData";
 
 // Sticky paper bar with a hairline; it never hides, shrinks or recolours on
-// scroll. Samenwerken is the button, so the nav lists the other pages; no phone
+// scroll. Samenwerken is the button, and Contact lives in the hero CTA, so the nav lists the other pages; no phone
 // number on desktop. Below 1024px: a phone icon and a text "Menu" toggle
 // opening a full-height sheet.
-const PAGES = NAV_ITEMS.filter((item) => item.href !== "/samenwerken");
+const PAGES = NAV_ITEMS.filter((item) => !["/samenwerken", "/contact"].includes(item.href));
 
 export default function SiteHeader() {
   const router = useRouter();
