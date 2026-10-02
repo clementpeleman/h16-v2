@@ -8,10 +8,10 @@ import NAV_ITEMS from "../../data/navigation";
 import { company } from "../../data/companyData";
 
 // Sticky paper bar with a hairline; it never hides, shrinks or recolours on
-// scroll. Contact is a button, so the nav lists the other pages only; no phone
+// scroll. Samenwerken is the button, so the nav lists the other pages; no phone
 // number on desktop. Below 1024px: a phone icon and a text "Menu" toggle
 // opening a full-height sheet.
-const PAGES = NAV_ITEMS.filter((item) => item.href !== "/contact");
+const PAGES = NAV_ITEMS.filter((item) => item.href !== "/samenwerken");
 
 export default function SiteHeader() {
   const router = useRouter();
@@ -103,11 +103,11 @@ export default function SiteHeader() {
             </ul>
           </nav>
           <Link
-            href="/contact"
-            data-track="header-contact"
+            href="/samenwerken"
+            data-track="header-samenwerken"
             className="ml-8 inline-flex h-10 items-center bg-primary px-4 text-ui text-white underline-offset-4 transition-colors duration-150 hover:bg-primary-deep hover:underline active:translate-y-px focus-ring"
           >
-            Contact
+            Samenwerken
           </Link>
         </div>
 
@@ -157,11 +157,11 @@ export default function SiteHeader() {
               </ul>
             </nav>
             <Link
-              href="/contact"
-              data-track="header-contact"
+              href="/samenwerken"
+              data-track="header-samenwerken"
               className="mt-8 flex h-[52px] w-full items-center justify-center bg-primary text-ui text-white transition-colors duration-150 hover:bg-primary-deep active:translate-y-px focus-ring"
             >
-              Contact
+              Samenwerken
             </Link>
             <p className="mt-4">
               <a
