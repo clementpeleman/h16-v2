@@ -1,9 +1,8 @@
-import sgMail from "@sendgrid/mail";
-
-sgMail.setApiKey(process.env.NEXT_PUBLIC_SG_API_KEY);
-
-const TO_EMAIL = process.env.NEXT_PUBLIC_TO_EMAIL ?? "default@gmail.com";
-const FROM_EMAIL = process.env.NEXT_PUBLIC_FROM_EMAIL ?? "default@gmail.com";
+// Contact form mail, sent through ZeptoMail (Zoho, EU region). Server-only:
+// the token is read at runtime from ZEPTOMAIL_TOKEN and never reaches the client.
+const ZEPTOMAIL_URL = process.env.ZEPTOMAIL_API_URL ?? "https://api.zeptomail.eu/v1.1/email";
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "info@h16.be";
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "noreply@h16.be";
 
 const LIMITS = { name: 100, email: 254, phone: 30, subject: 150, message: 5000 };
 
@@ -20,9 +19,42 @@ function escapeHtml(value) {
 }
 
 // A newline in a header lets a sender inject extra headers. Subjects are the
-// usual way in, so collapse all whitespace before it reaches SendGrid.
+// usual way in, so collapse all whitespace before it reaches ZeptoMail.
 function sanitizeHeader(value) {
   return String(value ?? "").replace(/[\r\n]+/g, " ").trim();
+}
+
+// ZeptoMail shows the token with its "Zoho-enczapikey " prefix. Accept it with
+// or without, so a copy-paste mistake does not turn into a 401.
+function authorizationHeader() {
+  const token = (process.env.ZEPTOMAIL_TOKEN ?? "").trim();
+  if (!token) throw new Error("ZEPTOMAIL_TOKEN is not set");
+  return token.startsWith("Zoho-enczapikey ") ? token : `Zoho-enczapikey ${token}`;
+}
+
+async function sendMail({ subject, text, html, replyTo }) {
+  const response = await fetch(ZEPTOMAIL_URL, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: authorizationHeader(),
+    },
+    body: JSON.stringify({
+      from: { address: FROM_EMAIL, name: "H16 website" },
+      to: [{ email_address: { address: TO_EMAIL, name: "H16" } }],
+      reply_to: [{ address: replyTo.address, name: replyTo.name }],
+      subject,
+      textbody: text,
+      htmlbody: html,
+    }),
+    signal: AbortSignal.timeout(10000),
+  });
+
+  if (!response.ok) {
+    // Status only: the response body and the request headers are not logged.
+    throw new Error(`ZeptoMail responded ${response.status}`);
+  }
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -69,11 +101,9 @@ export default async function handler(req, res) {
     });
   }
 
-  const msg = {
-    to: TO_EMAIL,
-    from: FROM_EMAIL,
-    replyTo: email,
+  const mail = {
     subject: `H16 contactformulier — ${sanitizeHeader(subject || name)}`,
+    replyTo: { address: email, name: sanitizeHeader(name) },
     text: `Naam: ${name}\nEmail: ${email}\nTelefoon: ${phone || "-"}\nOnderwerp: ${subject || "-"}\n\n${message}`,
     html: `<p><strong>Naam: </strong>${escapeHtml(name)}</p>
              <p><strong>Email: </strong>${escapeHtml(email)}</p>
@@ -83,10 +113,10 @@ export default async function handler(req, res) {
   };
 
   try {
-    await sgMail.send(msg);
+    await sendMail(mail);
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.error("contact form send failed", error);
+    console.error("contact form send failed:", error.message);
     return res.status(500).json({
       success: false,
       message:
