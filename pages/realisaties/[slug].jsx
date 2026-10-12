@@ -141,8 +141,10 @@ export async function getStaticProps({ params }) {
 
   const entry = projectsResponse?.data?.[0];
   // A stale link (search result, email, printed QR code) gets the designed
-  // 404, not a 500.
-  if (!entry) return { notFound: true };
+  // 404, not a 500. The 404 is revalidated too: a failed Strapi call also looks
+  // like "no entry" here (see lib/api.jsx fetcher), and without revalidate that
+  // 404 would stay cached until the next deploy.
+  if (!entry) return { notFound: true, revalidate: 60 };
 
   // Server-only: the service copy (drafts and notes included) never ships to
   // the client; only the role becomes props.
