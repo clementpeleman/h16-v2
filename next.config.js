@@ -90,8 +90,24 @@ module.exports = {
   },
 
   async headers() {
-    if (!CANONICAL_HOST) return [];
+    const security = {
+      source: "/:path*",
+      headers: [
+        // max-age only. No includeSubDomains: the wildcard *.h16.be points at
+        // Coolify, so a subdomain that is not served over HTTPS would break.
+        // No preload: it cannot be undone quickly.
+        { key: "Strict-Transport-Security", value: "max-age=31536000" },
+        { key: "X-Content-Type-Options", value: "nosniff" },
+        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        {
+          key: "Permissions-Policy",
+          value: "camera=(), microphone=(), geolocation=(), payment=()",
+        },
+      ],
+    };
+    if (!CANONICAL_HOST) return [security];
     return [
+      security,
       {
         // Every host that is not the canonical one — h16.peleman.io (staging,
         // where the Tack review widget lives), the bare IP, localhost — is
