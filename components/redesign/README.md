@@ -52,7 +52,7 @@ export async function getStaticProps() {
 | `aqua-light` | #BCE1E3 | labels/meta/underlines **on blue only** |
 | `rule` / `rule-aqua` / `rule-blue` | #C8D3DE / #B6CDDC / #4B7CAA | 1px hairlines on paper / aqua / blue |
 | `plate` | #E9EAE6 | image placeholder |
-| `accent` | #D83415 | only the 8px «Te koop» dot |
+| `accent` | #D83415 | small signals only: the 8px «Te koop» dot and the 2px underline of the current/hovered menu item. Never as text, fill, button or on blue (≈1.9:1) |
 
 Not used in the redesign: the cream `background`, `gray-*`, black. `accent-deep` (#A62710, 6.65:1 on paper) is allowed for **form error states only** (error text, the invalid-field edge, the alert rule).
 

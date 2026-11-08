@@ -1,6 +1,6 @@
 import { ButtonLink } from "../ui";
 
-// «● Te koop»: the 8px terracotta dot is the only accent colour on the page;
+// «● Te koop»: the 8px terracotta dot (the accent is otherwise only the menu underline);
 // the word itself is primary text, so the status never rests on colour alone.
 // Inline (not flex), so it can also sit inside a running meta line.
 export function Beschikbaarheid({ label, className = "" }) {

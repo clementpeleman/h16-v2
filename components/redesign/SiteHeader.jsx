@@ -92,7 +92,7 @@ export default function SiteHeader() {
                   <Link
                     href={item.href}
                     aria-current={isCurrent(item.href) ? "page" : undefined}
-                    className={`py-2 text-ui text-primary decoration-1 underline-offset-[6px] hover:underline focus-ring ${
+                    className={`py-2 text-ui text-primary decoration-accent decoration-2 underline-offset-[6px] hover:underline focus-ring ${
                       isCurrent(item.href) ? "underline" : ""
                     }`}
                   >
@@ -148,7 +148,9 @@ export default function SiteHeader() {
                       ref={i === 0 ? firstLinkRef : undefined}
                       href={item.href}
                       aria-current={isCurrent(item.href) ? "page" : undefined}
-                      className="flex min-h-[56px] items-center py-2 font-display text-h1 font-normal text-primary focus-ring"
+                      className={`flex min-h-[56px] items-center py-2 font-display text-h1 font-normal text-primary decoration-accent decoration-2 underline-offset-[10px] focus-ring ${
+                        isCurrent(item.href) ? "underline" : ""
+                      }`}
                     >
                       {item.label}
                     </Link>
